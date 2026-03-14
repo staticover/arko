@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Arko">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Arko</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --accent: #0a1172;
+  --accent-hover: #0d18a8;
+  --accent-light: #eef0fb;
+  --bg: #f8f8fa;
+  --surface: #ffffff;
+  --surface2: #f3f3f6;
+  --surface3: #ebebef;
+  --border: #e4e4e9;
+  --text: #0d0d12;
+  --text2: #5c5c70;
+  --text3: #9999ae;
+  --green: #0a8f5e;
+  --green-bg: #eaf7f2;
+  --amber: #c47d00;
+  --amber-bg: #fdf4e3;
+  --red: #c9302c;
+  --red-bg: #fdf0ef;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --nav-h: 80px;
+  --header-h: 58px;
+  --sidebar-w: 248px;
+  --shadow-sm: 0 1px 4px rgba(10,17,114,.06);
+  --shadow: 0 2px 12px rgba(10,17,114,.08);
+  --shadow-lg: 0 8px 32px rgba(10,17,114,.13);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+
+/* AUTH */
+#authScreen { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+.auth-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:40px 36px; width:100%; max-width:400px; box-shadow:var(--shadow-lg); }
+.auth-logo { font-size:34px; font-weight:800; color:var(--accent); letter-spacing:-1.2px; line-height:1; margin-bottom:6px; }
+.auth-tag { font-size:13px; color:var(--text3); margin-bottom:32px; }
+.auth-tabs { display:flex; gap:4px; background:var(--surface2); border-radius:var(--radius-sm); padding:4px; margin-bottom:24px; }
+.auth-tab { flex:1; padding:8px; border:none; background:transparent; border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:600; color:var(--text3); cursor:pointer; transition:all .15s; }
+.auth-tab.active { background:var(--surface); color:var(--text); box-shadow:var(--shadow-sm); }
+.auth-err { font-size:12px; color:var(--red); background:var(--red-bg); border:1px solid rgba(201,48,44,.15); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:16px; display:none; }
+.auth-err.show { display:block; }
+.auth-foot { text-align:center; margin-top:20px; font-size:11px; color:var(--text3); }
+
+/* APP */
+#appScreen { display:none; }
+#appScreen.on { display:block; }
+
+/* SIDEBAR */
+.sidebar { position:fixed; left:0; top:0; bottom:0; width:var(--sidebar-w); background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:100; }
+.sidebar-top { padding:22px 20px 18px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .12s; position:relative; }
+.sidebar-top:hover { background:var(--surface2); }
+.user-row { display:flex; align-items:center; gap:11px; }
+.avatar { width:38px; height:38px; border-radius:12px; background:var(--accent-light); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
+.biz-name { font-size:13px; font-weight:700; color:var(--text); line-height:1.2; }
+.biz-role { font-size:11px; color:var(--text3); margin-top:1px; }
+.chev { margin-left:auto; color:var(--text3); font-size:11px; transition:transform .15s; }
+.sidebar-top.open .chev { transform:rotate(180deg); }
+
+/* POPOUT */
+.popout { position:absolute; top:calc(100% + 4px); left:10px; right:10px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); z-index:200; overflow:hidden; display:none; }
+.popout.open { display:block; }
+.pop-item { display:flex; align-items:center; gap:10px; padding:12px 16px; cursor:pointer; font-size:13px; font-weight:500; color:var(--text); transition:background .1s; border-bottom:1px solid var(--border); }
+.pop-item:last-child { border-bottom:none; }
+.pop-item:hover { background:var(--surface2); }
+.pop-item.danger { color:var(--red); }
+.pop-ico { width:28px; height:28px; border-radius:8px; background:var(--surface2); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pop-ico svg { width:14px; height:14px; }
+
+/* NAV */
+.sidebar-nav { flex:1; padding:12px 0; overflow-y:auto; }
+.nav-item { display:flex; align-items:center; gap:11px; padding:11px 20px; cursor:pointer; font-size:13px; font-weight:500; color:var(--text2); transition:all .12s; border-left:2.5px solid transparent; }
+.nav-item:hover { color:var(--text); background:var(--surface2); }
+.nav-item.active { color:var(--accent); background:var(--accent-light); border-left-color:var(--accent); font-weight:700; }
+.nav-ico { width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.nav-ico svg { width:16px; height:16px; }
+.sidebar-bottom { padding:18px 20px; border-top:1px solid var(--border); }
+.wordmark { font-size:22px; font-weight:800; color:var(--accent); letter-spacing:-0.8px; line-height:1; }
+.built-by { font-size:10px; color:var(--text3); font-weight:500; letter-spacing:0.5px; margin-top:3px; }
+
+/* MOBILE HEADER */
+.mob-hdr { display:none; position:fixed; top:0; left:0; right:0; height:var(--header-h); background:var(--surface); border-bottom:1px solid var(--border); align-items:center; justify-content:space-between; padding:0 18px; z-index:100; }
+.mob-logo { font-size:22px; font-weight:800; color:var(--accent); letter-spacing:-0.8px; }
+.mob-hdr-right { display:flex; gap:8px; }
+.hbtn { width:34px; height:34px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.hbtn svg { width:16px; height:16px; color:var(--text2); }
+
+/* BOTTOM NAV */
+.bot-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:var(--surface); border-top:1px solid var(--border); z-index:100; padding-bottom:env(safe-area-inset-bottom); }
+.bot-nav-inner { display:flex; height:60px; }
+.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:none; background:none; font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.4px; text-transform:uppercase; color:var(--text3); cursor:pointer; transition:color .12s; position:relative; }
+.tab-btn.active { color:var(--accent); }
+.tab-btn svg { width:20px; height:20px; }
+.tab-dot { position:absolute; top:8px; right:calc(50% - 16px); width:5px; height:5px; border-radius:50%; background:var(--red); display:none; }
+.tab-dot.on { display:block; }
+
+/* FAB */
+.fab { position:fixed; bottom:calc(var(--nav-h) + 12px); right:18px; width:52px; height:52px; border-radius:16px; background:var(--accent); color:#fff; border:none; cursor:pointer; box-shadow:0 4px 18px rgba(10,17,114,.32); display:none; align-items:center; justify-content:center; z-index:90; transition:transform .12s; }
+.fab:active { transform:scale(.92); }
+.fab svg { width:22px; height:22px; }
+
+/* MAIN */
+.main { margin-left:var(--sidebar-w); min-height:100vh; background:var(--bg); }
+.page { display:none; }
+.page.active { display:block; }
+.shell { max-width:880px; margin:0 auto; padding:36px 32px 56px; }
+.pg-head { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; gap:12px; flex-wrap:wrap; }
+.pg-title { font-size:26px; font-weight:800; color:var(--text); letter-spacing:-0.6px; line-height:1.1; }
+.pg-sub { font-size:12px; color:var(--text3); margin-top:3px; }
+.hd-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+/* STATS */
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 16px; box-shadow:var(--shadow-sm); }
+.stat-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:8px; }
+.stat-val { font-size:26px; font-weight:800; line-height:1; color:var(--text); letter-spacing:-0.5px; }
+.stat-val.g { color:var(--green); }
+.stat-val.r { color:var(--red); }
+.stat-val.a { color:var(--accent); }
+.stat-sub { font-size:11px; color:var(--text3); margin-top:5px; }
+
+/* SECTION */
+.sec { margin-bottom:22px; }
+.sec-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.sec-lbl { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--text3); }
+
+/* LIST */
+.list-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
+.list-item { display:flex; align-items:center; padding:14px 18px; gap:13px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+.list-item:last-child { border-bottom:none; }
+.list-item:hover { background:var(--surface2); }
+.list-item:active { background:var(--surface3); }
+.l-ico { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.l-ico svg { width:16px; height:16px; }
+.l-ico.blue { background:var(--accent-light); color:var(--accent); }
+.l-ico.green { background:var(--green-bg); color:var(--green); }
+.l-ico.amber { background:var(--amber-bg); color:var(--amber); }
+.l-ico.red { background:var(--red-bg); color:var(--red); }
+.l-body { flex:1; min-width:0; }
+.l-title { font-size:13px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.l-sub { font-size:11px; color:var(--text2); margin-top:2px; }
+.l-right { text-align:right; flex-shrink:0; }
+.l-val { font-size:13px; font-weight:700; color:var(--text); }
+.l-tag { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* BADGE */
+.badge { display:inline-flex; align-items:center; padding:3px 9px; border-radius:20px; font-size:10px; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; }
+.b-sched { background:var(--accent-light); color:var(--accent); }
+.b-prog { background:var(--amber-bg); color:var(--amber); }
+.b-done { background:var(--green-bg); color:var(--green); }
+.b-paid { background:var(--green-bg); color:var(--green); }
+.b-unpaid { background:var(--red-bg); color:var(--red); }
+
+/* BUTTONS */
+.btn { display:inline-flex; align-items:center; gap:6px; padding:10px 18px; font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:700; cursor:pointer; border:none; border-radius:var(--radius-sm); transition:all .12s; white-space:nowrap; }
+.btn svg { width:14px; height:14px; }
+.btn-p { background:var(--accent); color:#fff; box-shadow:0 2px 8px rgba(10,17,114,.22); }
+.btn-p:hover { background:var(--accent-hover); }
+.btn-p:active { transform:scale(.97); }
+.btn-o { background:var(--surface); color:var(--text2); border:1px solid var(--border); }
+.btn-o:hover { border-color:var(--text2); color:var(--text); }
+.btn-d { background:var(--red-bg); color:var(--red); border:1px solid rgba(201,48,44,.2); }
+.btn-d:hover { background:var(--red); color:#fff; }
+.btn-sm { padding:7px 13px; font-size:11px; }
+.btn-full { width:100%; justify-content:center; padding:13px; font-size:14px; border-radius:var(--radius); }
+
+/* OVERLAY + SHEET */
+.ov { display:none; position:fixed; inset:0; background:rgba(0,0,0,.38); z-index:200; backdrop-filter:blur(3px); }
+.ov.open { display:block; }
+.sheet { position:fixed; bottom:0; left:0; right:0; background:var(--surface); border-radius:var(--radius-lg) var(--radius-lg) 0 0; max-height:92vh; overflow-y:auto; z-index:201; transform:translateY(100%); transition:transform .28s cubic-bezier(.32,.72,0,1); padding-bottom:env(safe-area-inset-bottom); }
+.sheet.open { transform:translateY(0); }
+.sh-handle { width:34px; height:4px; background:var(--border); border-radius:2px; margin:10px auto 0; }
+.sh-hdr { padding:14px 22px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
+.sh-title { font-size:17px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+.sh-x { width:28px; height:28px; border-radius:50%; background:var(--surface2); border:none; font-size:13px; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.sh-body { padding:18px 22px; }
+.sh-foot { padding:10px 22px 16px; border-top:1px solid var(--border); display:flex; gap:10px; }
+
+/* MODAL */
+.m-ov { display:none; position:fixed; inset:0; background:rgba(0,0,0,.32); z-index:200; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(2px); }
+.m-ov.open { display:flex; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); width:500px; max-width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+.m-hdr { padding:22px 26px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.m-title { font-size:18px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+.m-x { width:28px; height:28px; border-radius:50%; background:var(--surface2); border:none; font-size:13px; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.m-body { padding:20px 26px; }
+.m-foot { padding:14px 26px 20px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; }
+
+/* CONFIRM */
+.confirm-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); width:340px; max-width:100%; padding:28px 28px 22px; box-shadow:var(--shadow-lg); text-align:center; }
+.conf-title { font-size:17px; font-weight:800; color:var(--text); margin-bottom:8px; }
+.conf-sub { font-size:13px; color:var(--text2); margin-bottom:22px; line-height:1.6; }
+.conf-btns { display:flex; gap:10px; justify-content:center; }
+
+/* FORMS */
+.fg { margin-bottom:16px; }
+.fg:last-child { margin-bottom:0; }
+.f2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.flbl { display:block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:6px; }
+.fin { width:100%; padding:11px 13px; background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--text); outline:none; transition:border-color .15s,background .15s; }
+.fin:focus { border-color:var(--accent); background:var(--surface); }
+.fin::placeholder { color:var(--text3); }
+textarea.fin { resize:vertical; min-height:76px; }
+.fsel { width:100%; padding:11px 36px 11px 13px; background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--text); outline:none; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239999ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; background-color:var(--surface2); }
+.fsel:focus { border-color:var(--accent); background-color:var(--surface); }
+
+/* TOOLBAR */
+.toolbar { display:flex; gap:10px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
+.srch { flex:1; min-width:160px; display:flex; align-items:center; gap:8px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:9px 13px; }
+.srch input { border:none; background:transparent; outline:none; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--text); width:100%; }
+.srch input::placeholder { color:var(--text3); }
+.srch svg { width:14px; height:14px; color:var(--text3); flex-shrink:0; }
+
+/* EMPTY */
+.empty { text-align:center; padding:52px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); }
+.e-ico { width:48px; height:48px; border-radius:14px; background:var(--surface2); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+.e-ico svg { width:22px; height:22px; color:var(--text3); }
+.e-title { font-size:17px; font-weight:800; color:var(--text2); margin-bottom:5px; letter-spacing:-0.3px; }
+.e-sub { font-size:12px; color:var(--text3); margin-bottom:18px; }
+
+/* CALENDAR */
+.cal-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; margin-bottom:18px; }
+.cal-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.cal-month { font-size:15px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+.cal-btns { display:flex; gap:6px; }
+.cal-btn { width:30px; height:30px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); font-size:14px; cursor:pointer; color:var(--text2); display:flex; align-items:center; justify-content:center; transition:all .1s; }
+.cal-btn:hover { border-color:var(--accent); color:var(--accent); }
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.cal-dlbl { text-align:center; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--text3); padding:6px 0; }
+.cal-day { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:9px; cursor:pointer; font-size:12px; font-weight:600; color:var(--text2); transition:all .1s; position:relative; }
+.cal-day:hover { background:var(--surface2); }
+.cal-day.today { background:var(--accent); color:#fff; font-weight:800; }
+.cal-day.has-jobs::after { content:''; width:4px; height:4px; border-radius:50%; background:var(--accent); position:absolute; bottom:3px; }
+.cal-day.today.has-jobs::after { background:rgba(255,255,255,.6); }
+.cal-day.other-m { color:var(--text3); opacity:.5; }
+.cal-day.sel:not(.today) { background:var(--accent-light); color:var(--accent); font-weight:800; }
+
+/* CUSTOMERS */
+.cust-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; }
+.cust-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; cursor:pointer; box-shadow:var(--shadow-sm); transition:box-shadow .15s,transform .15s; }
+.cust-card:hover { box-shadow:var(--shadow); transform:translateY(-1px); }
+.cust-ini { width:42px; height:42px; border-radius:12px; background:var(--accent-light); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; margin-bottom:12px; }
+.cust-name { font-size:14px; font-weight:800; color:var(--text); margin-bottom:3px; }
+.cust-info { font-size:11px; color:var(--text2); margin-bottom:2px; }
+.cust-stats { display:flex; gap:16px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+.cs-val { font-size:15px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+.cs-lbl { font-size:9px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+
+/* SETTINGS */
+.set-sec { margin-bottom:28px; }
+.set-sec-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--text3); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.set-row { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--border); }
+.set-row:last-child { border-bottom:none; }
+.set-row-lbl { font-size:13px; font-weight:600; color:var(--text); }
+.set-row-sub { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* REMINDERS */
+.rem-item { display:flex; align-items:center; gap:13px; padding:13px 18px; border-bottom:1px solid var(--border); }
+.rem-item:last-child { border-bottom:none; }
+.rem-chk { width:20px; height:20px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+.rem-chk.done { background:var(--green); border-color:var(--green); }
+.rem-chk svg { width:8px; height:8px; }
+.rem-txt { flex:1; font-size:13px; color:var(--text); font-weight:500; }
+.rem-txt.done { text-decoration:line-through; color:var(--text3); font-weight:400; }
+.rem-due { font-size:10px; color:var(--text3); font-weight:600; }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .sidebar { display:none; }
+  .mob-hdr { display:flex; }
+  .bot-nav { display:block; }
+  .fab { display:flex; }
+  .main { margin-left:0; padding-top:var(--header-h); padding-bottom:var(--nav-h); }
+  .shell { padding:18px 15px 20px; }
+  .pg-title { font-size:22px; }
+  .stat-grid { grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+  .stat-card { padding:14px; }
+  .stat-val { font-size:22px; }
+  .f2 { grid-template-columns:1fr; gap:0; }
+  .cust-grid { grid-template-columns:1fr; }
+  .m-ov { display:none !important; }
+  .hd-actions .btn-o { display:none; }
+}
+@media (min-width:769px) {
+  .ov,.sheet,.fab { display:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-logo">Arko</div>
+    <div class="auth-tag">Your business, organized.</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="authTab('login')">Sign In</button>
+      <button class="auth-tab" onclick="authTab('signup')">Create Account</button>
+    </div>
+    <div class="auth-err" id="authErr"></div>
+    <div id="loginForm">
+      <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="li-email" placeholder="you@yourbusiness.com" inputmode="email"></div>
+      <div class="fg" style="margin-bottom:20px"><label class="flbl">Password</label><input type="password" class="fin" id="li-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-p btn-full" onclick="doLogin()">Sign In</button>
+    </div>
+    <div id="signupForm" style="display:none">
+      <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="su-biz" placeholder="Your HVAC Co."></div>
+      <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="su-email" placeholder="you@yourbusiness.com" inputmode="email"></div>
+      <div class="fg" style="margin-bottom:20px"><label class="flbl">Password</label><input type="password" class="fin" id="su-pw" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doSignup()"></div>
+      <button class="btn btn-p btn-full" onclick="doSignup()">Create Account</button>
+    </div>
+    <div class="auth-foot">Built by Onstra</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+
+  <aside class="sidebar">
+    <div class="sidebar-top" id="sideTop" onclick="togglePopout()">
+      <div class="user-row">
+        <div class="avatar" id="sideAvatar">A</div>
+        <div><div class="biz-name" id="sideBiz">Your Business</div><div class="biz-role">Owner</div></div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="popout" id="popout">
+        <div class="pop-item" onclick="navigate('settings');closePopout()">
+          <div class="pop-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg></div>
+          Settings
+        </div>
+        <div class="pop-item danger" onclick="confirmSignOut()">
+          <div class="pop-ico" style="background:var(--red-bg)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6"/></svg></div>
+          Sign Out
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-page="home"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg></div>Home</div>
+      <div class="nav-item" data-page="jobs"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 9h4M6 12h2"/></svg></div>Jobs</div>
+      <div class="nav-item" data-page="customers"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.76 2.24-5 5-5s5 2.24 5 5"/><circle cx="12" cy="5" r="2"/><path d="M15 12c0-1.66-1.34-3-3-3"/></svg></div>Customers</div>
+      <div class="nav-item" data-page="calendar"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14M5 1v4M11 1v4"/></svg></div>Calendar</div>
+      <div class="nav-item" data-page="invoice"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div>Invoice</div>
+      <div class="nav-item" data-page="settings"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg></div>Settings</div>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="wordmark">Arko</div>
+      <div class="built-by">Built by Onstra</div>
+    </div>
+  </aside>
+
+  <header class="mob-hdr">
+    <div class="mob-logo">Arko</div>
+    <div class="mob-hdr-right">
+      <div class="hbtn" onclick="openSh('remSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1a5 5 0 015 5v3l1 2H2l1-2V6a5 5 0 015-5zM6.5 13a1.5 1.5 0 003 0"/></svg></div>
+      <div class="hbtn" onclick="openSh('profSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.31 2.69-6 6-6s6 2.69 6 6"/></svg></div>
+    </div>
+  </header>
+
+  <nav class="bot-nav">
+    <div class="bot-nav-inner">
+      <button class="tab-btn active" data-page="home"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>Home</button>
+      <button class="tab-btn" data-page="jobs"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 9h4M6 12h2"/></svg>Jobs<span class="tab-dot" id="jobDot"></span></button>
+      <button class="tab-btn" data-page="customers"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.76 2.24-5 5-5s5 2.24 5 5"/><circle cx="12" cy="5" r="2"/><path d="M15 12c0-1.66-1.34-3-3-3"/></svg>Customers</button>
+      <button class="tab-btn" data-page="calendar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14M5 1v4M11 1v4"/></svg>Calendar</button>
+      <button class="tab-btn" data-page="invoice"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg>Invoice</button>
+    </div>
+  </nav>
+
+  <button class="fab" onclick="handleFab()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg></button>
+
+  <main class="main">
+
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title" id="greeting">Good morning</div><div class="pg-sub" id="gdate"></div></div></div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-lbl">Month Revenue</div><div class="stat-val g" id="s-rev">$0</div><div class="stat-sub">Paid this month</div></div>
+          <div class="stat-card"><div class="stat-lbl">Month Profit</div><div class="stat-val g" id="s-profit">$0</div><div class="stat-sub">After expenses</div></div>
+          <div class="stat-card"><div class="stat-lbl">Open Jobs</div><div class="stat-val a" id="s-open">0</div><div class="stat-sub">Active work orders</div></div>
+          <div class="stat-card"><div class="stat-lbl">Unpaid</div><div class="stat-val r" id="s-unpaid">$0</div><div class="stat-sub">Outstanding invoices</div></div>
+        </div>
+        <div class="sec"><div class="sec-head"><div class="sec-lbl">Today's Jobs</div><button class="btn btn-o btn-sm" onclick="navigate('jobs')">See all</button></div><div id="today-list"></div></div>
+        <div class="sec"><div class="sec-head"><div class="sec-lbl">Reminders</div><button class="btn btn-o btn-sm" onclick="openSh('remSh')">+ Add</button></div><div class="list-card" id="home-rem"></div></div>
+      </div>
+    </div>
+
+    <!-- JOBS -->
+    <div class="page" id="page-jobs">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title">Jobs</div><div class="pg-sub">All work orders</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openJobForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Job</button></div></div>
+        <div class="toolbar"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="jobSrch" placeholder="Search jobs..." oninput="renderJobs()"></div><select class="fsel" id="jobFilt" style="width:auto;min-width:130px" onchange="renderJobs()"><option value="all">All Status</option><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
+        <div id="jobs-list"></div>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS -->
+    <div class="page" id="page-customers">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title">Customers</div><div class="pg-sub">Your client base</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openCustForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>Add Customer</button></div></div>
+        <div class="toolbar"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="custSrch" placeholder="Search customers..." oninput="renderCusts()"></div></div>
+        <div id="custs-list"></div>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="page" id="page-calendar">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title">Calendar</div><div class="pg-sub" id="calSub"></div></div></div>
+        <div class="cal-wrap">
+          <div class="cal-hdr"><div class="cal-month" id="calLbl"></div><div class="cal-btns"><button class="cal-btn" onclick="calPrev()">‹</button><button class="cal-btn" onclick="calNext()">›</button></div></div>
+          <div class="cal-grid" id="cal-dlbls"></div>
+          <div class="cal-grid" id="cal-days"></div>
+        </div>
+        <div class="sec"><div class="sec-head"><div class="sec-lbl" id="cal-jlbl">Jobs this month</div></div><div id="cal-jobs"></div></div>
+      </div>
+    </div>
+
+    <!-- INVOICE -->
+    <div class="page" id="page-invoice">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title">Invoice</div><div class="pg-sub">Track and collect</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openSh('invSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Invoice</button></div></div>
+        <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:20px">
+          <div class="stat-card"><div class="stat-lbl">Total Invoiced</div><div class="stat-val" id="inv-tot">$0</div></div>
+          <div class="stat-card"><div class="stat-lbl">Collected</div><div class="stat-val g" id="inv-paid">$0</div></div>
+          <div class="stat-card"><div class="stat-lbl">Outstanding</div><div class="stat-val r" id="inv-owed">$0</div></div>
+        </div>
+        <div id="inv-list"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="shell">
+        <div class="pg-head"><div><div class="pg-title">Settings</div><div class="pg-sub">Account and preferences</div></div></div>
+        <div class="set-sec">
+          <div class="set-sec-title">Your Business</div>
+          <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="set-biz" placeholder="Your HVAC Co."></div>
+          <div class="f2"><div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="set-phone" placeholder="(555) 000-0000"></div><div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="set-email" placeholder="you@business.com"></div></div>
+          <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="set-addr" placeholder="123 Main St, City, NC"></div>
+          <button class="btn btn-p" style="margin-top:4px" onclick="saveBiz()">Save Business Info</button>
+        </div>
+        <div class="set-sec">
+          <div class="set-sec-title">Billing</div>
+          <div class="set-row"><div><div class="set-row-lbl">Current Plan</div><div class="set-row-sub">Free Trial — upgrade to unlock all features</div></div><button class="btn btn-p btn-sm">Upgrade — $49/mo</button></div>
+        </div>
+        <div class="set-sec">
+          <div class="set-sec-title">Account</div>
+          <div class="set-row"><div><div class="set-row-lbl">Email</div><div class="set-row-sub" id="set-acct-email">—</div></div></div>
+          <div class="set-row"><div><div class="set-row-lbl">Sign Out</div><div class="set-row-sub">You'll need to sign back in</div></div><button class="btn btn-d btn-sm" onclick="confirmSignOut()">Sign Out</button></div>
+        </div>
+        <div class="set-sec">
+          <div class="set-sec-title">About</div>
+          <div class="set-row"><div><div class="set-row-lbl">Arko</div><div class="set-row-sub">Version 1.0 — Built by Onstra</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- SHEETS -->
+<!-- JOB -->
+<div class="ov" id="jobSh-ov" onclick="closeSh('jobSh')"></div>
+<div class="sheet" id="jobSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title" id="jobShTitle">New Job</div><button class="sh-x" onclick="closeSh('jobSh')">✕</button></div>
+  <div class="sh-body">
+    <input type="hidden" id="j-id">
+    <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="j-cust"></select></div>
+    <div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="j-title" placeholder="AC Tune-Up, Repair, Install..."></div>
+    <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="j-desc" placeholder="What needs to be done..."></textarea></div>
+    <div class="f2"><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="j-date"></div><div class="fg"><label class="flbl">Status</label><select class="fsel" id="j-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div></div>
+    <div class="fg"><label class="flbl">Assigned To (optional)</label><input type="text" class="fin" id="j-assigned" placeholder="Leave blank if solo"></div>
+    <div class="f2"><div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="j-parts" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="j-charged" placeholder="0.00" inputmode="decimal"></div></div>
+    <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="j-notes" placeholder="Internal notes..."></textarea></div>
+  </div>
+  <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('jobSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="saveJob()">Save Job</button></div>
+</div>
+
+<!-- CUSTOMER -->
+<div class="ov" id="custSh-ov" onclick="closeSh('custSh')"></div>
+<div class="sheet" id="custSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title" id="custShTitle">New Customer</div><button class="sh-x" onclick="closeSh('custSh')">✕</button></div>
+  <div class="sh-body">
+    <input type="hidden" id="c-id">
+    <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="c-first" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="c-last" placeholder="Doe"></div></div>
+    <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="c-phone" placeholder="(555) 000-0000" inputmode="tel"></div>
+    <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="c-email" placeholder="john@email.com" inputmode="email"></div>
+    <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="c-addr" placeholder="123 Main St, City, NC"></div>
+    <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="c-notes" placeholder="Equipment, access info, preferences..."></textarea></div>
+  </div>
+  <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('custSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="saveCust()">Save Customer</button></div>
+</div>
+
+<!-- INVOICE -->
+<div class="ov" id="invSh-ov" onclick="closeSh('invSh')"></div>
+<div class="sheet" id="invSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title">New Invoice</div><button class="sh-x" onclick="closeSh('invSh')">✕</button></div>
+  <div class="sh-body">
+    <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="inv-cust"></select></div>
+    <div class="fg"><label class="flbl">Linked Job (optional)</label><select class="fsel" id="inv-job"><option value="">No linked job</option></select></div>
+    <div class="f2"><div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="inv-amt" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="inv-date"></div></div>
+    <div class="fg"><label class="flbl">Description</label><input type="text" class="fin" id="inv-desc" placeholder="AC repair, service call, install..."></div>
+    <div class="fg"><label class="flbl">Status</label><select class="fsel" id="inv-status"><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
+  </div>
+  <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('invSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="saveInv()">Save Invoice</button></div>
+</div>
+
+<!-- REMINDER -->
+<div class="ov" id="remSh-ov" onclick="closeSh('remSh')"></div>
+<div class="sheet" id="remSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title">Add Reminder</div><button class="sh-x" onclick="closeSh('remSh')">✕</button></div>
+  <div class="sh-body">
+    <div class="fg"><label class="flbl">Reminder</label><input type="text" class="fin" id="rem-txt" placeholder="Call John about filter replacement..."></div>
+    <div class="fg"><label class="flbl">Due Date (optional)</label><input type="date" class="fin" id="rem-date"></div>
+  </div>
+  <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('remSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="saveRem()">Add Reminder</button></div>
+</div>
+
+<!-- PROFILE (mobile) -->
+<div class="ov" id="profSh-ov" onclick="closeSh('profSh')"></div>
+<div class="sheet" id="profSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title">Your Account</div><button class="sh-x" onclick="closeSh('profSh')">✕</button></div>
+  <div class="sh-body">
+    <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="mob-biz" placeholder="Your HVAC Co."></div>
+    <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="mob-phone" placeholder="(555) 000-0000"></div>
+  </div>
+  <div class="sh-foot"><button class="btn btn-d" style="flex:1" onclick="confirmSignOut()">Sign Out</button><button class="btn btn-p" style="flex:2" onclick="saveMobProf()">Save</button></div>
+</div>
+
+<!-- DESKTOP MODALS -->
+<div class="m-ov" id="jobModal">
+  <div class="modal">
+    <div class="m-hdr"><div class="m-title" id="jobMTitle">New Job</div><button class="m-x" onclick="closeM('jobModal')">✕</button></div>
+    <div class="m-body">
+      <input type="hidden" id="jm-id">
+      <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="jm-cust"></select></div>
+      <div class="f2"><div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="jm-title" placeholder="AC Tune-Up..."></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="jm-date"></div></div>
+      <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="jm-desc" placeholder="What needs to be done..."></textarea></div>
+      <div class="f2"><div class="fg"><label class="flbl">Status</label><select class="fsel" id="jm-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div><div class="fg"><label class="flbl">Assigned To (optional)</label><input type="text" class="fin" id="jm-assigned" placeholder="Leave blank if solo"></div></div>
+      <div class="f2"><div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="jm-parts" placeholder="0.00"></div><div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="jm-charged" placeholder="0.00"></div></div>
+      <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="jm-notes" placeholder="Internal notes..."></textarea></div>
+    </div>
+    <div class="m-foot"><button class="btn btn-o" onclick="closeM('jobModal')">Cancel</button><button class="btn btn-p" onclick="saveJob(true)">Save Job</button></div>
+  </div>
+</div>
+
+<div class="m-ov" id="custModal">
+  <div class="modal">
+    <div class="m-hdr"><div class="m-title" id="custMTitle">New Customer</div><button class="m-x" onclick="closeM('custModal')">✕</button></div>
+    <div class="m-body">
+      <input type="hidden" id="cm-id">
+      <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="cm-first" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="cm-last" placeholder="Doe"></div></div>
+      <div class="f2"><div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="cm-phone" placeholder="(555) 000-0000"></div><div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="cm-email" placeholder="john@email.com"></div></div>
+      <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="cm-addr" placeholder="123 Main St, City, NC"></div>
+      <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="cm-notes" placeholder="Equipment, access info..."></textarea></div>
+    </div>
+    <div class="m-foot"><button class="btn btn-o" onclick="closeM('custModal')">Cancel</button><button class="btn btn-p" onclick="saveCust(true)">Save Customer</button></div>
+  </div>
+</div>
+
+<!-- SIGN OUT CONFIRM -->
+<div class="m-ov" id="soConfirm">
+  <div class="confirm-box">
+    <div class="conf-title">Sign out of Arko?</div>
+    <div class="conf-sub">You'll need to sign back in to access your data.</div>
+    <div class="conf-btns"><button class="btn btn-o" onclick="closeM('soConfirm')">Cancel</button><button class="btn btn-d" onclick="doSignOut()">Yes, Sign Out</button></div>
+  </div>
+</div>
+
+<script>
+const {createClient}=supabase;
+const sb=createClient('https://noovstpqyyfpttzztfwk.supabase.co','sb_publishable_hjDFgHvj9_3CrO1nAj0fXg_LGAGa43I');
+
+// UTILS
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+const fmt$=n=>'$'+parseFloat(n||0).toFixed(2);
+const fmtD=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+const todayS=()=>new Date().toISOString().split('T')[0];
+const mob=()=>window.innerWidth<=768;
+
+// STATE
+let _jobs=[],_custs=[],_invs=[],_rems=[],_prof={},_user=null;
+const DB={get:k=>JSON.parse(localStorage.getItem('arko_'+k)||'[]'),set:(k,v)=>localStorage.setItem('arko_'+k,JSON.stringify(v)),getO:k=>JSON.parse(localStorage.getItem('arko_'+k)||'{}'),setO:(k,v)=>localStorage.setItem('arko_'+k,JSON.stringify(v))};
+function loadLocal(){_jobs=DB.get('jobs');_custs=DB.get('custs');_invs=DB.get('invs');_rems=DB.get('rems');_prof=DB.getO('prof');}
+
+// AUTH
+function authTab(t){
+  document.querySelectorAll('.auth-tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='signup')));
+  document.getElementById('loginForm').style.display=t==='login'?'':'none';
+  document.getElementById('signupForm').style.display=t==='signup'?'':'none';
+  hideErr();
+}
+function showErr(m){const e=document.getElementById('authErr');e.textContent=m;e.classList.add('show');}
+function hideErr(){document.getElementById('authErr').classList.remove('show');}
+
+async function doLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pw=document.getElementById('li-pw').value;
+  if(!email||!pw){showErr('Enter your email and password.');return;}
+  const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
+  if(error){showErr(error.message);return;}
+  _user=data.user;enterApp();
+}
+async function doSignup(){
+  const biz=document.getElementById('su-biz').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pw=document.getElementById('su-pw').value;
+  if(!biz){showErr('Enter your business name.');return;}
+  if(!email||!pw){showErr('Enter your email and password.');return;}
+  if(pw.length<6){showErr('Password must be at least 6 characters.');return;}
+  const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{business_name:biz}}});
+  if(error){showErr(error.message);return;}
+  _user=data.user;_prof={name:biz,email};DB.setO('prof',_prof);enterApp();
+}
+function confirmSignOut(){closePopout();openM('soConfirm');}
+async function doSignOut(){
+  await sb.auth.signOut();closeM('soConfirm');
+  _user=null;_jobs=[];_custs=[];_invs=[];_rems=[];
+  document.getElementById('appScreen').classList.remove('on');
+  document.getElementById('authScreen').style.display='flex';
+}
+function enterApp(){
+  document.getElementById('authScreen').style.display='none';
+  document.getElementById('appScreen').classList.add('on');
+  loadLocal();updateSidebar();populateDDs();renderHome();navigate('home');
+}
+function updateSidebar(){
+  const name=_prof.name||_user?.user_metadata?.business_name||'Your Business';
+  _prof.name=name;
+  document.getElementById('sideBiz').textContent=name;
+  document.getElementById('sideAvatar').textContent=name[0].toUpperCase();
+  const ae=document.getElementById('set-acct-email');
+  if(ae&&_user)ae.textContent=_user.email||'—';
+}
+(async()=>{const{data}=await sb.auth.getSession();if(data.session){_user=data.session.user;enterApp();}})();
+
+// NAV
+function navigate(page){
+  document.querySelectorAll('.nav-item,.tab-btn').forEach(el=>el.classList.toggle('active',el.dataset.page===page));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
+  closePopout();
+  if(page==='home')renderHome();
+  if(page==='jobs')renderJobs();
+  if(page==='customers')renderCusts();
+  if(page==='calendar')renderCal();
+  if(page==='invoice')renderInv();
+  if(page==='settings')loadSettings();
+}
+document.querySelectorAll('.nav-item,.tab-btn').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.page)));
+
+// POPOUT
+function togglePopout(){
+  const p=document.getElementById('popout'),t=document.getElementById('sideTop');
+  const o=p.classList.contains('open');
+  p.classList.toggle('open',!o);t.classList.toggle('open',!o);
+  if(!o)setTimeout(()=>document.addEventListener('click',closePopoutOut,{once:true}),10);
+}
+function closePopout(){document.getElementById('popout').classList.remove('open');document.getElementById('sideTop').classList.remove('open');}
+function closePopoutOut(e){if(!document.getElementById('sideTop').contains(e.target))closePopout();}
+
+// SHEETS + MODALS
+function openSh(id){document.getElementById(id+'-ov').classList.add('open');setTimeout(()=>document.getElementById(id).classList.add('open'),10);}
+function closeSh(id){document.getElementById(id).classList.remove('open');document.getElementById(id+'-ov').classList.remove('open');}
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.m-ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+// FAB
+function handleFab(){
+  const a=document.querySelector('.page.active')?.id?.replace('page-','');
+  if(a==='home'||a==='jobs'||a==='calendar')openJobForm();
+  else if(a==='customers')openCustForm();
+  else if(a==='invoice')openSh('invSh');
+}
+
+// HOME
+function renderHome(){
+  const h=new Date().getHours();
+  const g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  document.getElementById('greeting').textContent=g+', '+(_prof.name||'').split(' ')[0]||g;
+  document.getElementById('gdate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const now=new Date();
+  const mj=_jobs.filter(j=>{if(!j.date)return false;const d=new Date(j.date+'T00:00:00');return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();});
+  const pm=mj.filter(j=>j.payment==='paid'||j.status==='complete');
+  document.getElementById('s-rev').textContent=fmt$(pm.reduce((s,j)=>s+parseFloat(j.charged||0),0));
+  document.getElementById('s-profit').textContent=fmt$(pm.reduce((s,j)=>s+(parseFloat(j.charged||0)-parseFloat(j.parts||0)),0));
+  document.getElementById('s-open').textContent=_jobs.filter(j=>j.status==='scheduled'||j.status==='inprogress').length;
+  document.getElementById('s-unpaid').textContent=fmt$(_invs.filter(i=>i.status==='unpaid').reduce((s,i)=>s+parseFloat(i.amount||0),0));
+  const tj=_jobs.filter(j=>j.date===todayS());
+  document.getElementById('today-list').innerHTML=tj.length?`<div class="list-card">${tj.map(jobItem).join('')}</div>`:emptyState('No jobs today','Nothing scheduled','openJobForm()','+ New Job');
+  renderRemWidget();
+}
+function renderRemWidget(){
+  const p=_rems.filter(r=>!r.done).slice(0,5);
+  document.getElementById('home-rem').innerHTML=p.length?p.map(remItem).join(''):`<div style="padding:18px;text-align:center;font-size:13px;color:var(--text3)">You're clear — no reminders</div>`;
+}
+function emptyState(title,sub,onclick,btnTxt){return`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg></div><div class="e-title">${title}</div><div class="e-sub">${sub}</div><button class="btn btn-p btn-sm" onclick="${onclick}">${btnTxt}</button></div>`;}
+
+// JOB HELPERS
+function cName(id){const c=_custs.find(c=>c.id===id);return c?c.first+' '+c.last:'No customer';}
+function sBadge(s){const m={scheduled:'b-sched',inprogress:'b-prog',complete:'b-done'};const l={scheduled:'Scheduled',inprogress:'In Progress',complete:'Complete'};return`<span class="badge ${m[s]||m.scheduled}">${l[s]||s}</span>`;}
+function jobItem(j){const col=j.status==='complete'?'green':j.status==='inprogress'?'amber':'blue';return`<div class="list-item" onclick="openJobForm('${j.id}')"><div class="l-ico ${col}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 9h4M6 12h2"/></svg></div><div class="l-body"><div class="l-title">${j.title||'Untitled'}</div><div class="l-sub">${cName(j.customer_id)} · ${fmtD(j.date)}</div></div><div class="l-right">${sBadge(j.status)}${j.charged?`<div class="l-tag" style="color:var(--green);font-weight:700;margin-top:4px">${fmt$(j.charged)}</div>`:''}</div></div>`;}
+
+// JOBS
+function renderJobs(){
+  const q=(document.getElementById('jobSrch')?.value||'').toLowerCase();
+  const sf=document.getElementById('jobFilt')?.value||'all';
+  const f=_jobs.filter(j=>(!q||(j.title||'').toLowerCase().includes(q)||cName(j.customer_id).toLowerCase().includes(q))&&(sf==='all'||j.status===sf)).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  document.getElementById('jobs-list').innerHTML=f.length?`<div class="list-card">${f.map(jobItem).join('')}</div>`:emptyState(_jobs.length?'No matches':'No jobs yet','Add your first work order','openJobForm()','+ New Job');
+  document.getElementById('jobDot')?.classList.toggle('on',_jobs.some(j=>j.status==='inprogress'));
+}
+function openJobForm(id){
+  const j=id?_jobs.find(j=>j.id===id):null;
+  populateDDs();
+  if(mob()){
+    document.getElementById('jobShTitle').textContent=j?'Edit Job':'New Job';
+    document.getElementById('j-id').value=j?.id||'';
+    document.getElementById('j-cust').value=j?.customer_id||'';
+    document.getElementById('j-title').value=j?.title||'';
+    document.getElementById('j-desc').value=j?.description||'';
+    document.getElementById('j-date').value=j?.date||todayS();
+    document.getElementById('j-status').value=j?.status||'scheduled';
+    document.getElementById('j-assigned').value=j?.assigned_to||'';
+    document.getElementById('j-parts').value=j?.parts||'';
+    document.getElementById('j-charged').value=j?.charged||'';
+    document.getElementById('j-notes').value=j?.notes||'';
+    openSh('jobSh');
+  } else {
+    document.getElementById('jobMTitle').textContent=j?'Edit Job':'New Job';
+    document.getElementById('jm-id').value=j?.id||'';
+    document.getElementById('jm-cust').value=j?.customer_id||'';
+    document.getElementById('jm-title').value=j?.title||'';
+    document.getElementById('jm-desc').value=j?.description||'';
+    document.getElementById('jm-date').value=j?.date||todayS();
+    document.getElementById('jm-status').value=j?.status||'scheduled';
+    document.getElementById('jm-assigned').value=j?.assigned_to||'';
+    document.getElementById('jm-parts').value=j?.parts||'';
+    document.getElementById('jm-charged').value=j?.charged||'';
+    document.getElementById('jm-notes').value=j?.notes||'';
+    openM('jobModal');
+  }
+}
+function saveJob(d){
+  const p=d?'jm-':'j-';
+  const id=document.getElementById(p+'id')?.value||'';
+  const job={id:id||uid(),customer_id:document.getElementById(p+'cust').value,title:document.getElementById(p+'title').value.trim(),description:document.getElementById(p+'desc').value.trim(),date:document.getElementById(p+'date').value,status:document.getElementById(p+'status').value,assigned_to:document.getElementById(p+'assigned').value.trim(),parts:parseFloat(document.getElementById(p+'parts').value)||0,charged:parseFloat(document.getElementById(p+'charged').value)||0,notes:document.getElementById(p+'notes').value.trim()};
+  if(!job.title){alert('Job title is required.');return;}
+  const i=_jobs.findIndex(j=>j.id===job.id);
+  if(i>=0)_jobs[i]=job;else _jobs.push(job);
+  DB.set('jobs',_jobs);
+  if(d)closeM('jobModal');else closeSh('jobSh');
+  renderJobs();renderHome();
+}
+
+// CUSTOMERS
+function renderCusts(){
+  const q=(document.getElementById('custSrch')?.value||'').toLowerCase();
+  const f=_custs.filter(c=>!q||(c.first+' '+c.last).toLowerCase().includes(q)||(c.phone||'').includes(q));
+  const el=document.getElementById('custs-list');
+  if(!f.length){el.innerHTML=emptyState(_custs.length?'No matches':'No customers yet','Add your first customer','openCustForm()','+ Add Customer');return;}
+  el.innerHTML=`<div class="cust-grid">${f.map(c=>{const cj=_jobs.filter(j=>j.customer_id===c.id);const rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);return`<div class="cust-card" onclick="openCustForm('${c.id}')"><div class="cust-ini">${(c.first[0]||'')+(c.last[0]||'')}</div><div class="cust-name">${c.first} ${c.last}</div>${c.phone?`<div class="cust-info">${c.phone}</div>`:''} ${c.address?`<div class="cust-info">${c.address}</div>`:''}<div class="cust-stats"><div><div class="cs-val">${cj.length}</div><div class="cs-lbl">Jobs</div></div><div><div class="cs-val" style="color:var(--green)">${fmt$(rev)}</div><div class="cs-lbl">Revenue</div></div></div></div>`;}).join('')}</div>`;
+}
+function openCustForm(id){
+  const c=id?_custs.find(c=>c.id===id):null;
+  if(mob()){
+    document.getElementById('custShTitle').textContent=c?'Edit Customer':'New Customer';
+    document.getElementById('c-id').value=c?.id||'';
+    document.getElementById('c-first').value=c?.first||'';
+    document.getElementById('c-last').value=c?.last||'';
+    document.getElementById('c-phone').value=c?.phone||'';
+    document.getElementById('c-email').value=c?.email||'';
+    document.getElementById('c-addr').value=c?.address||'';
+    document.getElementById('c-notes').value=c?.notes||'';
+    openSh('custSh');
+  } else {
+    document.getElementById('custMTitle').textContent=c?'Edit Customer':'New Customer';
+    document.getElementById('cm-id').value=c?.id||'';
+    document.getElementById('cm-first').value=c?.first||'';
+    document.getElementById('cm-last').value=c?.last||'';
+    document.getElementById('cm-phone').value=c?.phone||'';
+    document.getElementById('cm-email').value=c?.email||'';
+    document.getElementById('cm-addr').value=c?.address||'';
+    document.getElementById('cm-notes').value=c?.notes||'';
+    openM('custModal');
+  }
+}
+function saveCust(d){
+  const p=d?'cm-':'c-';
+  const id=document.getElementById(p+'id')?.value||'';
+  const c={id:id||uid(),first:document.getElementById(p+'first').value.trim(),last:document.getElementById(p+'last').value.trim(),phone:document.getElementById(p+'phone').value.trim(),email:document.getElementById(p+'email').value.trim(),address:document.getElementById(p+'addr').value.trim(),notes:document.getElementById(p+'notes').value.trim()};
+  if(!c.first){alert('First name is required.');return;}
+  const i=_custs.findIndex(x=>x.id===c.id);
+  if(i>=0)_custs[i]=c;else _custs.push(c);
+  DB.set('custs',_custs);
+  if(d)closeM('custModal');else closeSh('custSh');
+  renderCusts();populateDDs();
+}
+
+// CALENDAR
+let calY=new Date().getFullYear(),calM=new Date().getMonth(),calSel=null;
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderCal(){
+  document.getElementById('calLbl').textContent=MONTHS[calM]+' '+calY;
+  document.getElementById('calSub').textContent=MONTHS[calM]+' '+calY;
+  document.getElementById('cal-dlbls').innerHTML=DAYS.map(d=>`<div class="cal-dlbl">${d}</div>`).join('');
+  const first=new Date(calY,calM,1).getDay(),dim=new Date(calY,calM+1,0).getDate(),pd=new Date(calY,calM,0).getDate(),ts=todayS(),jd=new Set(_jobs.map(j=>j.date));
+  let c='';
+  for(let i=0;i<first;i++)c+=`<div class="cal-day other-m">${pd-first+1+i}</div>`;
+  for(let d=1;d<=dim;d++){const ds=calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');c+=`<div class="cal-day${ds===ts?' today':''}${jd.has(ds)?' has-jobs':''}${calSel===ds&&ds!==ts?' sel':''}" onclick="calSel2('${ds}')">${d}</div>`;}
+  const r=42-first-dim;for(let i=1;i<=r;i++)c+=`<div class="cal-day other-m">${i}</div>`;
+  document.getElementById('cal-days').innerHTML=c;renderCalJobs();
+}
+function calSel2(ds){calSel=ds;renderCal();}
+function calPrev(){calM--;if(calM<0){calM=11;calY--;}calSel=null;renderCal();}
+function calNext(){calM++;if(calM>11){calM=0;calY++;}calSel=null;renderCal();}
+function renderCalJobs(){
+  const f=calSel?_jobs.filter(j=>j.date===calSel):_jobs.filter(j=>{if(!j.date)return false;const d=new Date(j.date+'T00:00:00');return d.getMonth()===calM&&d.getFullYear()===calY;});
+  document.getElementById('cal-jlbl').textContent=calSel?fmtD(calSel):'Jobs this month';
+  document.getElementById('cal-jobs').innerHTML=f.length?`<div class="list-card">${f.map(jobItem).join('')}</div>`:`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="e-title">Nothing here</div><div class="e-sub">No jobs ${calSel?'on this day':'this month'}</div></div>`;
+}
+
+// INVOICE
+function renderInv(){
+  const tot=_invs.reduce((s,i)=>s+parseFloat(i.amount||0),0);
+  const paid=_invs.filter(i=>i.status==='paid').reduce((s,i)=>s+parseFloat(i.amount||0),0);
+  document.getElementById('inv-tot').textContent=fmt$(tot);
+  document.getElementById('inv-paid').textContent=fmt$(paid);
+  document.getElementById('inv-owed').textContent=fmt$(tot-paid);
+  const s=[..._invs].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const el=document.getElementById('inv-list');
+  if(!s.length){el.innerHTML=emptyState('No invoices yet','Create your first invoice',"openSh('invSh')",'+ New Invoice');return;}
+  el.innerHTML=`<div class="list-card">${s.map(i=>`<div class="list-item"><div class="l-ico ${i.status==='paid'?'green':'red'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div><div class="l-body"><div class="l-title">${cName(i.customer_id)}</div><div class="l-sub">${i.description||'Invoice'} · ${fmtD(i.date)}</div></div><div class="l-right"><div class="l-val" style="color:${i.status==='paid'?'var(--green)':'var(--red)'}">${fmt$(i.amount)}</div><button class="badge ${i.status==='paid'?'b-paid':'b-unpaid'}" style="border:none;cursor:pointer;margin-top:5px" onclick="toggleInv('${i.id}')">${i.status}</button></div></div>`).join('')}</div>`;
+}
+function saveInv(){
+  const inv={id:uid(),customer_id:document.getElementById('inv-cust').value,job_id:document.getElementById('inv-job').value,amount:parseFloat(document.getElementById('inv-amt').value)||0,date:document.getElementById('inv-date').value||todayS(),description:document.getElementById('inv-desc').value.trim(),status:document.getElementById('inv-status').value};
+  if(!inv.customer_id){alert('Select a customer.');return;}
+  _invs.push(inv);DB.set('invs',_invs);closeSh('invSh');renderInv();renderHome();
+}
+function toggleInv(id){const i=_invs.find(i=>i.id===id);if(!i)return;i.status=i.status==='paid'?'unpaid':'paid';DB.set('invs',_invs);renderInv();renderHome();}
+
+// REMINDERS
+function remItem(r){return`<div class="rem-item"><div class="rem-chk ${r.done?'done':''}" onclick="toggleRem('${r.id}')"><svg viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><path d="M1 4l2 2 4-4"/></svg></div><div style="flex:1"><div class="rem-txt ${r.done?'done':''}">${r.text}</div>${r.date?`<div class="rem-due">${fmtD(r.date)}</div>`:''}</div></div>`;}
+function saveRem(){const t=document.getElementById('rem-txt').value.trim();if(!t){alert('Enter a reminder.');return;}_rems.push({id:uid(),text:t,date:document.getElementById('rem-date').value,done:false});DB.set('rems',_rems);document.getElementById('rem-txt').value='';document.getElementById('rem-date').value='';closeSh('remSh');renderHome();}
+function toggleRem(id){const r=_rems.find(r=>r.id===id);if(r)r.done=!r.done;DB.set('rems',_rems);renderHome();}
+
+// SETTINGS
+function loadSettings(){
+  document.getElementById('set-biz').value=_prof.name||'';
+  document.getElementById('set-phone').value=_prof.phone||'';
+  document.getElementById('set-email').value=_prof.email||'';
+  document.getElementById('set-addr').value=_prof.address||'';
+  if(_user)document.getElementById('set-acct-email').textContent=_user.email||'—';
+}
+function saveBiz(){
+  _prof.name=document.getElementById('set-biz').value.trim();
+  _prof.phone=document.getElementById('set-phone').value.trim();
+  _prof.email=document.getElementById('set-email').value.trim();
+  _prof.address=document.getElementById('set-addr').value.trim();
+  DB.setO('prof',_prof);updateSidebar();alert('Saved.');
+}
+function saveMobProf(){_prof.name=document.getElementById('mob-biz').value.trim();_prof.phone=document.getElementById('mob-phone').value.trim();DB.setO('prof',_prof);updateSidebar();closeSh('profSh');}
+
+// DROPDOWNS
+function populateDDs(){
+  const o=`<option value="">Select customer...</option>`+_custs.map(c=>`<option value="${c.id}">${c.first} ${c.last}</option>`).join('');
+  ['j-cust','jm-cust','inv-cust'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=o;});
+  const jo=`<option value="">No linked job</option>`+_jobs.map(j=>`<option value="${j.id}">${j.title}</option>`).join('');
+  const ij=document.getElementById('inv-job');if(ij)ij.innerHTML=jo;
+  document.getElementById('inv-date').value=todayS();
+}
+</script>
+</body>
+</html>
