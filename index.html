@@ -16,34 +16,34 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-:root{--accent:#0a1172;--accent-hover:#0d18a8;--accent-light:#eef0fb;--bg:#f8f8fa;--surface:#fff;--surface2:#f3f3f6;--surface3:#ebebef;--border:#e4e4e9;--text:#0d0d12;--text2:#5c5c70;--text3:#9999ae;--green:#0a8f5e;--green-bg:#eaf7f2;--amber:#c47d00;--amber-bg:#fdf4e3;--red:#c9302c;--red-bg:#fdf0ef;--radius-sm:10px;--radius:14px;--radius-lg:22px;--nav-h:80px;--header-h:58px;--sidebar-w:248px;--shadow-sm:0 1px 4px rgba(10,17,114,.06);--shadow:0 2px 12px rgba(10,17,114,.08);--shadow-lg:0 8px 32px rgba(10,17,114,.13);}
+:root{--accent:#0a1172;--accent-hover:#0d18a8;--accent-light:#eef0fb;--bg:#f5f6f8;--surface:#fff;--surface2:#f0f1f4;--surface3:#e8e9ed;--border:#e2e3e8;--text:#0d0d12;--text2:#52526b;--text3:#9494aa;--green:#0a8f5e;--green-bg:#e8f7f2;--amber:#c47d00;--amber-bg:#fdf4e3;--red:#c9302c;--red-bg:#fdf0ef;--radius-sm:8px;--radius:12px;--radius-lg:20px;--nav-h:60px;--nav-safe:max(env(safe-area-inset-bottom),12px);--header-h:54px;--sidebar-w:240px;--shadow-sm:0 1px 3px rgba(10,17,114,.05);--shadow:0 2px 10px rgba(10,17,114,.08);--shadow-lg:0 8px 30px rgba(10,17,114,.12);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
 /* LOADING */
-#loadScreen{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:16px;}
-.load-logo{font-size:38px;font-weight:800;color:var(--accent);letter-spacing:-1.5px;}
-.load-sub{font-size:12px;color:var(--text3);font-weight:500;letter-spacing:0.5px;}
-.load-bar{width:120px;height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;}
-.load-bar-inner{height:100%;width:0;background:var(--accent);border-radius:2px;animation:loadAnim 1.5s ease-in-out infinite;}
+#loadScreen{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:14px;}
+.load-logo{font-size:36px;font-weight:800;color:var(--accent);letter-spacing:-1.5px;}
+.load-sub{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.load-bar{width:100px;height:2px;background:var(--surface2);border-radius:2px;overflow:hidden;}
+.load-bar-fill{height:100%;width:0;background:var(--accent);border-radius:2px;animation:loadAnim 1.4s ease-in-out infinite;}
 @keyframes loadAnim{0%{width:0;margin-left:0;}50%{width:100%;margin-left:0;}100%{width:0;margin-left:100%;}}
 
 /* AUTH */
-#authScreen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:var(--bg);}
+#authScreen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:20px;background:var(--bg);}
 #authScreen.on{display:flex;}
-.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px 36px;width:100%;max-width:400px;box-shadow:var(--shadow-lg);}
-.auth-logo{font-size:34px;font-weight:800;color:var(--accent);letter-spacing:-1.2px;line-height:1;margin-bottom:6px;}
-.auth-tag{font-size:13px;color:var(--text3);margin-bottom:32px;}
-.auth-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:var(--radius-sm);padding:4px;margin-bottom:24px;}
-.auth-tab{flex:1;padding:8px;border:none;background:transparent;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;transition:all .15s;}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;width:100%;max-width:380px;box-shadow:var(--shadow-lg);}
+.auth-logo{font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-1.2px;line-height:1;margin-bottom:4px;}
+.auth-tag{font-size:12px;color:var(--text3);margin-bottom:28px;}
+.auth-tabs{display:flex;gap:3px;background:var(--surface2);border-radius:var(--radius-sm);padding:3px;margin-bottom:20px;}
+.auth-tab{flex:1;padding:8px;border:none;background:transparent;border-radius:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;transition:all .15s;}
 .auth-tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);}
-.auth-err{font-size:12px;color:var(--red);background:var(--red-bg);border:1px solid rgba(201,48,44,.15);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:16px;display:none;}
+.auth-err{font-size:12px;color:var(--red);background:var(--red-bg);border:1px solid rgba(201,48,44,.15);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;display:none;}
 .auth-err.show{display:block;}
-.auth-ok{font-size:12px;color:var(--green);background:var(--green-bg);border:1px solid rgba(10,143,94,.15);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:16px;display:none;}
+.auth-ok{font-size:12px;color:var(--green);background:var(--green-bg);border:1px solid rgba(10,143,94,.15);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;display:none;}
 .auth-ok.show{display:block;}
-.auth-foot{text-align:center;margin-top:20px;font-size:11px;color:var(--text3);}
-.auth-link{color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit;font-size:inherit;text-decoration:underline;}
-.remember-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.auth-foot{text-align:center;margin-top:18px;font-size:11px;color:var(--text3);}
+.auth-link{color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit;font-size:inherit;}
+.remember-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .remember-row input{width:auto;accent-color:var(--accent);}
 .remember-row label{font-size:12px;color:var(--text2);cursor:pointer;}
 
@@ -52,122 +52,123 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 #appScreen.on{display:block;}
 
 /* PWA BANNER */
-#installBanner{display:none;position:fixed;bottom:calc(var(--nav-h) + 12px);left:12px;right:12px;background:var(--accent);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-lg);z-index:150;align-items:center;gap:12px;}
+#installBanner{display:none;position:fixed;bottom:calc(var(--nav-h) + var(--nav-safe) + 10px);left:12px;right:12px;background:var(--accent);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow-lg);z-index:150;align-items:center;gap:10px;}
 #installBanner.show{display:flex;}
-.install-text{flex:1;font-size:13px;font-weight:600;color:#fff;line-height:1.4;}
-.install-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;}
-.install-btn{background:#fff;color:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
-.install-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:2px 6px;}
+.install-text{flex:1;font-size:12px;font-weight:700;color:#fff;line-height:1.4;}
+.install-sub{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px;}
+.install-btn{background:#fff;color:var(--accent);border:none;border-radius:6px;padding:7px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;}
+.install-x{background:none;border:none;color:rgba(255,255,255,.4);font-size:16px;cursor:pointer;padding:2px 4px;}
 
 /* SIDEBAR */
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;}
-.sidebar-top{padding:22px 20px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative;}
+.sidebar-top{padding:20px 18px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative;}
 .sidebar-top:hover{background:var(--surface2);}
-.user-row{display:flex;align-items:center;gap:11px;}
-.avatar{width:38px;height:38px;border-radius:12px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.user-row{display:flex;align-items:center;gap:10px;}
+.avatar{width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;}
 .biz-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.2;}
 .biz-role{font-size:11px;color:var(--text3);margin-top:1px;}
-.chev{margin-left:auto;color:var(--text3);font-size:11px;transition:transform .15s;}
+.chev{margin-left:auto;color:var(--text3);font-size:10px;transition:transform .15s;}
 .sidebar-top.open .chev{transform:rotate(180deg);}
 .popout{position:absolute;top:calc(100% + 4px);left:10px;right:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:200;overflow:hidden;display:none;}
 .popout.open{display:block;}
-.pop-item{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:background .1s;border-bottom:1px solid var(--border);}
+.pop-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:background .1s;border-bottom:1px solid var(--border);}
 .pop-item:last-child{border-bottom:none;}
 .pop-item:hover{background:var(--surface2);}
 .pop-item.danger{color:var(--red);}
-.pop-ico{width:28px;height:28px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pop-ico svg{width:14px;height:14px;}
-.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto;}
-.nav-item{display:flex;align-items:center;gap:11px;padding:11px 20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .12s;border-left:2.5px solid transparent;}
+.pop-ico{width:26px;height:26px;border-radius:7px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pop-ico svg{width:13px;height:13px;}
+.sidebar-nav{flex:1;padding:10px 0;overflow-y:auto;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .12s;border-left:2.5px solid transparent;}
 .nav-item:hover{color:var(--text);background:var(--surface2);}
 .nav-item.active{color:var(--accent);background:var(--accent-light);border-left-color:var(--accent);font-weight:700;}
-.nav-ico{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.nav-ico svg{width:16px;height:16px;}
-.sidebar-bottom{padding:18px 20px;border-top:1px solid var(--border);}
-.wordmark{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;line-height:1;}
-.built-by{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.5px;margin-top:3px;}
+.nav-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nav-ico svg{width:15px;height:15px;}
+.sidebar-bottom{padding:16px 18px;border-top:1px solid var(--border);}
+.wordmark{font-size:20px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;line-height:1;}
+.built-by{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.4px;margin-top:2px;}
 
 /* MOBILE HEADER */
-.mob-hdr{display:none;position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);align-items:center;justify-content:space-between;padding:0 18px;z-index:100;}
-.mob-logo{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;}
-.mob-hdr-right{display:flex;gap:8px;}
-.hbtn{width:34px;height:34px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.hbtn svg{width:16px;height:16px;color:var(--text2);}
+.mob-hdr{display:none;position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);align-items:center;justify-content:space-between;padding:0 16px;z-index:100;}
+.mob-logo{font-size:20px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;}
+.mob-hdr-right{display:flex;gap:6px;}
+.hbtn{width:32px;height:32px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.hbtn svg{width:15px;height:15px;color:var(--text2);}
 
 /* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:100;padding-bottom:env(safe-area-inset-bottom);}
-.bot-nav-inner{display:flex;height:60px;}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;color:var(--text3);cursor:pointer;transition:color .12s;position:relative;}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:100;}
+.bot-nav-inner{display:flex;height:var(--nav-h);padding-bottom:0;}
+.bot-nav-safe{height:var(--nav-safe);background:var(--surface);}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;color:var(--text3);cursor:pointer;transition:color .12s;position:relative;padding-bottom:2px;}
 .tab-btn.active{color:var(--accent);}
-.tab-btn svg{width:20px;height:20px;}
-.tab-dot{position:absolute;top:8px;right:calc(50% - 16px);width:5px;height:5px;border-radius:50%;background:var(--red);display:none;}
+.tab-btn svg{width:19px;height:19px;}
+.tab-dot{position:absolute;top:7px;right:calc(50% - 14px);width:5px;height:5px;border-radius:50%;background:var(--red);display:none;}
 .tab-dot.on{display:block;}
 
 /* FAB */
-.fab{position:fixed;bottom:calc(var(--nav-h) + 12px);right:18px;width:52px;height:52px;border-radius:16px;background:var(--accent);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(10,17,114,.32);display:none;align-items:center;justify-content:center;z-index:90;transition:transform .12s;}
+.fab{position:fixed;bottom:calc(var(--nav-h) + var(--nav-safe) + 10px);right:16px;width:48px;height:48px;border-radius:14px;background:var(--accent);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(10,17,114,.3);display:none;align-items:center;justify-content:center;z-index:90;transition:transform .12s;}
 .fab:active{transform:scale(.92);}
-.fab svg{width:22px;height:22px;}
+.fab svg{width:20px;height:20px;}
 
 /* MAIN */
 .main{margin-left:var(--sidebar-w);min-height:100vh;background:var(--bg);}
 .page{display:none;}
 .page.active{display:block;}
-.shell{max-width:880px;margin:0 auto;padding:36px 32px 56px;}
-.pg-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap;}
-.pg-title{font-size:26px;font-weight:800;color:var(--text);letter-spacing:-0.6px;line-height:1.1;}
-.pg-sub{font-size:12px;color:var(--text3);margin-top:3px;}
+.shell{max-width:860px;margin:0 auto;padding:32px 28px 52px;}
+.pg-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap;}
+.pg-title{font-size:24px;font-weight:800;color:var(--text);letter-spacing:-0.5px;line-height:1.1;}
+.pg-sub{font-size:11px;color:var(--text3);margin-top:3px;font-weight:500;}
 .hd-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
 
 /* STATS */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow-sm);}
-.stat-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px;}
-.stat-val{font-size:26px;font-weight:800;line-height:1;color:var(--text);letter-spacing:-0.5px;}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 14px;box-shadow:var(--shadow-sm);}
+.stat-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:6px;}
+.stat-val{font-size:24px;font-weight:800;line-height:1;color:var(--text);letter-spacing:-0.5px;}
 .stat-val.g{color:var(--green);}
 .stat-val.r{color:var(--red);}
 .stat-val.a{color:var(--accent);}
-.stat-sub{font-size:11px;color:var(--text3);margin-top:5px;}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:4px;}
 
 /* SECTION */
-.sec{margin-bottom:22px;}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.sec-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);}
+.sec{margin-bottom:20px;}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.sec-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);}
 
 /* LIST */
 .list-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);}
-.list-item{display:flex;align-items:center;padding:14px 18px;gap:13px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
+.list-item{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
 .list-item:last-child{border-bottom:none;}
 .list-item:hover{background:var(--surface2);}
 .list-item:active{background:var(--surface3);}
-.l-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.l-ico svg{width:16px;height:16px;}
+.l-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.l-ico svg{width:15px;height:15px;}
 .l-ico.blue{background:var(--accent-light);color:var(--accent);}
 .l-ico.green{background:var(--green-bg);color:var(--green);}
 .l-ico.amber{background:var(--amber-bg);color:var(--amber);}
 .l-ico.red{background:var(--red-bg);color:var(--red);}
 .l-body{flex:1;min-width:0;}
 .l-title{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.l-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+.l-sub{font-size:11px;color:var(--text2);margin-top:1px;}
 .l-right{text-align:right;flex-shrink:0;}
 
-/* JOB PROGRESS BAR */
-.job-progress{display:flex;align-items:center;margin-top:8px;}
-.progress-step{display:flex;align-items:center;flex:1;}
-.progress-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--border);background:var(--surface);flex-shrink:0;transition:all .2s;}
-.progress-dot.active{background:var(--accent);border-color:var(--accent);}
-.progress-dot.done{background:var(--green);border-color:var(--green);}
-.progress-line{flex:1;height:2px;background:var(--border);transition:background .2s;}
-.progress-line.done{background:var(--green);}
-.progress-line.active{background:var(--accent);}
-.progress-labels{display:flex;justify-content:space-between;margin-top:4px;}
-.progress-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);flex:1;text-align:center;}
-.progress-label:first-child{text-align:left;}
-.progress-label:last-child{text-align:right;}
-.progress-label.active{color:var(--accent);}
-.progress-label.done{color:var(--green);}
+/* PROGRESS BAR */
+.job-progress{display:flex;align-items:center;margin-top:7px;}
+.p-step{display:flex;align-items:center;flex:1;}
+.p-dot{width:8px;height:8px;border-radius:50%;border:2px solid var(--border);background:var(--surface);flex-shrink:0;transition:all .2s;}
+.p-dot.active{background:var(--accent);border-color:var(--accent);}
+.p-dot.done{background:var(--green);border-color:var(--green);}
+.p-line{flex:1;height:2px;background:var(--border);transition:background .2s;}
+.p-line.done{background:var(--green);}
+.p-line.active{background:var(--accent);}
+.p-labels{display:flex;justify-content:space-between;margin-top:3px;}
+.p-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);flex:1;text-align:center;}
+.p-lbl:first-child{text-align:left;}
+.p-lbl:last-child{text-align:right;}
+.p-lbl.active{color:var(--accent);}
+.p-lbl.done{color:var(--green);}
 
 /* BADGE */
-.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;}
 .b-sched{background:var(--accent-light);color:var(--accent);}
 .b-prog{background:var(--amber-bg);color:var(--amber);}
 .b-done{background:var(--green-bg);color:var(--green);}
@@ -175,130 +176,139 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .b-unpaid{background:var(--red-bg);color:var(--red);}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;border-radius:var(--radius-sm);transition:all .12s;white-space:nowrap;}
-.btn svg{width:14px;height:14px;}
-.btn-p{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(10,17,114,.22);}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;border-radius:var(--radius-sm);transition:all .12s;white-space:nowrap;}
+.btn svg{width:13px;height:13px;}
+.btn-p{background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(10,17,114,.2);}
 .btn-p:hover{background:var(--accent-hover);}
 .btn-p:active{transform:scale(.97);}
 .btn-o{background:var(--surface);color:var(--text2);border:1px solid var(--border);}
 .btn-o:hover{border-color:var(--text2);color:var(--text);}
-.btn-d{background:var(--red-bg);color:var(--red);border:1px solid rgba(201,48,44,.2);}
+.btn-d{background:var(--red-bg);color:var(--red);border:1px solid rgba(201,48,44,.18);}
 .btn-d:hover{background:var(--red);color:#fff;}
-.btn-g{background:var(--green-bg);color:var(--green);border:1px solid rgba(10,143,94,.2);}
-.btn-sm{padding:7px 13px;font-size:11px;}
-.btn-full{width:100%;justify-content:center;padding:13px;font-size:14px;border-radius:var(--radius);}
+.btn-sm{padding:6px 11px;font-size:11px;}
+.btn-full{width:100%;justify-content:center;padding:12px;font-size:13px;border-radius:var(--radius);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
 
 /* OVERLAY + SHEET */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;backdrop-filter:blur(3px);}
 .ov.open{display:block;}
-.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-radius:var(--radius-lg) var(--radius-lg) 0 0;max-height:92vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom);}
+.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-radius:var(--radius-lg) var(--radius-lg) 0 0;max-height:92vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .26s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom);}
 .sheet.open{transform:translateY(0);}
-.sh-handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 0;}
-.sh-hdr{padding:14px 22px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
-.sh-title{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.sh-x{width:32px;height:32px;border-radius:50%;background:var(--surface2);border:none;font-size:14px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;}
-.sh-body{padding:18px 22px;}
-.sh-foot{padding:10px 22px 16px;border-top:1px solid var(--border);display:flex;gap:10px;}
+.sh-handle{width:32px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 0;}
+.sh-hdr{padding:12px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.sh-title{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.sh-x{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:none;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;}
+.sh-body{padding:16px 20px;}
+.sh-foot{padding:8px 20px 14px;border-top:1px solid var(--border);display:flex;gap:8px;}
 
 /* MODAL */
-.m-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);}
+.m-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);}
 .m-ov.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:520px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
-.m-hdr{padding:22px 26px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.m-title{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.m-x{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:none;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.m-body{padding:20px 26px;}
-.m-foot{padding:14px 26px 20px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
-.confirm-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:340px;max-width:100%;padding:28px 28px 22px;box-shadow:var(--shadow-lg);text-align:center;}
-.conf-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:8px;}
-.conf-sub{font-size:13px;color:var(--text2);margin-bottom:22px;line-height:1.6;}
-.conf-btns{display:flex;gap:10px;justify-content:center;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:500px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
+.m-hdr{padding:20px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.m-title{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.m-x{width:26px;height:26px;border-radius:50%;background:var(--surface2);border:none;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.m-body{padding:18px 24px;}
+.m-foot{padding:12px 24px 18px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.confirm-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:320px;max-width:100%;padding:24px 24px 20px;box-shadow:var(--shadow-lg);text-align:center;}
+.conf-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:7px;}
+.conf-sub{font-size:12px;color:var(--text2);margin-bottom:20px;line-height:1.6;}
+.conf-btns{display:flex;gap:8px;justify-content:center;}
 
 /* FORMS */
-.fg{margin-bottom:16px;}
+.fg{margin-bottom:14px;}
 .fg:last-child{margin-bottom:0;}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.flbl{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:6px;}
-.fin{width:100%;padding:11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none;}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.flbl{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:5px;}
+.fin{width:100%;padding:10px 12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none;}
 .fin:focus{border-color:var(--accent);background:var(--surface);}
 .fin::placeholder{color:var(--text3);}
-textarea.fin{resize:vertical;min-height:76px;}
-.fsel{width:100%;padding:11px 36px 11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239999ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:var(--surface2);}
+textarea.fin{resize:vertical;min-height:70px;}
+.fsel{width:100%;padding:10px 34px 10px 12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239494aa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-color:var(--surface2);}
 .fsel:focus{border-color:var(--accent);background-color:var(--surface);}
 
 /* INVOICE MESSAGE PRESETS */
-.msg-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
-.msg-preset{padding:7px 12px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .12s;background:var(--surface);}
+.msg-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.msg-preset{padding:6px 11px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .12s;background:var(--surface);}
 .msg-preset.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
 
+/* INSTALL INSTRUCTIONS */
+.install-steps{display:flex;flex-direction:column;gap:12px;}
+.install-step{display:flex;gap:12px;align-items:flex-start;}
+.install-step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px;}
+.install-step-text{font-size:13px;color:var(--text2);line-height:1.6;}
+.install-step-text strong{color:var(--text);font-weight:700;}
+.install-os-tabs{display:flex;gap:4px;margin-bottom:16px;}
+.install-os-tab{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;background:var(--surface);color:var(--text2);text-align:center;transition:all .15s;}
+.install-os-tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
+
 /* TOOLBAR */
-.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-.srch{flex:1;min-width:160px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 13px;}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.srch{flex:1;min-width:140px;display:flex;align-items:center;gap:7px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;}
 .srch input{border:none;background:transparent;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);width:100%;-webkit-appearance:none;}
 .srch input::placeholder{color:var(--text3);}
-.srch svg{width:14px;height:14px;color:var(--text3);flex-shrink:0;}
+.srch svg{width:13px;height:13px;color:var(--text3);flex-shrink:0;}
 
 /* EMPTY */
-.empty{text-align:center;padding:52px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
-.e-ico{width:48px;height:48px;border-radius:14px;background:var(--surface2);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.e-ico svg{width:22px;height:22px;color:var(--text3);}
-.e-title{font-size:17px;font-weight:800;color:var(--text2);margin-bottom:5px;letter-spacing:-0.3px;}
-.e-sub{font-size:12px;color:var(--text3);margin-bottom:18px;}
+.empty{text-align:center;padding:48px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.e-ico{width:44px;height:44px;border-radius:12px;background:var(--surface2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.e-ico svg{width:20px;height:20px;color:var(--text3);}
+.e-title{font-size:16px;font-weight:800;color:var(--text2);margin-bottom:4px;letter-spacing:-0.3px;}
+.e-sub{font-size:12px;color:var(--text3);margin-bottom:16px;}
 
 /* CALENDAR */
-.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:18px;}
-.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.cal-month{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.cal-btns{display:flex;gap:6px;}
-.cal-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);font-size:14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .1s;-webkit-appearance:none;}
+.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;}
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cal-month{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.cal-btns{display:flex;gap:5px;}
+.cal-btn{width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:var(--surface2);font-size:14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .1s;-webkit-appearance:none;}
 .cal-btn:hover{border-color:var(--accent);color:var(--accent);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
-.cal-dlbl{text-align:center;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);padding:6px 0;}
-.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:9px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:all .1s;position:relative;}
+.cal-dlbl{text-align:center;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--text3);padding:5px 0;}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:all .1s;position:relative;}
 .cal-day:hover{background:var(--surface2);}
 .cal-day.today{background:var(--accent);color:#fff;font-weight:800;}
-.cal-day.has-jobs::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:3px;}
+.cal-day.has-jobs::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:2px;}
 .cal-day.today.has-jobs::after{background:rgba(255,255,255,.6);}
-.cal-day.other-m{color:var(--text3);opacity:.5;}
+.cal-day.other-m{color:var(--text3);opacity:.4;}
 .cal-day.sel:not(.today){background:var(--accent-light);color:var(--accent);font-weight:800;}
 
 /* CUSTOMERS */
-.cust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
-.cust-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow .15s,transform .15s;}
+.cust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.cust-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow .15s,transform .15s;}
 .cust-card:hover{box-shadow:var(--shadow);transform:translateY(-1px);}
-.cust-ini{width:42px;height:42px;border-radius:12px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;margin-bottom:12px;}
-.cust-name{font-size:14px;font-weight:800;color:var(--text);margin-bottom:3px;}
+.cust-ini{width:38px;height:38px;border-radius:10px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;margin-bottom:10px;}
+.cust-name{font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;}
 .cust-info{font-size:11px;color:var(--text2);margin-bottom:2px;}
-.cust-stats{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
-.cs-val{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.cs-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;}
+.cust-stats{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.cs-val{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.cs-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;font-weight:700;}
 
 /* CUSTOMER DETAIL */
-.cust-detail-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
-.cust-detail-ini{width:52px;height:52px;border-radius:14px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0;}
-.cust-detail-name{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.cust-detail-info{font-size:12px;color:var(--text2);margin-top:3px;}
+.cust-detail-header{display:flex;align-items:center;gap:13px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.cust-detail-ini{width:48px;height:48px;border-radius:13px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0;}
+.cust-detail-name{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.cust-detail-info{font-size:12px;color:var(--text2);margin-top:2px;}
 
 /* SETTINGS */
-.set-sec{margin-bottom:28px;}
-.set-sec-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.set-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);}
+.set-sec{margin-bottom:26px;}
+.set-sec-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);}
 .set-row:last-child{border-bottom:none;}
 .set-row-lbl{font-size:13px;font-weight:600;color:var(--text);}
-.set-row-sub{font-size:11px;color:var(--text3);margin-top:2px;}
-.plan-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;background:var(--accent-light);color:var(--accent);}
+.set-row-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.plan-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;background:var(--accent-light);color:var(--accent);}
 
 /* LOGO UPLOAD */
-.logo-upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:border-color .15s;}
+.logo-upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:border-color .15s;}
 .logo-upload-area:hover{border-color:var(--accent);}
-.logo-preview{max-height:60px;max-width:200px;object-fit:contain;margin:0 auto 8px;display:block;}
+.logo-preview{max-height:56px;max-width:180px;object-fit:contain;margin:0 auto 6px;display:block;}
 .logo-hint{font-size:12px;color:var(--text3);}
 
 /* REMINDERS */
-.rem-item{display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid var(--border);}
+.rem-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);}
 .rem-item:last-child{border-bottom:none;}
-.rem-chk{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.rem-chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .rem-chk.done{background:var(--green);border-color:var(--green);}
 .rem-chk svg{width:8px;height:8px;}
 .rem-txt{flex:1;font-size:13px;color:var(--text);font-weight:500;}
@@ -306,11 +316,11 @@ textarea.fin{resize:vertical;min-height:76px;}
 .rem-due{font-size:10px;color:var(--text3);font-weight:600;}
 
 /* TEAM */
-.team-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:13px;margin-bottom:8px;}
-.team-avatar{width:38px;height:38px;border-radius:12px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;}
+.team-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:7px;}
+.team-avatar{width:34px;height:34px;border-radius:10px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
 
 /* TECH VIEW */
-.tech-banner{background:var(--accent-light);border:1px solid rgba(10,17,114,.12);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.tech-banner{background:var(--accent-light);border:1px solid rgba(10,17,114,.1);border-radius:var(--radius);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .tech-banner-text{font-size:13px;font-weight:600;color:var(--accent);}
 
 /* RESPONSIVE */
@@ -319,12 +329,12 @@ textarea.fin{resize:vertical;min-height:76px;}
   .mob-hdr{display:flex;}
   .bot-nav{display:block;}
   .fab{display:flex;}
-  .main{margin-left:0;padding-top:var(--header-h);padding-bottom:var(--nav-h);}
-  .shell{padding:18px 15px 20px;}
-  .pg-title{font-size:22px;}
-  .stat-grid{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
-  .stat-card{padding:14px;}
-  .stat-val{font-size:22px;}
+  .main{margin-left:0;padding-top:var(--header-h);padding-bottom:calc(var(--nav-h) + var(--nav-safe));}
+  .shell{padding:16px 14px 18px;}
+  .pg-title{font-size:20px;}
+  .stat-grid{grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;}
+  .stat-card{padding:12px;}
+  .stat-val{font-size:20px;}
   .f2{grid-template-columns:1fr;gap:0;}
   .cust-grid{grid-template-columns:1fr;}
   .m-ov{display:none !important;}
@@ -342,7 +352,7 @@ textarea.fin{resize:vertical;min-height:76px;}
 <div id="loadScreen">
   <div class="load-logo">Arko</div>
   <div class="load-sub">Field Service CRM</div>
-  <div class="load-bar"><div class="load-bar-inner"></div></div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
 </div>
 
 <!-- AUTH -->
@@ -350,8 +360,6 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="auth-card">
     <div class="auth-logo">Arko</div>
     <div class="auth-tag">Your business, organized.</div>
-
-    <!-- LOGIN -->
     <div id="viewLogin">
       <div class="auth-tabs">
         <button class="auth-tab active" onclick="authTab('login')">Sign In</button>
@@ -364,52 +372,40 @@ textarea.fin{resize:vertical;min-height:76px;}
         <div class="fg"><label class="flbl">Password</label><input type="password" class="fin" id="li-pw" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <div class="remember-row"><input type="checkbox" id="rememberMe" checked><label for="rememberMe">Remember me</label></div>
         <button class="btn btn-p btn-full" id="loginBtn" onclick="doLogin()">Sign In</button>
-        <div style="text-align:center;margin-top:14px"><button class="auth-link" onclick="showForgot()">Forgot password?</button></div>
+        <div style="text-align:center;margin-top:12px"><button class="auth-link" onclick="showForgot()">Forgot password?</button></div>
       </div>
       <div id="signupForm" style="display:none">
         <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="su-biz" placeholder="Your HVAC Co." autocomplete="organization"></div>
         <div class="fg"><label class="flbl">Your Name</label><input type="text" class="fin" id="su-name" placeholder="John Smith" autocomplete="name"></div>
         <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="su-email" placeholder="you@yourbusiness.com" inputmode="email" autocomplete="email"></div>
-        <div class="fg" style="margin-bottom:20px"><label class="flbl">Password</label><input type="password" class="fin" id="su-pw" placeholder="At least 6 characters" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignup()"></div>
+        <div class="fg" style="margin-bottom:18px"><label class="flbl">Password</label><input type="password" class="fin" id="su-pw" placeholder="At least 6 characters" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignup()"></div>
         <button class="btn btn-p btn-full" id="signupBtn" onclick="doSignup()">Create Account</button>
       </div>
     </div>
-
-    <!-- FORGOT PASSWORD -->
     <div id="viewForgot" style="display:none">
       <div class="auth-err" id="forgotErr"></div>
       <div class="auth-ok" id="forgotOk"></div>
-      <div style="margin-bottom:20px">
-        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Reset Password</div>
-        <div style="font-size:13px;color:var(--text3)">Enter your email and we'll send a reset link.</div>
-      </div>
+      <div style="margin-bottom:18px"><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px">Reset Password</div><div style="font-size:12px;color:var(--text3)">Enter your email and we'll send a reset link.</div></div>
       <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="forgot-email" placeholder="you@yourbusiness.com" inputmode="email"></div>
-      <button class="btn btn-p btn-full" id="forgotBtn" onclick="doForgot()" style="margin-bottom:14px">Send Reset Link</button>
+      <button class="btn btn-p btn-full" id="forgotBtn" onclick="doForgot()" style="margin-bottom:12px">Send Reset Link</button>
       <div style="text-align:center"><button class="auth-link" onclick="showLogin()">Back to Sign In</button></div>
     </div>
-
-    <!-- SET NEW PASSWORD (after reset link click) -->
     <div id="viewReset" style="display:none">
       <div class="auth-err" id="resetErr"></div>
       <div class="auth-ok" id="resetOk"></div>
-      <div style="margin-bottom:20px">
-        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Set New Password</div>
-        <div style="font-size:13px;color:var(--text3)">Enter your new password below.</div>
-      </div>
-      <div class="fg"><label class="flbl">New Password</label><input type="password" class="fin" id="reset-pw" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doReset()"></div>
-      <div class="fg" style="margin-bottom:20px"><label class="flbl">Confirm Password</label><input type="password" class="fin" id="reset-pw2" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()"></div>
+      <div style="margin-bottom:18px"><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px">Set New Password</div><div style="font-size:12px;color:var(--text3)">Enter your new password below.</div></div>
+      <div class="fg"><label class="flbl">New Password</label><input type="password" class="fin" id="reset-pw" placeholder="At least 6 characters"></div>
+      <div class="fg" style="margin-bottom:18px"><label class="flbl">Confirm Password</label><input type="password" class="fin" id="reset-pw2" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()"></div>
       <button class="btn btn-p btn-full" id="resetBtn" onclick="doReset()">Set Password</button>
     </div>
-
     <div class="auth-foot">Built by Onstra · Free until you hire someone</div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="appScreen">
-
   <div id="installBanner">
-    <div class="install-text">Install Arko<div class="install-sub">Add to home screen for the full app experience</div></div>
+    <div class="install-text">Install Arko<div class="install-sub">Add to home screen for the full experience</div></div>
     <button class="install-btn" onclick="installPWA()">Install</button>
     <button class="install-x" onclick="dismissInstall()">✕</button>
   </div>
@@ -422,15 +418,9 @@ textarea.fin{resize:vertical;min-height:76px;}
         <div class="chev">▾</div>
       </div>
       <div class="popout" id="popout">
-        <div class="pop-item" onclick="openSwitchUser()">
-          <div class="pop-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.76 2.24-5 5-5s5 2.24 5 5"/><path d="M13 7v4M11 9h4"/></svg></div>Switch User
-        </div>
-        <div class="pop-item" onclick="navigate('settings');closePopout()">
-          <div class="pop-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg></div>Settings
-        </div>
-        <div class="pop-item danger" onclick="confirmSignOut()">
-          <div class="pop-ico" style="background:var(--red-bg)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6"/></svg></div>Sign Out
-        </div>
+        <div class="pop-item" onclick="openSwitchUser()"><div class="pop-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.76 2.24-5 5-5s5 2.24 5 5"/><path d="M13 7v4M11 9h4"/></svg></div>Switch User</div>
+        <div class="pop-item" onclick="navigate('settings');closePopout()"><div class="pop-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg></div>Settings</div>
+        <div class="pop-item danger" onclick="confirmSignOut()"><div class="pop-ico" style="background:var(--red-bg)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6"/></svg></div>Sign Out</div>
       </div>
     </div>
     <nav class="sidebar-nav">
@@ -440,10 +430,7 @@ textarea.fin{resize:vertical;min-height:76px;}
       <div class="nav-item owner-only" data-page="calendar"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14M5 1v4M11 1v4"/></svg></div>Calendar</div>
       <div class="nav-item owner-only" data-page="invoice"><div class="nav-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div>Invoice</div>
     </nav>
-    <div class="sidebar-bottom">
-      <div class="wordmark">Arko</div>
-      <div class="built-by">Built by Onstra</div>
-    </div>
+    <div class="sidebar-bottom"><div class="wordmark">Arko</div><div class="built-by">Built by Onstra</div></div>
   </aside>
 
   <header class="mob-hdr">
@@ -462,6 +449,7 @@ textarea.fin{resize:vertical;min-height:76px;}
       <button class="tab-btn owner-only" data-page="calendar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14M5 1v4M11 1v4"/></svg>Calendar</button>
       <button class="tab-btn owner-only" data-page="invoice"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg>Invoice</button>
     </div>
+    <div class="bot-nav-safe"></div>
   </nav>
 
   <button class="fab" onclick="handleFab()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg></button>
@@ -480,10 +468,7 @@ textarea.fin{resize:vertical;min-height:76px;}
             <div class="stat-card"><div class="stat-lbl">Unpaid</div><div class="stat-val r" id="s-unpaid">$0</div><div class="stat-sub">Outstanding invoices</div></div>
           </div>
         </div>
-        <div class="tech-banner" id="techBanner" style="display:none">
-          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg>
-          <div class="tech-banner-text" id="techBannerText">You have 0 jobs today</div>
-        </div>
+        <div class="tech-banner" id="techBanner" style="display:none"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg><div class="tech-banner-text" id="techBannerText">You have 0 jobs today</div></div>
         <div class="sec"><div class="sec-head"><div class="sec-lbl">Today's Jobs</div><button class="btn btn-o btn-sm owner-only" onclick="navigate('jobs')">See all</button></div><div id="today-list"></div></div>
         <div class="sec owner-only"><div class="sec-head"><div class="sec-lbl">Reminders</div><button class="btn btn-o btn-sm" onclick="openSh('remSh')">+ Add</button></div><div class="list-card" id="home-rem"></div></div>
       </div>
@@ -493,7 +478,7 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="page" id="page-jobs">
       <div class="shell">
         <div class="pg-head"><div><div class="pg-title" id="jobsTitle">Jobs</div><div class="pg-sub">All work orders</div></div><div class="hd-actions owner-only"><button class="btn btn-p" onclick="openJobForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Job</button></div></div>
-        <div class="toolbar owner-only"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="jobSrch" placeholder="Search jobs..." oninput="renderJobs()"></div><select class="fsel" id="jobFilt" style="width:auto;min-width:130px" onchange="renderJobs()"><option value="all">All Status</option><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
+        <div class="toolbar owner-only"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="jobSrch" placeholder="Search jobs..." oninput="renderJobs()"></div><select class="fsel" id="jobFilt" style="width:auto;min-width:120px" onchange="renderJobs()"><option value="all">All Status</option><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
         <div id="jobs-list"></div>
       </div>
     </div>
@@ -523,8 +508,8 @@ textarea.fin{resize:vertical;min-height:76px;}
     <!-- INVOICE -->
     <div class="page" id="page-invoice">
       <div class="shell">
-        <div class="pg-head"><div><div class="pg-title">Invoice</div><div class="pg-sub">Always free in Arko</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openSh('invSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Invoice</button></div></div>
-        <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:20px">
+        <div class="pg-head"><div><div class="pg-title">Invoice</div><div class="pg-sub">Always free in Arko</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openInvForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Invoice</button></div></div>
+        <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:18px">
           <div class="stat-card"><div class="stat-lbl">Total Invoiced</div><div class="stat-val" id="inv-tot">$0</div></div>
           <div class="stat-card"><div class="stat-lbl">Collected</div><div class="stat-val g" id="inv-paid-stat">$0</div></div>
           <div class="stat-card"><div class="stat-lbl">Outstanding</div><div class="stat-val r" id="inv-owed">$0</div></div>
@@ -537,6 +522,7 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="page" id="page-settings">
       <div class="shell">
         <div class="pg-head"><div><div class="pg-title">Settings</div><div class="pg-sub">Account and preferences</div></div></div>
+
         <div class="set-sec">
           <div class="set-sec-title">Your Business</div>
           <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="set-biz" placeholder="Your HVAC Co."></div>
@@ -552,6 +538,7 @@ textarea.fin{resize:vertical;min-height:76px;}
           </div>
           <button class="btn btn-p" style="margin-top:4px" onclick="saveBiz()">Save Business Info</button>
         </div>
+
         <div class="set-sec owner-only">
           <div class="set-sec-title">Invoice Message</div>
           <div class="fg">
@@ -567,22 +554,48 @@ textarea.fin{resize:vertical;min-height:76px;}
           </div>
           <button class="btn btn-p btn-sm" onclick="saveInvMsg()">Save Message</button>
         </div>
+
+        <!-- INSTALL INSTRUCTIONS -->
+        <div class="set-sec">
+          <div class="set-sec-title">Download Arko on Your Phone</div>
+          <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">No App Store needed. Install Arko directly on your home screen in seconds.</p>
+          <div class="install-os-tabs">
+            <div class="install-os-tab active" onclick="switchInstallTab('ios',this)">iPhone / iPad</div>
+            <div class="install-os-tab" onclick="switchInstallTab('android',this)">Android</div>
+          </div>
+          <div id="install-ios" class="install-steps">
+            <div class="install-step"><div class="install-step-num">1</div><div class="install-step-text">Open <strong>dev.onstra.world</strong> in <strong>Safari</strong> on your iPhone or iPad.</div></div>
+            <div class="install-step"><div class="install-step-num">2</div><div class="install-step-text">Tap the <strong>Share button</strong> at the bottom of Safari — it looks like a box with an arrow pointing up.</div></div>
+            <div class="install-step"><div class="install-step-num">3</div><div class="install-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong>.</div></div>
+            <div class="install-step"><div class="install-step-num">4</div><div class="install-step-text">Tap <strong>Add</strong> in the top right. Arko will appear on your home screen like any other app.</div></div>
+          </div>
+          <div id="install-android" class="install-steps" style="display:none">
+            <div class="install-step"><div class="install-step-num">1</div><div class="install-step-text">Open <strong>dev.onstra.world</strong> in <strong>Chrome</strong> on your Android phone.</div></div>
+            <div class="install-step"><div class="install-step-num">2</div><div class="install-step-text">Tap the <strong>three dots menu</strong> in the top right corner.</div></div>
+            <div class="install-step"><div class="install-step-num">3</div><div class="install-step-text">Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</div></div>
+            <div class="install-step"><div class="install-step-num">4</div><div class="install-step-text">Tap <strong>Install</strong>. Arko will appear on your home screen like any other app.</div></div>
+          </div>
+        </div>
+
         <div class="set-sec owner-only">
           <div class="set-sec-title">Team</div>
           <div id="team-list"></div>
-          <button class="btn btn-o btn-sm" style="margin-top:12px" id="inviteBtn" onclick="checkPlanAndInvite()">+ Invite Team Member</button>
-          <div id="plan-gate" style="display:none;margin-top:10px;padding:12px;background:var(--amber-bg);border:1px solid rgba(196,125,0,.2);border-radius:var(--radius-sm);font-size:12px;color:var(--amber)">You've reached your plan limit. <button class="auth-link" onclick="openUpgrade()">Upgrade to add more team members.</button></div>
+          <button class="btn btn-o btn-sm" style="margin-top:10px" id="inviteBtn" onclick="checkPlanAndInvite()">+ Invite Team Member</button>
+          <div id="plan-gate" style="display:none;margin-top:8px;padding:10px 12px;background:var(--amber-bg);border:1px solid rgba(196,125,0,.2);border-radius:var(--radius-sm);font-size:12px;color:var(--amber)">You've reached your plan limit. <button class="auth-link" onclick="openUpgrade()">Upgrade to add more.</button></div>
         </div>
+
         <div class="set-sec">
           <div class="set-sec-title">Plan</div>
           <div class="set-row"><div><div class="set-row-lbl">Current Plan</div><div class="set-row-sub" id="set-plan-sub">Free — everything included, 1 user</div></div><span class="plan-badge" id="set-plan-badge">Free</span></div>
-          <div class="set-row" id="upgradeRow"><div><div class="set-row-lbl">Need a team?</div><div class="set-row-sub">$29/mo for up to 5 users · $59/mo unlimited</div></div><button class="btn btn-p btn-sm" onclick="openUpgrade()">Upgrade</button></div>
+          <div class="set-row" id="upgradeRow"><div><div class="set-row-lbl">Need a team?</div><div class="set-row-sub">$29/mo for 5 users · $59/mo unlimited</div></div><button class="btn btn-p btn-sm" onclick="openUpgrade()">Upgrade</button></div>
         </div>
+
         <div class="set-sec">
           <div class="set-sec-title">Account</div>
           <div class="set-row"><div><div class="set-row-lbl">Email</div><div class="set-row-sub" id="set-acct-email">—</div></div></div>
           <div class="set-row"><div><div class="set-row-lbl">Sign Out</div><div class="set-row-sub">You'll need to sign back in</div></div><button class="btn btn-d btn-sm" onclick="confirmSignOut()">Sign Out</button></div>
         </div>
+
         <div class="set-sec">
           <div class="set-sec-title">About</div>
           <div class="set-row"><div><div class="set-row-lbl">Arko</div><div class="set-row-sub">Version 1.0 · Built by Onstra · Free until you hire someone</div></div></div>
@@ -593,8 +606,7 @@ textarea.fin{resize:vertical;min-height:76px;}
   </main>
 </div>
 
-<!-- ══ SHEETS ══ -->
-
+<!-- SHEETS -->
 <!-- JOB -->
 <div class="ov" id="jobSh-ov" onclick="closeSh('jobSh')"></div>
 <div class="sheet" id="jobSh">
@@ -640,13 +652,13 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-hdr"><div class="sh-title">Customer</div><button class="sh-x" onclick="closeSh('custDetailSh')">✕</button></div>
   <div class="sh-body" id="custDetailBody"></div>
   <div class="sh-foot">
-    <button class="btn btn-o" style="flex:1" onclick="closeSh('custDetailSh')">Close</button>
-    <button class="btn btn-o" style="flex:1" id="custEditBtn" onclick="editCustFromDetail()">Edit</button>
-    <button class="btn btn-p" style="flex:2" id="custInvBtn" onclick="createInvFromCust()">+ Invoice</button>
+    <button class="btn btn-d btn-sm" onclick="deleteCustFromDetail()">Delete</button>
+    <button class="btn btn-o" style="flex:1" onclick="editCustFromDetail()">Edit</button>
+    <button class="btn btn-p" style="flex:2" onclick="createInvFromCust()">+ Invoice</button>
   </div>
 </div>
 
-<!-- INVOICE -->
+<!-- INVOICE SHEET (mobile) -->
 <div class="ov" id="invSh-ov" onclick="closeSh('invSh')"></div>
 <div class="sheet" id="invSh">
   <div class="sh-handle"></div>
@@ -681,9 +693,9 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-body">
     <div class="fg"><label class="flbl">Email Address</label><input type="email" class="fin" id="invite-email" placeholder="tech@yourcompany.com" inputmode="email"></div>
     <div class="fg"><label class="flbl">Role</label><select class="fsel" id="invite-role"><option value="tech">Tech — sees only assigned jobs</option><option value="owner">Owner — full access</option></select></div>
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-top:4px">
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">What techs see:</div>
-      <div style="font-size:11px;color:var(--text2);line-height:1.9">✓ Their assigned jobs only<br>✓ Customer contact for their jobs<br>✓ Update job status<br>✗ Revenue or financials<br>✗ Other techs' work<br>✗ Business settings</div>
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-top:4px">
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:5px">What techs see:</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.8">✓ Their assigned jobs only<br>✓ Customer contact for their jobs<br>✓ Update job status<br>✗ Revenue or financials<br>✗ Other techs' work</div>
     </div>
   </div>
   <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('inviteSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="sendInvite()">Send Invite</button></div>
@@ -697,16 +709,13 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-body">
     <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="mob-biz" placeholder="Your HVAC Co."></div>
     <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="mob-phone" placeholder="(555) 000-0000"></div>
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-top:4px">
-      <div style="font-size:11px;color:var(--text3)">Signed in as</div>
-      <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:2px" id="mob-email-display">—</div>
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px;margin-top:4px">
+      <div style="font-size:10px;color:var(--text3)">Signed in as</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:1px" id="mob-email-display">—</div>
     </div>
-    <div style="margin-top:14px"><button class="auth-link" onclick="closeSh('profSh');navigate('settings')">Go to Settings →</button></div>
+    <div style="margin-top:12px"><button class="auth-link" onclick="closeSh('profSh');navigate('settings')">Go to Settings →</button></div>
   </div>
-  <div class="sh-foot">
-    <button class="btn btn-d" style="flex:1" onclick="confirmSignOut()">Sign Out</button>
-    <button class="btn btn-p" style="flex:2" onclick="saveMobProf()">Save</button>
-  </div>
+  <div class="sh-foot"><button class="btn btn-d" style="flex:1" onclick="confirmSignOut()">Sign Out</button><button class="btn btn-p" style="flex:2" onclick="saveMobProf()">Save</button></div>
 </div>
 
 <!-- TECH JOB DETAIL -->
@@ -715,10 +724,7 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-handle"></div>
   <div class="sh-hdr"><div class="sh-title" id="techJobTitle">Job Details</div><button class="sh-x" onclick="closeSh('techJobSh')">✕</button></div>
   <div class="sh-body" id="techJobBody"></div>
-  <div class="sh-foot">
-    <button class="btn btn-o" style="flex:1" onclick="closeSh('techJobSh')">Close</button>
-    <button class="btn btn-p" style="flex:2;display:none" id="techJobStatusBtn" onclick="techUpdateStatus()">Update Status</button>
-  </div>
+  <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('techJobSh')">Close</button><button class="btn btn-p" style="flex:2;display:none" id="techJobStatusBtn" onclick="techUpdateStatus()">Update Status</button></div>
 </div>
 
 <!-- DESKTOP MODALS -->
@@ -734,11 +740,7 @@ textarea.fin{resize:vertical;min-height:76px;}
       <div class="f2"><div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="jm-parts" placeholder="0.00"></div><div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="jm-charged" placeholder="0.00"></div></div>
       <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="jm-notes" placeholder="Internal notes..."></textarea></div>
     </div>
-    <div class="m-foot">
-      <button class="btn btn-d btn-sm" id="jm-del-btn" style="display:none;margin-right:auto" onclick="deleteJobCurrent(true)">Delete Job</button>
-      <button class="btn btn-o" onclick="closeM('jobModal')">Cancel</button>
-      <button class="btn btn-p" onclick="saveJob(true)">Save Job</button>
-    </div>
+    <div class="m-foot"><button class="btn btn-d btn-sm" id="jm-del-btn" style="display:none;margin-right:auto" onclick="deleteJobCurrent(true)">Delete Job</button><button class="btn btn-o" onclick="closeM('jobModal')">Cancel</button><button class="btn btn-p" onclick="saveJob(true)">Save Job</button></div>
   </div>
 </div>
 
@@ -756,23 +758,38 @@ textarea.fin{resize:vertical;min-height:76px;}
   </div>
 </div>
 
+<!-- INVOICE MODAL (desktop) -->
+<div class="m-ov" id="invModal">
+  <div class="modal">
+    <div class="m-hdr"><div class="m-title">New Invoice</div><button class="m-x" onclick="closeM('invModal')">✕</button></div>
+    <div class="m-body">
+      <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="invm-cust"></select></div>
+      <div class="fg"><label class="flbl">Linked Job (optional)</label><select class="fsel" id="invm-job"><option value="">No linked job</option></select></div>
+      <div class="f2"><div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="invm-amt" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="invm-date"></div></div>
+      <div class="fg"><label class="flbl">Description</label><input type="text" class="fin" id="invm-desc" placeholder="AC repair, service call, install..."></div>
+      <div class="fg"><label class="flbl">Status</label><select class="fsel" id="invm-status"><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
+    </div>
+    <div class="m-foot"><button class="btn btn-o" onclick="closeM('invModal')">Cancel</button><button class="btn btn-p" onclick="saveInv(true)">Save Invoice</button></div>
+  </div>
+</div>
+
 <!-- UPGRADE -->
 <div class="m-ov" id="upgradeModal">
-  <div class="modal" style="max-width:460px">
+  <div class="modal" style="max-width:440px">
     <div class="m-hdr"><div class="m-title">Upgrade Arko</div><button class="m-x" onclick="closeM('upgradeModal')">✕</button></div>
     <div class="m-body">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div style="border:2px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center">
-          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px">Starter</div>
-          <div style="font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px">$29<span style="font-size:13px;font-weight:500;color:var(--text3)">/mo</span></div>
-          <div style="font-size:11px;color:var(--text2);margin:10px 0;line-height:1.8">Up to 5 users<br>Everything included<br>Team management</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="border:2px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:7px">Starter</div>
+          <div style="font-size:26px;font-weight:800;color:var(--text);letter-spacing:-1px">$29<span style="font-size:12px;font-weight:500;color:var(--text3)">/mo</span></div>
+          <div style="font-size:11px;color:var(--text2);margin:8px 0;line-height:1.8">Up to 5 users<br>Everything included<br>Team management</div>
           <button class="btn btn-p btn-sm" style="width:100%" onclick="goToStripe('starter')">Choose Starter</button>
         </div>
-        <div style="border:2px solid var(--accent);border-radius:var(--radius);padding:18px;text-align:center;position:relative">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap">Most Popular</div>
-          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px">Pro</div>
-          <div style="font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px">$59<span style="font-size:13px;font-weight:500;color:var(--text3)">/mo</span></div>
-          <div style="font-size:11px;color:var(--text2);margin:10px 0;line-height:1.8">Unlimited users<br>Everything included<br>Advanced reporting</div>
+        <div style="border:2px solid var(--accent);border-radius:var(--radius);padding:16px;text-align:center;position:relative">
+          <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:800;padding:2px 9px;border-radius:20px;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap">Most Popular</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);margin-bottom:7px">Pro</div>
+          <div style="font-size:26px;font-weight:800;color:var(--text);letter-spacing:-1px">$59<span style="font-size:12px;font-weight:500;color:var(--text3)">/mo</span></div>
+          <div style="font-size:11px;color:var(--text2);margin:8px 0;line-height:1.8">Unlimited users<br>Everything included<br>Advanced reporting</div>
           <button class="btn btn-p btn-sm" style="width:100%" onclick="goToStripe('pro')">Choose Pro</button>
         </div>
       </div>
@@ -789,7 +806,6 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="conf-btns"><button class="btn btn-o" onclick="closeM('soConfirm')">Cancel</button><button class="btn btn-d" onclick="doSignOut()">Yes, Sign Out</button></div>
   </div>
 </div>
-
 <div class="m-ov" id="switchUserModal">
   <div class="confirm-box">
     <div class="conf-title">Switch User</div>
@@ -803,13 +819,19 @@ const {jsPDF}=window.jspdf;
 const {createClient}=supabase;
 const sb=createClient('https://zvtalmmgrqcpiuhsehak.supabase.co','sb_publishable_p5CbaGQABknVhobv4TZ6iw_-sK-zU0J');
 
-// ── STATE ─────────────────────────────────────────────────────
+// STRIPE LINKS
+const STRIPE={
+  starter:'https://buy.stripe.com/aFacN55wgeKGdft4sT7EQ01',
+  pro:'https://buy.stripe.com/5kQ9ATaQA8mi0sH9Nd7EQ02'
+};
+
+// STATE
 let _user=null,_profile=null,_company=null;
 let _jobs=[],_custs=[],_invs=[],_rems=[],_team=[];
 let _logoDataUrl=null,_currentJobId=null,_calSel=null,_currentCustId=null;
 let _deferredInstall=null;
 
-// ── UTILS ─────────────────────────────────────────────────────
+// UTILS
 const fmt$=n=>'$'+parseFloat(n||0).toFixed(2);
 const fmtD=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
 const todayS=()=>new Date().toISOString().split('T')[0];
@@ -817,96 +839,78 @@ const mob=()=>window.innerWidth<=768;
 const icoJob=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 9h4M6 12h2"/></svg>`;
 const icoInv=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg>`;
 
-// ── PWA ───────────────────────────────────────────────────────
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();_deferredInstall=e;
-  if(!localStorage.getItem('arko_nodismiss'))document.getElementById('installBanner').classList.add('show');
-});
+// PWA
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_deferredInstall=e;if(!localStorage.getItem('arko_nodismiss'))document.getElementById('installBanner').classList.add('show');});
 async function installPWA(){if(!_deferredInstall)return;_deferredInstall.prompt();_deferredInstall=null;document.getElementById('installBanner').classList.remove('show');}
 function dismissInstall(){document.getElementById('installBanner').classList.remove('show');localStorage.setItem('arko_nodismiss','1');}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
-// ── CHECK FOR PASSWORD RESET TOKEN IN URL ─────────────────────
+// INSTALL TABS
+function switchInstallTab(os,el){
+  document.querySelectorAll('.install-os-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('install-ios').style.display=os==='ios'?'':'none';
+  document.getElementById('install-android').style.display=os==='android'?'':'none';
+}
+
+// CHECK RESET TOKEN
 function checkResetToken(){
   const hash=window.location.hash;
   const params=new URLSearchParams(hash.replace('#',''));
-  const type=params.get('type');
-  const accessToken=params.get('access_token');
-  if(type==='recovery'&&accessToken){
-    // Set the session from the token
-    sb.auth.setSession({access_token:accessToken,refresh_token:params.get('refresh_token')||''});
-    showResetView();
+  if(params.get('type')==='recovery'&&params.get('access_token')){
+    sb.auth.setSession({access_token:params.get('access_token'),refresh_token:params.get('refresh_token')||''});
+    document.getElementById('loadScreen').style.display='none';
+    document.getElementById('authScreen').classList.add('on');
+    document.getElementById('viewLogin').style.display='none';
+    document.getElementById('viewForgot').style.display='none';
+    document.getElementById('viewReset').style.display='';
     return true;
   }
   return false;
 }
-function showResetView(){
-  document.getElementById('loadScreen').style.display='none';
-  document.getElementById('authScreen').classList.add('on');
-  document.getElementById('viewLogin').style.display='none';
-  document.getElementById('viewForgot').style.display='none';
-  document.getElementById('viewReset').style.display='';
-}
 
-// ── INIT ──────────────────────────────────────────────────────
+// INIT
 (async()=>{
-  // Check for password reset redirect first
   if(checkResetToken())return;
   const{data}=await sb.auth.getSession();
-  if(data.session){
-    _user=data.session.user;
-    const ok=await loadUserData();
-    if(ok){showApp();}
-    else{showAuth();}
-  } else {
-    showAuth();
-  }
+  if(data.session){_user=data.session.user;const ok=await loadUserData();if(ok)showApp();else showAuth();}
+  else showAuth();
 })();
 
 function showApp(){
   document.getElementById('loadScreen').style.display='none';
   document.getElementById('authScreen').classList.remove('on');
   document.getElementById('appScreen').classList.add('on');
-  applyRoleUI();
-  populateDDs();
-  renderHome();
-  navigate('home');
+  applyRoleUI();populateDDs();renderHome();navigate('home');
 }
 function showAuth(){
   document.getElementById('loadScreen').style.display='none';
   document.getElementById('authScreen').classList.add('on');
 }
 
-// ── AUTH ──────────────────────────────────────────────────────
+// AUTH
 function authTab(t){
   document.querySelectorAll('.auth-tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='signup')));
   document.getElementById('loginForm').style.display=t==='login'?'':'none';
   document.getElementById('signupForm').style.display=t==='signup'?'':'none';
-  clearAuthMsgs();
+  clearMsgs();
 }
-function clearAuthMsgs(){
-  ['authErr','authOk','forgotErr','forgotOk','resetErr','resetOk'].forEach(id=>{
-    const el=document.getElementById(id);if(el){el.classList.remove('show');el.textContent='';}
-  });
-}
+function clearMsgs(){['authErr','authOk','forgotErr','forgotOk','resetErr','resetOk'].forEach(id=>{const e=document.getElementById(id);if(e){e.classList.remove('show');e.textContent='';} });}
 function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.add('show');}}
 function showOk(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.add('show');}}
 function showForgot(){document.getElementById('viewLogin').style.display='none';document.getElementById('viewForgot').style.display='';}
-function showLogin(){document.getElementById('viewForgot').style.display='none';document.getElementById('viewReset').style.display='none';document.getElementById('viewLogin').style.display='';}
+function showLogin(){['viewForgot','viewReset'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('viewLogin').style.display='';}
 
 async function doLogin(){
   const email=document.getElementById('li-email').value.trim();
   const pw=document.getElementById('li-pw').value;
   if(!email||!pw){showErr('authErr','Enter your email and password.');return;}
-  const btn=document.getElementById('loginBtn');
-  btn.textContent='Signing in...';btn.disabled=true;
+  const btn=document.getElementById('loginBtn');btn.textContent='Signing in...';btn.disabled=true;
   const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
   btn.textContent='Sign In';btn.disabled=false;
   if(error){showErr('authErr',error.message);return;}
-  _user=data.user;
-  const ok=await loadUserData();
-  if(ok){showApp();}
-  else{showErr('authErr','Account setup incomplete. Please contact support.');}
+  _user=data.user;const ok=await loadUserData();
+  if(ok)showApp();else showErr('authErr','Profile not found. Please contact support.');
 }
 
 async function doSignup(){
@@ -918,59 +922,34 @@ async function doSignup(){
   if(!name){showErr('authErr','Enter your name.');return;}
   if(!email||!pw){showErr('authErr','Enter your email and password.');return;}
   if(pw.length<6){showErr('authErr','Password must be at least 6 characters.');return;}
-  const btn=document.getElementById('signupBtn');
-  btn.textContent='Creating account...';btn.disabled=true;
-
-  // Step 1: Create auth user
+  const btn=document.getElementById('signupBtn');btn.textContent='Creating account...';btn.disabled=true;
   const{data,error}=await sb.auth.signUp({email,password:pw});
   btn.textContent='Create Account';btn.disabled=false;
   if(error){showErr('authErr',error.message);return;}
   _user=data.user;
-
-  // Step 2: Create company and profile using RPC function
-  const nameParts=name.trim().split(' ');
-  const first=nameParts[0]||name;
-  const last=nameParts.slice(1).join(' ')||'';
-
-  // Retry up to 3 times to handle auth propagation delay
-  let fnError=null;
+  const parts=name.trim().split(' ');
+  const first=parts[0]||name,last=parts.slice(1).join(' ')||'';
+  let ok=false;
   for(let i=0;i<3;i++){
-    const{error:e}=await sb.rpc('create_company_and_profile',{
-      company_name:biz,
-      first_name:first,
-      last_name:last
-    });
-    if(!e){fnError=null;break;}
-    fnError=e;
+    const{error:e}=await sb.rpc('create_company_and_profile',{company_name:biz,first_name:first,last_name:last});
+    if(!e){ok=true;break;}
     await new Promise(r=>setTimeout(r,800));
   }
-
-  if(fnError){
-    // Fallback: try direct insert
+  if(!ok){
     try{
-      const{data:co,error:coErr}=await sb.from('companies').insert({name:biz,plan:'free'}).select().single();
-      if(!coErr&&co){
-        await sb.from('profiles').insert({id:_user.id,company_id:co.id,first_name:first,last_name:last,role:'owner'});
-      }
-    }catch(e){
-      showErr('authErr','Account created but setup failed. Try signing in — if issues persist contact support.');
-      return;
-    }
+      const{data:co}=await sb.from('companies').insert({name:biz,plan:'free'}).select().single();
+      if(co)await sb.from('profiles').insert({id:_user.id,company_id:co.id,first_name:first,last_name:last,role:'owner'});
+    }catch(e){}
   }
-
-  const ok=await loadUserData();
-  if(ok){showApp();}
-  else{showErr('authErr','Setup complete. Please sign in.');}
+  const loaded=await loadUserData();
+  if(loaded)showApp();else showErr('authErr','Account created. Please sign in.');
 }
 
 async function doForgot(){
   const email=document.getElementById('forgot-email').value.trim();
   if(!email){showErr('forgotErr','Enter your email.');return;}
-  const btn=document.getElementById('forgotBtn');
-  btn.textContent='Sending...';btn.disabled=true;
-  const{error}=await sb.auth.resetPasswordForEmail(email,{
-    redirectTo:window.location.origin+'/'
-  });
+  const btn=document.getElementById('forgotBtn');btn.textContent='Sending...';btn.disabled=true;
+  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+'/'});
   btn.textContent='Send Reset Link';btn.disabled=false;
   if(error){showErr('forgotErr',error.message);return;}
   showOk('forgotOk','Reset link sent — check your email.');
@@ -981,35 +960,29 @@ async function doReset(){
   const pw2=document.getElementById('reset-pw2').value;
   if(!pw||pw.length<6){showErr('resetErr','Password must be at least 6 characters.');return;}
   if(pw!==pw2){showErr('resetErr','Passwords do not match.');return;}
-  const btn=document.getElementById('resetBtn');
-  btn.textContent='Saving...';btn.disabled=true;
+  const btn=document.getElementById('resetBtn');btn.textContent='Saving...';btn.disabled=true;
   const{error}=await sb.auth.updateUser({password:pw});
   btn.textContent='Set Password';btn.disabled=false;
   if(error){showErr('resetErr',error.message);return;}
   showOk('resetOk','Password updated! Signing you in...');
   setTimeout(async()=>{
     const{data}=await sb.auth.getSession();
-    if(data.session){_user=data.session.user;const ok=await loadUserData();if(ok)showApp();}
-    else{showLogin();}
+    if(data.session){_user=data.session.user;const ok=await loadUserData();if(ok)showApp();else showLogin();}
+    else showLogin();
   },1500);
 }
 
 async function loadUserData(){
   if(!_user)return false;
   try{
-    const{data:prof,error:profErr}=await sb.from('profiles').select('*').eq('id',_user.id).single();
-    if(profErr||!prof)return false;
+    const{data:prof}=await sb.from('profiles').select('*').eq('id',_user.id).single();
+    if(!prof)return false;
     _profile=prof;
-    const{data:co,error:coErr}=await sb.from('companies').select('*').eq('id',_profile.company_id).single();
-    if(coErr||!co)return false;
+    const{data:co}=await sb.from('companies').select('*').eq('id',_profile.company_id).single();
+    if(!co)return false;
     _company=co;
-    if(_company.logo_url){
-      _logoDataUrl=_company.logo_url;
-      const lp=document.getElementById('logoPreview');
-      if(lp){lp.src=_logoDataUrl;lp.style.display='block';const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';}
-    }
-    await refreshAll();
-    return true;
+    if(_company.logo_url){_logoDataUrl=_company.logo_url;const lp=document.getElementById('logoPreview');if(lp){lp.src=_logoDataUrl;lp.style.display='block';const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';}}
+    await refreshAll();return true;
   }catch(e){return false;}
 }
 
@@ -1033,52 +1006,41 @@ async function refreshAll(){
       ]);
       _jobs=j.data||[];_rems=r.data||[];
     }
-  }catch(e){console.error('refreshAll error:',e);}
+  }catch(e){console.error(e);}
 }
 
-// ── ROLE UI ───────────────────────────────────────────────────
 function applyRoleUI(){
   if(!_profile)return;
   const isOwner=_profile.role==='owner';
-  const bizName=_company?.name||'Your Business';
-  document.getElementById('sideBiz').textContent=bizName;
-  document.getElementById('sideAvatar').textContent=(bizName[0]||'A').toUpperCase();
+  const biz=_company?.name||'Your Business';
+  document.getElementById('sideBiz').textContent=biz;
+  document.getElementById('sideAvatar').textContent=(biz[0]||'A').toUpperCase();
   document.getElementById('sideRole').textContent=isOwner?'Owner':'Technician';
   document.querySelectorAll('.owner-only').forEach(el=>el.style.display=isOwner?'':'none');
   document.getElementById('techBanner').style.display=isOwner?'none':'flex';
   document.getElementById('ownerStats').style.display=isOwner?'':'none';
   const ae=document.getElementById('set-acct-email');if(ae&&_user)ae.textContent=_user.email||'—';
   const me=document.getElementById('mob-email-display');if(me&&_user)me.textContent=_user.email||'—';
-  const mb=document.getElementById('mob-biz');if(mb)mb.value=bizName;
+  const mb=document.getElementById('mob-biz');if(mb)mb.value=biz;
   const mp=document.getElementById('mob-phone');if(mp)mp.value=_company?.phone||'';
 }
 
-// ── SIGN OUT ──────────────────────────────────────────────────
 function confirmSignOut(){
   closePopout();
-  closeSh('profSh');
-  // On mobile use sheet confirm, on desktop use modal
-  if(mob()){
-    if(confirm('Sign out of Arko?'))doSignOut();
-  }else{
-    openM('soConfirm');
-  }
+  if(mob()){if(confirm('Sign out of Arko?'))doSignOut();}
+  else openM('soConfirm');
 }
-function openSwitchUser(){closePopout();if(mob()){if(confirm('Switch user? You will be signed out.'))doSignOut();}else{openM('switchUserModal');}}
+function openSwitchUser(){closePopout();if(mob()){if(confirm('Switch user? You will be signed out.'))doSignOut();}else openM('switchUserModal');}
 async function doSignOut(){
   await sb.auth.signOut();
   closeM('soConfirm');closeM('switchUserModal');
-  _user=null;_profile=null;_company=null;
-  _jobs=[];_custs=[];_invs=[];_rems=[];_team=[];
-  _logoDataUrl=null;_currentJobId=null;_currentCustId=null;
+  _user=null;_profile=null;_company=null;_jobs=[];_custs=[];_invs=[];_rems=[];_team=[];_logoDataUrl=null;
   document.getElementById('appScreen').classList.remove('on');
   document.getElementById('authScreen').classList.add('on');
   showLogin();
-  // Clear password reset hash if present
   history.replaceState(null,'',window.location.pathname);
 }
 
-// ── NAV ───────────────────────────────────────────────────────
 function navigate(page){
   document.querySelectorAll('.nav-item,.tab-btn').forEach(el=>el.classList.toggle('active',el.dataset.page===page));
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
@@ -1092,7 +1054,6 @@ function navigate(page){
 }
 document.querySelectorAll('.nav-item,.tab-btn').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.page)));
 
-// ── POPOUT ────────────────────────────────────────────────────
 function togglePopout(){
   const p=document.getElementById('popout'),t=document.getElementById('sideTop');
   const o=p.classList.contains('open');
@@ -1102,53 +1063,29 @@ function togglePopout(){
 function closePopout(){document.getElementById('popout').classList.remove('open');document.getElementById('sideTop').classList.remove('open');}
 function closePopoutOut(e){if(!document.getElementById('sideTop').contains(e.target))closePopout();}
 
-// ── SHEETS + MODALS ───────────────────────────────────────────
-function openSh(id){
-  const ov=document.getElementById(id+'-ov');
-  const sh=document.getElementById(id);
-  if(!ov||!sh)return;
-  ov.classList.add('open');
-  setTimeout(()=>sh.classList.add('open'),10);
-}
-function closeSh(id){
-  const sh=document.getElementById(id);
-  const ov=document.getElementById(id+'-ov');
-  if(sh)sh.classList.remove('open');
-  if(ov)ov.classList.remove('open');
-}
+function openSh(id){const ov=document.getElementById(id+'-ov'),sh=document.getElementById(id);if(!ov||!sh)return;ov.classList.add('open');setTimeout(()=>sh.classList.add('open'),10);}
+function closeSh(id){const sh=document.getElementById(id),ov=document.getElementById(id+'-ov');if(sh)sh.classList.remove('open');if(ov)ov.classList.remove('open');}
 function openM(id){const el=document.getElementById(id);if(el)el.classList.add('open');}
 function closeM(id){const el=document.getElementById(id);if(el)el.classList.remove('open');}
 document.querySelectorAll('.m-ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-// ── FAB ───────────────────────────────────────────────────────
 function handleFab(){
   const a=document.querySelector('.page.active')?.id?.replace('page-','');
   if(a==='home'||a==='jobs'||a==='calendar')openJobForm();
   else if(a==='customers')openCustForm();
-  else if(a==='invoice')openSh('invSh');
+  else if(a==='invoice')openInvForm();
 }
 
-// ── PROGRESS BAR ─────────────────────────────────────────────
-function progressBar(status){
-  const steps=['scheduled','inprogress','complete'];
-  const labels=['Scheduled','In Progress','Complete'];
-  const idx=steps.indexOf(status);
-  let html=`<div class="job-progress">`;
-  steps.forEach((s,i)=>{
-    const done=i<idx,active=i===idx;
-    html+=`<div class="progress-step"><div class="progress-dot ${done?'done':active?'active':''}"></div>`;
-    if(i<steps.length-1)html+=`<div class="progress-line ${i<idx?'done':i===idx?'active':''}"></div>`;
-    html+=`</div>`;
-  });
-  html+=`</div><div class="progress-labels">`;
-  labels.forEach((l,i)=>{
-    const done=i<idx,active=i===idx;
-    html+=`<div class="progress-label ${done?'done':active?'active':''}">${l}</div>`;
-  });
-  return html+`</div>`;
+function progressBar(s){
+  const steps=['scheduled','inprogress','complete'],labels=['Scheduled','In Progress','Complete'];
+  const idx=steps.indexOf(s);
+  let h=`<div class="job-progress">`;
+  steps.forEach((st,i)=>{const done=i<idx,act=i===idx;h+=`<div class="p-step"><div class="p-dot ${done?'done':act?'active':''}"></div>${i<2?`<div class="p-line ${i<idx?'done':i===idx?'active':''}"></div>`:''}</div>`;});
+  h+=`</div><div class="p-labels">`;
+  labels.forEach((l,i)=>{const done=i<idx,act=i===idx;h+=`<div class="p-lbl ${done?'done':act?'active':''}">${l}</div>`;});
+  return h+`</div>`;
 }
 
-// ── HOME ──────────────────────────────────────────────────────
 function renderHome(){
   const h=new Date().getHours();
   const g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
@@ -1169,24 +1106,17 @@ function renderHome(){
     document.getElementById('techBannerText').textContent=`You have ${tj.length} job${tj.length!==1?'s':''} today`;
   }
   const tj=_jobs.filter(j=>j.date===todayS());
-  document.getElementById('today-list').innerHTML=tj.length
-    ?`<div class="list-card">${tj.map(j=>jobItem(j,!isOwner)).join('')}</div>`
-    :emptyEl('No jobs today','Nothing scheduled today',isOwner?'openJobForm()':null,isOwner?'+ New Job':null);
+  document.getElementById('today-list').innerHTML=tj.length?`<div class="list-card">${tj.map(j=>jobItem(j,!isOwner)).join('')}</div>`:emptyEl('No jobs today','Nothing scheduled today',isOwner?'openJobForm()':null,isOwner?'+ New Job':null);
   if(isOwner)renderRemWidget();
 }
 
 function renderRemWidget(){
   const p=_rems.filter(r=>!r.done).slice(0,5);
-  document.getElementById('home-rem').innerHTML=p.length
-    ?p.map(remItem).join('')
-    :`<div style="padding:18px;text-align:center;font-size:13px;color:var(--text3)">You're clear — no reminders</div>`;
+  document.getElementById('home-rem').innerHTML=p.length?p.map(remItem).join(''):`<div style="padding:16px;text-align:center;font-size:13px;color:var(--text3)">You're clear — no reminders</div>`;
 }
 
-function emptyEl(title,sub,onclick,btnTxt){
-  return`<div class="empty"><div class="e-ico">${icoJob}</div><div class="e-title">${title}</div><div class="e-sub">${sub}</div>${onclick?`<button class="btn btn-p btn-sm" onclick="${onclick}">${btnTxt}</button>`:''}</div>`;
-}
+function emptyEl(title,sub,onclick,btnTxt){return`<div class="empty"><div class="e-ico">${icoJob}</div><div class="e-title">${title}</div><div class="e-sub">${sub}</div>${onclick?`<button class="btn btn-p btn-sm" onclick="${onclick}">${btnTxt}</button>`:''}</div>`;}
 
-// ── JOB HELPERS ───────────────────────────────────────────────
 function cName(id){const c=_custs.find(c=>c.id===id);return c?c.first+' '+c.last:'—';}
 function sBadge(s){const m={scheduled:'b-sched',inprogress:'b-prog',complete:'b-done'};const l={scheduled:'Scheduled',inprogress:'In Progress',complete:'Complete'};return`<span class="badge ${m[s]||m.scheduled}">${l[s]||s}</span>`;}
 
@@ -1195,33 +1125,30 @@ function jobItem(j,isTech=false){
   const fn=isTech?`openTechJobDetail('${j.id}')`:`openJobForm('${j.id}')`;
   const custN=j.customers?j.customers.first+' '+j.customers.last:cName(j.customer_id);
   return`<div style="border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s" onclick="${fn}" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
-    <div style="display:flex;align-items:center;padding:14px 18px;gap:13px">
+    <div style="display:flex;align-items:center;padding:13px 16px;gap:12px">
       <div class="l-ico ${col}">${icoJob}</div>
       <div class="l-body"><div class="l-title">${j.title||'Untitled'}</div><div class="l-sub">${custN} · ${fmtD(j.date)}</div></div>
-      <div class="l-right">${_profile?.role==='owner'&&j.charged?`<div style="font-size:13px;font-weight:700;color:var(--green)">${fmt$(j.charged)}</div>`:''}</div>
+      <div class="l-right">${_profile?.role==='owner'&&j.charged?`<div style="font-size:12px;font-weight:700;color:var(--green)">${fmt$(j.charged)}</div>`:''}</div>
     </div>
-    <div style="padding:0 18px 12px 18px">${progressBar(j.status)}</div>
+    <div style="padding:0 16px 10px 16px">${progressBar(j.status)}</div>
   </div>`;
 }
 
-// ── TECH JOB DETAIL ───────────────────────────────────────────
 function openTechJobDetail(id){
   const j=_jobs.find(j=>j.id===id);if(!j)return;
   _currentJobId=id;
   document.getElementById('techJobTitle').textContent=j.title||'Job';
-  const custN=j.customers?j.customers.first+' '+j.customers.last:'—';
-  const custPhone=j.customers?.phone||'';
-  const custAddr=j.customers?.address||'';
-  const nextStatus=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null;
+  const cN=j.customers?j.customers.first+' '+j.customers.last:'—';
+  const cP=j.customers?.phone||'',cA=j.customers?.address||'';
+  const next=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null;
   const btn=document.getElementById('techJobStatusBtn');
-  if(nextStatus){btn.textContent=j.status==='scheduled'?'Mark In Progress':'Mark Complete';btn.style.display='';}
-  else{btn.style.display='none';}
+  if(next){btn.textContent=j.status==='scheduled'?'Mark In Progress':'Mark Complete';btn.style.display='';}else btn.style.display='none';
   document.getElementById('techJobBody').innerHTML=`
-    <div style="margin-bottom:20px">${progressBar(j.status)}</div>
-    <div class="fg"><div class="flbl">Customer</div><div style="font-size:14px;font-weight:700">${custN}</div>${custPhone?`<a href="tel:${custPhone}" style="font-size:13px;color:var(--accent);font-weight:600;text-decoration:none;display:block;margin-top:4px">${custPhone}</a>`:''} ${custAddr?`<div style="font-size:12px;color:var(--text2);margin-top:2px">${custAddr}</div>`:''}</div>
+    <div style="margin-bottom:18px">${progressBar(j.status)}</div>
+    <div class="fg"><div class="flbl">Customer</div><div style="font-size:14px;font-weight:700">${cN}</div>${cP?`<a href="tel:${cP}" style="font-size:13px;color:var(--accent);font-weight:600;text-decoration:none;display:block;margin-top:3px">${cP}</a>`:''} ${cA?`<div style="font-size:11px;color:var(--text2);margin-top:2px">${cA}</div>`:''}</div>
     <div class="fg"><div class="flbl">Date</div><div style="font-size:13px">${fmtD(j.date)}</div></div>
-    ${j.description?`<div class="fg"><div class="flbl">Description</div><div style="font-size:13px;color:var(--text2);line-height:1.7">${j.description}</div></div>`:''}
-    ${j.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2);line-height:1.7">${j.notes}</div></div>`:''}`;
+    ${j.description?`<div class="fg"><div class="flbl">Description</div><div style="font-size:13px;color:var(--text2);line-height:1.6">${j.description}</div></div>`:''}
+    ${j.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2);line-height:1.6">${j.notes}</div></div>`:''}`;
   openSh('techJobSh');
 }
 async function techUpdateStatus(){
@@ -1232,43 +1159,33 @@ async function techUpdateStatus(){
   j.status=next;closeSh('techJobSh');renderHome();renderJobs();
 }
 
-// ── JOBS ──────────────────────────────────────────────────────
 function renderJobs(){
   if(_profile?.role==='tech'){
     document.getElementById('jobsTitle').textContent='My Jobs';
-    document.getElementById('jobs-list').innerHTML=_jobs.length
-      ?`<div class="list-card">${_jobs.map(j=>jobItem(j,true)).join('')}</div>`
-      :emptyEl('No jobs assigned','Your assigned jobs will appear here',null,null);
+    document.getElementById('jobs-list').innerHTML=_jobs.length?`<div class="list-card">${_jobs.map(j=>jobItem(j,true)).join('')}</div>`:emptyEl('No jobs assigned','Your assigned jobs will appear here',null,null);
     return;
   }
   const q=(document.getElementById('jobSrch')?.value||'').toLowerCase();
   const sf=document.getElementById('jobFilt')?.value||'all';
   const f=_jobs.filter(j=>(!q||(j.title||'').toLowerCase().includes(q)||cName(j.customer_id).toLowerCase().includes(q))&&(sf==='all'||j.status===sf));
-  document.getElementById('jobs-list').innerHTML=f.length
-    ?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`
-    :emptyEl(_jobs.length?'No matches':'No jobs yet','Add your first work order','openJobForm()','+ New Job');
+  document.getElementById('jobs-list').innerHTML=f.length?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`:emptyEl(_jobs.length?'No matches':'No jobs yet','Add your first work order','openJobForm()','+ New Job');
   document.getElementById('jobDot')?.classList.toggle('on',_jobs.some(j=>j.status==='inprogress'));
 }
 
 function openJobForm(id,preDate=null){
   if(_profile?.role==='tech'){openTechJobDetail(id);return;}
   const j=id?_jobs.find(j=>j.id===id):null;
-  _currentJobId=id||null;
-  populateDDs();
+  _currentJobId=id||null;populateDDs();
   const f={id:j?.id||'',cust:j?.customer_id||'',title:j?.title||'',desc:j?.description||'',date:j?.date||(preDate||todayS()),status:j?.status||'scheduled',assigned:j?.assigned_to||'',parts:j?.parts||'',charged:j?.charged||'',notes:j?.notes||''};
   if(mob()){
     document.getElementById('jobShTitle').textContent=j?'Edit Job':'New Job';
     document.getElementById('j-del-btn').style.display=j?'':'none';
-    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{
-      const el=document.getElementById('j-'+k);if(el)el.value=f[k];
-    });
+    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{const el=document.getElementById('j-'+k);if(el)el.value=f[k];});
     openSh('jobSh');
   }else{
     document.getElementById('jobMTitle').textContent=j?'Edit Job':'New Job';
     document.getElementById('jm-del-btn').style.display=j?'':'none';
-    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{
-      const el=document.getElementById('jm-'+k);if(el)el.value=f[k];
-    });
+    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{const el=document.getElementById('jm-'+k);if(el)el.value=f[k];});
     openM('jobModal');
   }
 }
@@ -1279,8 +1196,7 @@ async function saveJob(d){
   const id=document.getElementById(p+'id')?.value||'';
   const job={company_id:_profile.company_id,customer_id:document.getElementById(p+'cust').value||null,title:document.getElementById(p+'title').value.trim(),description:document.getElementById(p+'desc').value.trim(),date:document.getElementById(p+'date').value,status:document.getElementById(p+'status').value,assigned_to:document.getElementById(p+'assigned').value||null,parts:parseFloat(document.getElementById(p+'parts').value)||0,charged:parseFloat(document.getElementById(p+'charged').value)||0,notes:document.getElementById(p+'notes').value.trim()};
   if(!job.title){alert('Job title is required.');return;}
-  if(id){await sb.from('jobs').update(job).eq('id',id);}
-  else{await sb.from('jobs').insert(job);}
+  if(id)await sb.from('jobs').update(job).eq('id',id);else await sb.from('jobs').insert(job);
   await refreshAll();
   if(d)closeM('jobModal');else closeSh('jobSh');
   renderJobs();renderHome();renderCal();
@@ -1293,26 +1209,12 @@ async function deleteJobCurrent(d){
   renderJobs();renderHome();renderCal();
 }
 
-// ── CUSTOMERS ─────────────────────────────────────────────────
 function renderCusts(){
   const q=(document.getElementById('custSrch')?.value||'').toLowerCase();
   const f=_custs.filter(c=>!q||(c.first+' '+c.last).toLowerCase().includes(q)||(c.phone||'').includes(q));
   const el=document.getElementById('custs-list');
   if(!f.length){el.innerHTML=emptyEl(_custs.length?'No matches':'No customers yet','Add your first customer','openCustForm()','+ Add Customer');return;}
-  el.innerHTML=`<div class="cust-grid">${f.map(c=>{
-    const cj=_jobs.filter(j=>j.customer_id===c.id);
-    const rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);
-    return`<div class="cust-card" onclick="openCustDetail('${c.id}')">
-      <div class="cust-ini">${(c.first[0]||'')+(c.last[0]||'')}</div>
-      <div class="cust-name">${c.first} ${c.last}</div>
-      ${c.phone?`<div class="cust-info">${c.phone}</div>`:''}
-      ${c.address?`<div class="cust-info">${c.address}</div>`:''}
-      <div class="cust-stats">
-        <div><div class="cs-val">${cj.length}</div><div class="cs-lbl">Jobs</div></div>
-        <div><div class="cs-val" style="color:var(--green)">${fmt$(rev)}</div><div class="cs-lbl">Revenue</div></div>
-      </div>
-    </div>`;
-  }).join('')}</div>`;
+  el.innerHTML=`<div class="cust-grid">${f.map(c=>{const cj=_jobs.filter(j=>j.customer_id===c.id),rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);return`<div class="cust-card" onclick="openCustDetail('${c.id}')"><div class="cust-ini">${(c.first[0]||'')+(c.last[0]||'')}</div><div class="cust-name">${c.first} ${c.last}</div>${c.phone?`<div class="cust-info">${c.phone}</div>`:''} ${c.address?`<div class="cust-info">${c.address}</div>`:''}<div class="cust-stats"><div><div class="cs-val">${cj.length}</div><div class="cs-lbl">Jobs</div></div><div><div class="cs-val" style="color:var(--green)">${fmt$(rev)}</div><div class="cs-lbl">Revenue</div></div></div></div>`;}).join('')}</div>`;
 }
 
 function openCustDetail(id){
@@ -1324,30 +1226,29 @@ function openCustDetail(id){
     document.getElementById('custDetailBody').innerHTML=`
       <div class="cust-detail-header">
         <div class="cust-detail-ini">${(c.first[0]||'')+(c.last[0]||'')}</div>
-        <div>
-          <div class="cust-detail-name">${c.first} ${c.last}</div>
-          <div class="cust-detail-info">${c.phone||''} ${c.email?'· '+c.email:''}</div>
-          ${c.address?`<div class="cust-detail-info">${c.address}</div>`:''}
-        </div>
+        <div><div class="cust-detail-name">${c.first} ${c.last}</div><div class="cust-detail-info">${c.phone||''} ${c.email?'· '+c.email:''}</div>${c.address?`<div class="cust-detail-info">${c.address}</div>`:''}</div>
       </div>
       ${c.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2)">${c.notes}</div></div>`:''}
-      <div style="display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--border);margin-top:8px">
-        <div><div style="font-size:18px;font-weight:800;color:var(--text)">${cj.length}</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Jobs</div></div>
-        <div><div style="font-size:18px;font-weight:800;color:var(--green)">${fmt$(rev)}</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Revenue</div></div>
+      <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid var(--border);margin-top:10px">
+        <div><div style="font-size:17px;font-weight:800">${cj.length}</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Jobs</div></div>
+        <div><div style="font-size:17px;font-weight:800;color:var(--green)">${fmt$(rev)}</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Revenue</div></div>
       </div>
-      ${cj.length?`<div class="flbl" style="margin-top:4px">Recent Jobs</div><div class="list-card" style="margin-top:8px">${cj.slice(0,3).map(j=>`<div class="list-item" style="cursor:default"><div class="l-body"><div class="l-title">${j.title}</div><div class="l-sub">${fmtD(j.date)}</div></div><div class="l-right">${sBadge(j.status)}</div></div>`).join('')}</div>`:''}
-    `;
+      ${cj.length?`<div class="flbl" style="margin-top:4px">Recent Jobs</div><div class="list-card" style="margin-top:6px">${cj.slice(0,3).map(j=>`<div class="list-item" style="cursor:default"><div class="l-body"><div class="l-title">${j.title}</div><div class="l-sub">${fmtD(j.date)}</div></div><div class="l-right">${sBadge(j.status)}</div></div>`).join('')}</div>`:''}`;
     openSh('custDetailSh');
   }else{
     openCustForm(id);
   }
 }
 function editCustFromDetail(){closeSh('custDetailSh');openCustForm(_currentCustId);}
+async function deleteCustFromDetail(){
+  if(!_currentCustId||!confirm('Delete this customer? Their jobs and invoices will remain but the customer will be removed.'))return;
+  await sb.from('customers').delete().eq('id',_currentCustId);
+  await refreshAll();closeSh('custDetailSh');renderCusts();populateDDs();
+}
 function createInvFromCust(){
   closeSh('custDetailSh');
   populateDDs();
-  const sel=document.getElementById('inv-cust');
-  if(sel)sel.value=_currentCustId;
+  const sel=document.getElementById('inv-cust');if(sel)sel.value=_currentCustId;
   openSh('invSh');
 }
 
@@ -1355,23 +1256,11 @@ function openCustForm(id){
   const c=id?_custs.find(c=>c.id===id):null;
   if(mob()){
     document.getElementById('custShTitle').textContent=c?'Edit Customer':'New Customer';
-    document.getElementById('c-id').value=c?.id||'';
-    document.getElementById('c-first').value=c?.first||'';
-    document.getElementById('c-last').value=c?.last||'';
-    document.getElementById('c-phone').value=c?.phone||'';
-    document.getElementById('c-email').value=c?.email||'';
-    document.getElementById('c-addr').value=c?.address||'';
-    document.getElementById('c-notes').value=c?.notes||'';
+    document.getElementById('c-id').value=c?.id||'';document.getElementById('c-first').value=c?.first||'';document.getElementById('c-last').value=c?.last||'';document.getElementById('c-phone').value=c?.phone||'';document.getElementById('c-email').value=c?.email||'';document.getElementById('c-addr').value=c?.address||'';document.getElementById('c-notes').value=c?.notes||'';
     openSh('custSh');
   }else{
     document.getElementById('custMTitle').textContent=c?'Edit Customer':'New Customer';
-    document.getElementById('cm-id').value=c?.id||'';
-    document.getElementById('cm-first').value=c?.first||'';
-    document.getElementById('cm-last').value=c?.last||'';
-    document.getElementById('cm-phone').value=c?.phone||'';
-    document.getElementById('cm-email').value=c?.email||'';
-    document.getElementById('cm-addr').value=c?.address||'';
-    document.getElementById('cm-notes').value=c?.notes||'';
+    document.getElementById('cm-id').value=c?.id||'';document.getElementById('cm-first').value=c?.first||'';document.getElementById('cm-last').value=c?.last||'';document.getElementById('cm-phone').value=c?.phone||'';document.getElementById('cm-email').value=c?.email||'';document.getElementById('cm-addr').value=c?.address||'';document.getElementById('cm-notes').value=c?.notes||'';
     openM('custModal');
   }
 }
@@ -1380,14 +1269,12 @@ async function saveCust(d){
   const id=document.getElementById(p+'id')?.value||'';
   const c={company_id:_profile.company_id,first:document.getElementById(p+'first').value.trim(),last:document.getElementById(p+'last').value.trim(),phone:document.getElementById(p+'phone').value.trim(),email:document.getElementById(p+'email').value.trim(),address:document.getElementById(p+'addr').value.trim(),notes:document.getElementById(p+'notes').value.trim()};
   if(!c.first){alert('First name is required.');return;}
-  if(id){await sb.from('customers').update(c).eq('id',id);}
-  else{await sb.from('customers').insert(c);}
+  if(id)await sb.from('customers').update(c).eq('id',id);else await sb.from('customers').insert(c);
   await refreshAll();
   if(d)closeM('custModal');else closeSh('custSh');
   renderCusts();populateDDs();
 }
 
-// ── CALENDAR ──────────────────────────────────────────────────
 let calY=new Date().getFullYear(),calM=new Date().getMonth();
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -1408,12 +1295,19 @@ function calNext(){calM++;if(calM>11){calM=0;calY++;}_calSel=null;renderCal();}
 function renderCalJobs(){
   const f=_calSel?_jobs.filter(j=>j.date===_calSel):_jobs.filter(j=>{if(!j.date)return false;const d=new Date(j.date+'T00:00:00');return d.getMonth()===calM&&d.getFullYear()===calY;});
   document.getElementById('cal-jlbl').textContent=_calSel?fmtD(_calSel):'Jobs this month';
-  document.getElementById('cal-jobs').innerHTML=f.length
-    ?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`
-    :`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="e-title">Nothing here</div><div class="e-sub">${_calSel?'No jobs on this day — tap Add Job':'No jobs this month'}</div></div>`;
+  document.getElementById('cal-jobs').innerHTML=f.length?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`:`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="e-title">Nothing here</div><div class="e-sub">${_calSel?'No jobs on this day':'No jobs this month'}</div></div>`;
 }
 
-// ── INVOICE ───────────────────────────────────────────────────
+// INVOICE
+function openInvForm(preCustomerId=null){
+  populateDDs();
+  if(preCustomerId){
+    const sel=mob()?document.getElementById('inv-cust'):document.getElementById('invm-cust');
+    if(sel)sel.value=preCustomerId;
+  }
+  if(mob())openSh('invSh');else openM('invModal');
+}
+
 function renderInv(){
   const tot=_invs.reduce((s,i)=>s+parseFloat(i.amount||0),0);
   const paid=_invs.filter(i=>i.status==='paid').reduce((s,i)=>s+parseFloat(i.amount||0),0);
@@ -1421,33 +1315,34 @@ function renderInv(){
   document.getElementById('inv-paid-stat').textContent=fmt$(paid);
   document.getElementById('inv-owed').textContent=fmt$(tot-paid);
   const el=document.getElementById('inv-list');
-  if(!_invs.length){el.innerHTML=emptyEl('No invoices yet','Add a customer first, then create an invoice',"openSh('invSh')",'+ New Invoice');return;}
+  if(!_invs.length){el.innerHTML=emptyEl('No invoices yet','Add a customer first, then create an invoice','openInvForm()','+ New Invoice');return;}
   el.innerHTML=`<div class="list-card">${_invs.map((i,idx)=>{
     const invNum='INV-'+String(idx+1).padStart(4,'0');
     return`<div class="list-item">
       <div class="l-ico ${i.status==='paid'?'green':'red'}">${icoInv}</div>
-      <div class="l-body">
-        <div class="l-title">${cName(i.customer_id)} <span style="font-size:10px;color:var(--text3);font-weight:500">${invNum}</span></div>
-        <div class="l-sub">${i.description||'Invoice'} · ${fmtD(i.date)}</div>
-      </div>
+      <div class="l-body"><div class="l-title">${cName(i.customer_id)} <span style="font-size:10px;color:var(--text3);font-weight:500">${invNum}</span></div><div class="l-sub">${i.description||'Invoice'} · ${fmtD(i.date)}</div></div>
       <div class="l-right">
-        <div style="font-size:13px;font-weight:700;color:${i.status==='paid'?'var(--green)':'var(--red)'}">${fmt$(i.amount)}</div>
-        <div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:700;color:${i.status==='paid'?'var(--green)':'var(--red)'}">${fmt$(i.amount)}</div>
+        <div style="display:flex;gap:4px;margin-top:4px;justify-content:flex-end">
           <button class="badge ${i.status==='paid'?'b-paid':'b-unpaid'}" style="border:none;cursor:pointer;-webkit-appearance:none" onclick="toggleInv('${i.id}');event.stopPropagation()">${i.status}</button>
-          <button class="btn btn-o btn-sm" style="padding:4px 10px;font-size:10px;-webkit-appearance:none" onclick="generatePDF('${i.id}');event.stopPropagation()">PDF</button>
+          <button class="btn btn-o btn-sm" style="padding:3px 9px;font-size:10px;-webkit-appearance:none" onclick="generatePDF('${i.id}');event.stopPropagation()">PDF</button>
         </div>
       </div>
     </div>`;
   }).join('')}</div>`;
 }
 
-async function saveInv(){
-  const custId=document.getElementById('inv-cust').value;
+async function saveInv(d){
+  const p=d?'invm-':'inv-';
+  const custId=document.getElementById(p+'cust').value;
   if(!custId){alert('Select a customer.');return;}
-  const inv={company_id:_profile.company_id,customer_id:custId,job_id:document.getElementById('inv-job').value||null,amount:parseFloat(document.getElementById('inv-amt').value)||0,date:document.getElementById('inv-date').value||todayS(),description:document.getElementById('inv-desc').value.trim(),status:document.getElementById('inv-status').value};
+  const inv={company_id:_profile.company_id,customer_id:custId,job_id:document.getElementById(p+'job').value||null,amount:parseFloat(document.getElementById(p+'amt').value)||0,date:document.getElementById(p+'date').value||todayS(),description:document.getElementById(p+'desc').value.trim(),status:document.getElementById(p+'status').value};
   await sb.from('invoices').insert(inv);
-  await refreshAll();closeSh('invSh');renderInv();renderHome();
+  await refreshAll();
+  if(d)closeM('invModal');else closeSh('invSh');
+  renderInv();renderHome();
 }
+
 async function toggleInv(id){
   const i=_invs.find(i=>i.id===id);if(!i)return;
   const ns=i.status==='paid'?'unpaid':'paid';
@@ -1455,88 +1350,98 @@ async function toggleInv(id){
   i.status=ns;renderInv();renderHome();
 }
 
-// ── PDF ───────────────────────────────────────────────────────
 function generatePDF(invId){
   const invIdx=_invs.findIndex(i=>i.id===invId);
   if(invIdx===-1){alert('Invoice not found.');return;}
   const inv=_invs[invIdx];
   const cust=_custs.find(c=>c.id===inv.customer_id);
-  if(!cust){alert('Customer not found. Make sure the customer is saved.');return;}
+  if(!cust){alert('Customer not found.');return;}
   try{
     const doc=new jsPDF({unit:'pt',format:'letter'});
     const W=612;
-    const NAVY=[10,17,114],WHITE=[255,255,255],GRAY=[100,100,115],LIGHT=[243,243,246],BLACK=[13,13,18];
+    const NAVY=[10,17,114],WHITE=[255,255,255],GRAY=[90,90,108],LIGHT=[240,241,244],BLACK=[13,13,18];
     const bizName=_company?.name||'Your Business';
+    const bizPhone=_company?.phone||'';
+    const bizEmail=_company?.email||'';
+    const bizAddr=_company?.address||'';
     const invMsg=_company?.invoice_message||'Thank you for your business.';
     const invNum='INV-'+String(invIdx+1).padStart(4,'0');
 
-    doc.setFillColor(...NAVY);doc.rect(0,0,W,96,'F');
+    // Header
+    doc.setFillColor(...NAVY);doc.rect(0,0,W,90,'F');
     if(_logoDataUrl){
-      try{doc.addImage(_logoDataUrl,'JPEG',40,20,70,56,'','FAST');}
-      catch(e){
-        doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,50);
-      }
+      try{doc.addImage(_logoDataUrl,'JPEG',40,18,66,54,'','FAST');}
+      catch(e){doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,48);}
     }else{
-      doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,50);
-      if(_company?.phone){doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(180,185,220);doc.text(_company.phone,44,66);}
+      doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,48);
     }
-    doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(26);doc.text('INVOICE',W-44,48,{align:'right'});
-    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(180,185,220);doc.text(invNum,W-44,66,{align:'right'});
+    doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(24);doc.text('INVOICE',W-44,44,{align:'right'});
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(170,178,215);doc.text(invNum,W-44,60,{align:'right'});
 
-    let y=118;
-    doc.setFillColor(...LIGHT);doc.rect(40,y-10,230,82,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('BILL TO',54,y+2);
-    doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(...BLACK);doc.text(cust.first+' '+cust.last,54,y+20);
-    doc.setFont('helvetica','normal');doc.setFontSize(11);
-    if(cust.phone)doc.text(cust.phone,54,y+36);
-    if(cust.address)doc.text(cust.address,54,y+50);
-    const rx=W-200;
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+2);
-    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(fmtD(inv.date)||'—',rx,y+18);
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+36);
-    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(invNum,rx,y+52);
+    // Bill to
+    let y=108;
+    doc.setFillColor(...LIGHT);doc.rect(40,y-8,200,76,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('BILL TO',52,y+4);
+    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(...BLACK);doc.text(cust.first+' '+cust.last,52,y+20);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);
+    let cy=y+34;
+    if(cust.phone){doc.text(cust.phone,52,cy);cy+=13;}
+    if(cust.address){doc.text(cust.address,52,cy);}
 
-    y=216;
-    doc.setFillColor(...NAVY);doc.rect(40,y,W-80,26,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);
-    doc.text('DESCRIPTION',54,y+17);doc.text('AMOUNT',W-54,y+17,{align:'right'});
-    y+=26;
-    doc.setFillColor(255,255,255);doc.rect(40,y,W-80,40,'F');
-    doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...BLACK);
-    doc.text(inv.description||'Services Rendered',54,y+26);
-    doc.setFont('helvetica','bold');doc.text(fmt$(inv.amount),W-54,y+26,{align:'right'});
-    y+=40;
-    doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,216,W-80,y-216);
+    // Invoice details
+    const rx=W-190;
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+4);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(fmtD(inv.date)||'—',rx,y+18);
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+34);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(invNum,rx,y+48);
 
-    y+=20;
-    const tx=W-220;
-    doc.setFillColor(...NAVY);doc.rect(tx-8,y,W-tx-32,30,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(...WHITE);
-    doc.text('TOTAL',tx,y+19);doc.text(fmt$(inv.amount),W-40,y+19,{align:'right'});
-    y+=46;
+    // Line items header
+    y=202;
+    doc.setFillColor(...NAVY);doc.rect(40,y,W-80,24,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...WHITE);
+    doc.text('DESCRIPTION',52,y+15);doc.text('AMOUNT',W-52,y+15,{align:'right'});
+    y+=24;
+
+    // Line item
+    doc.setFillColor(255,255,255);doc.rect(40,y,W-80,36,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);
+    doc.text(inv.description||'Services Rendered',52,y+22);
+    doc.setFont('helvetica','bold');doc.text(fmt$(inv.amount),W-52,y+22,{align:'right'});
+    y+=36;
+    doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,202,W-80,y-202);
+
+    // Total
+    y+=18;
+    const tx=W-210;
+    doc.setFillColor(...NAVY);doc.rect(tx-8,y,W-tx-32,28,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...WHITE);
+    doc.text('TOTAL',tx,y+18);doc.text(fmt$(inv.amount),W-44,y+18,{align:'right'});
+    y+=44;
+
+    // Status badge
     const isPaid=inv.status==='paid';
     doc.setFillColor(...(isPaid?[10,143,94]:[201,48,44]));
-    doc.roundedRect(tx-8,y,150,26,3,3,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...WHITE);
-    doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+67,y+16,{align:'center'});
+    doc.roundedRect(tx-8,y,140,24,3,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);
+    doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+62,y+15,{align:'center'});
 
-    const fy=700;
+    // Footer — always shows business info including address
+    const fy=696;
     doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(40,fy,W-40,fy);
-    doc.setFont('helvetica','italic');doc.setFontSize(11);doc.setTextColor(...GRAY);
-    doc.text(invMsg,W/2,fy+18,{align:'center'});
-    doc.setFont('helvetica','normal');doc.setFontSize(9);
-    doc.text(bizName,40,fy+36);
-    if(_company?.phone)doc.text(_company.phone,40,fy+49);
-    if(_company?.email)doc.text(_company.email,40,fy+62);
+    doc.setFont('helvetica','italic');doc.setFontSize(10);doc.setTextColor(...GRAY);
+    doc.text(invMsg,W/2,fy+16,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...GRAY);
+    let fy2=fy+32;
+    doc.text(bizName,40,fy2);
+    if(bizPhone){fy2+=11;doc.text(bizPhone,40,fy2);}
+    if(bizEmail){fy2+=11;doc.text(bizEmail,40,fy2);}
+    if(bizAddr){fy2+=11;doc.text(bizAddr,40,fy2);}
     doc.setFillColor(...NAVY);doc.rect(0,768,W,4,'F');
     doc.save(invNum+'_'+cust.last+'.pdf');
-  }catch(e){
-    console.error('PDF error:',e);
-    alert('PDF generation failed. Please try again.');
-  }
+  }catch(e){console.error('PDF:',e);alert('PDF generation failed. Please try again.');}
 }
 
-// ── LOGO ──────────────────────────────────────────────────────
+// LOGO
 function handleLogoUpload(input){
   if(!input.files||!input.files[0])return;
   if(input.files[0].size>2*1024*1024){alert('Logo must be under 2MB.');return;}
@@ -1545,37 +1450,24 @@ function handleLogoUpload(input){
     const img=new Image();
     img.onload=async()=>{
       const canvas=document.createElement('canvas');
-      const maxW=400,maxH=200;
-      let w=img.width,h=img.height;
-      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-      if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
-      canvas.width=w;canvas.height=h;
-      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      const mW=400,mH=200;let w=img.width,h=img.height;
+      if(w>mW){h=Math.round(h*mW/w);w=mW;}if(h>mH){w=Math.round(w*mH/h);h=mH;}
+      canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);
       _logoDataUrl=canvas.toDataURL('image/jpeg',0.8);
-      const lp=document.getElementById('logoPreview');
-      if(lp){lp.src=_logoDataUrl;lp.style.display='block';}
+      const lp=document.getElementById('logoPreview');if(lp){lp.src=_logoDataUrl;lp.style.display='block';}
       const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';
       await sb.from('companies').update({logo_url:_logoDataUrl}).eq('id',_company.id);
       if(_company)_company.logo_url=_logoDataUrl;
-    };
-    img.src=e.target.result;
-  };
-  reader.readAsDataURL(input.files[0]);
+    };img.src=e.target.result;
+  };reader.readAsDataURL(input.files[0]);
 }
 
-// ── REMINDERS ─────────────────────────────────────────────────
+// REMINDERS
 function remItem(r){return`<div class="rem-item"><div class="rem-chk ${r.done?'done':''}" onclick="toggleRem('${r.id}')"><svg viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><path d="M1 4l2 2 4-4"/></svg></div><div style="flex:1"><div class="rem-txt ${r.done?'done':''}">${r.text}</div>${r.due_date?`<div class="rem-due">${fmtD(r.due_date)}</div>`:''}</div></div>`;}
-async function saveRem(){
-  const t=document.getElementById('rem-txt').value.trim();
-  if(!t){alert('Enter a reminder.');return;}
-  await sb.from('reminders').insert({company_id:_profile.company_id,user_id:_user.id,text:t,due_date:document.getElementById('rem-date').value||null});
-  await refreshAll();
-  document.getElementById('rem-txt').value='';document.getElementById('rem-date').value='';
-  closeSh('remSh');renderHome();
-}
+async function saveRem(){const t=document.getElementById('rem-txt').value.trim();if(!t){alert('Enter a reminder.');return;}await sb.from('reminders').insert({company_id:_profile.company_id,user_id:_user.id,text:t,due_date:document.getElementById('rem-date').value||null});await refreshAll();document.getElementById('rem-txt').value='';document.getElementById('rem-date').value='';closeSh('remSh');renderHome();}
 async function toggleRem(id){const r=_rems.find(r=>r.id===id);if(!r)return;await sb.from('reminders').update({done:!r.done}).eq('id',id);r.done=!r.done;renderHome();}
 
-// ── SETTINGS ──────────────────────────────────────────────────
+// SETTINGS
 function loadSettings(){
   document.getElementById('set-biz').value=_company?.name||'';
   document.getElementById('set-phone').value=_company?.phone||'';
@@ -1586,10 +1478,10 @@ function loadSettings(){
   document.getElementById('set-inv-msg').value=msg;
   document.querySelectorAll('.msg-preset').forEach(el=>el.classList.toggle('active',el.textContent.trim()===msg));
   const plan=_company?.plan||'free';
-  const planNames={free:'Free',starter:'Starter',pro:'Pro'};
-  const planSubs={free:'Free — everything included, 1 user forever',starter:'Starter — everything, up to 5 users · $29/mo',pro:'Pro — everything, unlimited users · $59/mo'};
-  document.getElementById('set-plan-badge').textContent=planNames[plan]||'Free';
-  document.getElementById('set-plan-sub').textContent=planSubs[plan]||planSubs.free;
+  const pNames={free:'Free',starter:'Starter',pro:'Pro'};
+  const pSubs={free:'Free — everything included, 1 user forever',starter:'Starter — everything, up to 5 users · $29/mo',pro:'Pro — everything, unlimited users · $59/mo'};
+  document.getElementById('set-plan-badge').textContent=pNames[plan]||'Free';
+  document.getElementById('set-plan-sub').textContent=pSubs[plan]||pSubs.free;
   document.getElementById('upgradeRow').style.display=plan==='pro'?'none':'';
   renderTeam();
 }
@@ -1598,82 +1490,43 @@ async function saveBiz(){
   await sb.from('companies').update(upd).eq('id',_company.id);
   Object.assign(_company,upd);applyRoleUI();alert('Saved.');
 }
-function selectPreset(el,msg){
-  document.querySelectorAll('.msg-preset').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('set-inv-msg').value=msg;
-}
-async function saveInvMsg(){
-  const msg=document.getElementById('set-inv-msg').value.trim()||'Thank you for your business.';
-  await sb.from('companies').update({invoice_message:msg}).eq('id',_company.id);
-  if(_company)_company.invoice_message=msg;
-  alert('Message saved.');
-}
+function selectPreset(el,msg){document.querySelectorAll('.msg-preset').forEach(p=>p.classList.remove('active'));el.classList.add('active');document.getElementById('set-inv-msg').value=msg;}
+async function saveInvMsg(){const msg=document.getElementById('set-inv-msg').value.trim()||'Thank you for your business.';await sb.from('companies').update({invoice_message:msg}).eq('id',_company.id);if(_company)_company.invoice_message=msg;alert('Saved.');}
 async function saveMobProf(){
-  const name=document.getElementById('mob-biz').value.trim();
-  const phone=document.getElementById('mob-phone').value.trim();
-  if(name||phone){
-    const upd={};
-    if(name)upd.name=name;
-    if(phone)upd.phone=phone;
-    await sb.from('companies').update(upd).eq('id',_company.id);
-    Object.assign(_company,upd);applyRoleUI();
-  }
+  const name=document.getElementById('mob-biz').value.trim();const phone=document.getElementById('mob-phone').value.trim();
+  if(name||phone){const upd={};if(name)upd.name=name;if(phone)upd.phone=phone;await sb.from('companies').update(upd).eq('id',_company.id);Object.assign(_company,upd);applyRoleUI();}
   closeSh('profSh');
 }
 function renderTeam(){
   const el=document.getElementById('team-list');
-  if(!_team.length){el.innerHTML='<div style="font-size:13px;color:var(--text3);padding:8px 0">No team members yet.</div>';return;}
+  if(!_team.length){el.innerHTML='<div style="font-size:13px;color:var(--text3);padding:6px 0">No team members yet.</div>';return;}
   el.innerHTML=_team.map(m=>`<div class="team-card"><div class="team-avatar">${(m.first_name||'?')[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:13px;font-weight:700">${m.first_name||''} ${m.last_name||''}</div><div style="font-size:11px;color:var(--text3)">${m.role==='owner'?'Owner':'Technician'}</div></div>${m.id!==_user.id?`<button class="btn btn-d btn-sm" onclick="removeMember('${m.id}')">Remove</button>`:''}</div>`).join('');
-  const plan=_company?.plan||'free';
-  const maxU={free:1,starter:5,pro:9999};
-  const gate=document.getElementById('plan-gate');
-  const btn=document.getElementById('inviteBtn');
+  const plan=_company?.plan||'free';const maxU={free:1,starter:5,pro:9999};
+  const gate=document.getElementById('plan-gate'),btn=document.getElementById('inviteBtn');
   if(_team.length>=(maxU[plan]||1)){gate.style.display='';if(btn)btn.style.display='none';}
   else{gate.style.display='none';if(btn)btn.style.display='';}
 }
-function checkPlanAndInvite(){
-  const plan=_company?.plan||'free';
-  const maxU={free:1,starter:5,pro:9999};
-  if(_team.length>=(maxU[plan]||1)){openUpgrade();}
-  else{openSh('inviteSh');}
-}
+function checkPlanAndInvite(){const plan=_company?.plan||'free';const maxU={free:1,starter:5,pro:9999};if(_team.length>=(maxU[plan]||1))openUpgrade();else openSh('inviteSh');}
 async function sendInvite(){
-  const email=document.getElementById('invite-email').value.trim();
-  const role=document.getElementById('invite-role').value;
+  const email=document.getElementById('invite-email').value.trim();const role=document.getElementById('invite-role').value;
   if(!email){alert('Enter an email address.');return;}
   await sb.from('invites').insert({company_id:_profile.company_id,email,role});
-  alert(`Invite recorded for ${email}. Have them sign up at ${window.location.origin} and they'll be linked to your company.`);
-  document.getElementById('invite-email').value='';
-  closeSh('inviteSh');
+  alert(`Invite recorded for ${email}. Have them sign up at ${window.location.origin}.`);
+  document.getElementById('invite-email').value='';closeSh('inviteSh');
 }
-async function removeMember(id){
-  if(!confirm('Remove this team member?'))return;
-  await sb.from('profiles').update({company_id:null}).eq('id',id);
-  await refreshAll();renderTeam();
-}
+async function removeMember(id){if(!confirm('Remove this team member?'))return;await sb.from('profiles').update({company_id:null}).eq('id',id);await refreshAll();renderTeam();}
 function openUpgrade(){openM('upgradeModal');}
+function goToStripe(plan){const link=STRIPE[plan];if(link)window.open(link,'_blank');else alert('Contact support to upgrade.');}
 
-// ── STRIPE (plug in your payment links) ───────────────────────
-const STRIPE_LINKS={
-  starter:'',  // paste your Stripe $29/mo payment link here
-  pro:''        // paste your Stripe $59/mo payment link here
-};
-function goToStripe(plan){
-  const link=STRIPE_LINKS[plan];
-  if(link){window.open(link,'_blank');}
-  else{alert('Payment links coming soon. Email hello@onstra.world to upgrade manually.');}
-}
-
-// ── DROPDOWNS ─────────────────────────────────────────────────
+// DROPDOWNS
 function populateDDs(){
   const co=`<option value="">Select customer...</option>`+_custs.map(c=>`<option value="${c.id}">${c.first} ${c.last}</option>`).join('');
-  ['j-cust','jm-cust','inv-cust'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=co;});
+  ['j-cust','jm-cust','inv-cust','invm-cust'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=co;});
   const to=`<option value="">Unassigned</option>`+_team.map(m=>`<option value="${m.id}">${m.first_name} ${m.last_name} (${m.role})</option>`).join('');
   ['j-assigned','jm-assigned'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=to;});
   const jo=`<option value="">No linked job</option>`+_jobs.map(j=>`<option value="${j.id}">${j.title}</option>`).join('');
-  const ij=document.getElementById('inv-job');if(ij)ij.innerHTML=jo;
-  const id=document.getElementById('inv-date');if(id)id.value=todayS();
+  ['inv-job','invm-job'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=jo;});
+  ['inv-date','invm-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=todayS();});
 }
 </script>
 </body>
