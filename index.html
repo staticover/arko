@@ -8,8 +8,9 @@
 <meta name="apple-mobile-web-app-title" content="Arko">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a1172">
-<meta name="description" content="Arko — Field service CRM for small service businesses. Free until you hire someone.">
+<meta name="description" content="Arko — Field service CRM. Free until you hire someone.">
 <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Arko</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -25,7 +26,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .load-sub{font-size:12px;color:var(--text3);font-weight:500;letter-spacing:0.5px;}
 .load-bar{width:120px;height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;}
 .load-bar-inner{height:100%;width:0;background:var(--accent);border-radius:2px;animation:loadAnim 1.5s ease-in-out infinite;}
-@keyframes loadAnim{0%{width:0;margin-left:0;}50%{width:100%;margin-left:0;}100%{width:0;margin-left:100%};}
+@keyframes loadAnim{0%{width:0;margin-left:0;}50%{width:100%;margin-left:0;}100%{width:0;margin-left:100%;}}
 
 /* AUTH */
 #authScreen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:var(--bg);}
@@ -41,7 +42,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .auth-ok{font-size:12px;color:var(--green);background:var(--green-bg);border:1px solid rgba(10,143,94,.15);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:16px;display:none;}
 .auth-ok.show{display:block;}
 .auth-foot{text-align:center;margin-top:20px;font-size:11px;color:var(--text3);}
-.auth-link{color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit;font-size:inherit;}
+.auth-link{color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit;font-size:inherit;text-decoration:underline;}
 .remember-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
 .remember-row input{width:auto;accent-color:var(--accent);}
 .remember-row label{font-size:12px;color:var(--text2);cursor:pointer;}
@@ -50,13 +51,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 #appScreen{display:none;}
 #appScreen.on{display:block;}
 
-/* PWA INSTALL BANNER */
+/* PWA BANNER */
 #installBanner{display:none;position:fixed;bottom:calc(var(--nav-h) + 12px);left:12px;right:12px;background:var(--accent);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-lg);z-index:150;align-items:center;gap:12px;}
 #installBanner.show{display:flex;}
 .install-text{flex:1;font-size:13px;font-weight:600;color:#fff;line-height:1.4;}
 .install-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;}
-.install-btn{background:#fff;color:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
-.install-dismiss{background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:2px 6px;}
+.install-btn{background:#fff;color:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
+.install-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:2px 6px;}
 
 /* SIDEBAR */
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;}
@@ -148,10 +149,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .l-title{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .l-sub{font-size:11px;color:var(--text2);margin-top:2px;}
 .l-right{text-align:right;flex-shrink:0;}
-.l-val{font-size:13px;font-weight:700;}
 
 /* JOB PROGRESS BAR */
-.job-progress{display:flex;align-items:center;gap:0;margin-top:8px;}
+.job-progress{display:flex;align-items:center;margin-top:8px;}
 .progress-step{display:flex;align-items:center;flex:1;}
 .progress-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--border);background:var(--surface);flex-shrink:0;transition:all .2s;}
 .progress-dot.active{background:var(--accent);border-color:var(--accent);}
@@ -185,25 +185,24 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .btn-d{background:var(--red-bg);color:var(--red);border:1px solid rgba(201,48,44,.2);}
 .btn-d:hover{background:var(--red);color:#fff;}
 .btn-g{background:var(--green-bg);color:var(--green);border:1px solid rgba(10,143,94,.2);}
-.btn-g:hover{background:var(--green);color:#fff;}
 .btn-sm{padding:7px 13px;font-size:11px;}
 .btn-full{width:100%;justify-content:center;padding:13px;font-size:14px;border-radius:var(--radius);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
 
 /* OVERLAY + SHEET */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;backdrop-filter:blur(3px);}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;backdrop-filter:blur(3px);}
 .ov.open{display:block;}
 .sheet{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-radius:var(--radius-lg) var(--radius-lg) 0 0;max-height:92vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom);}
 .sheet.open{transform:translateY(0);}
 .sh-handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 0;}
 .sh-hdr{padding:14px 22px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
 .sh-title{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
-.sh-x{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:none;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.sh-x{width:32px;height:32px;border-radius:50%;background:var(--surface2);border:none;font-size:14px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;}
 .sh-body{padding:18px 22px;}
 .sh-foot{padding:10px 22px 16px;border-top:1px solid var(--border);display:flex;gap:10px;}
 
 /* MODAL */
-.m-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);}
+.m-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);}
 .m-ov.open{display:flex;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:520px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
 .m-hdr{padding:22px 26px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
@@ -221,23 +220,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .fg:last-child{margin-bottom:0;}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .flbl{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:6px;}
-.fin{width:100%;padding:11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,background .15s;}
+.fin{width:100%;padding:11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none;}
 .fin:focus{border-color:var(--accent);background:var(--surface);}
 .fin::placeholder{color:var(--text3);}
 textarea.fin{resize:vertical;min-height:76px;}
-.fsel{width:100%;padding:11px 36px 11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239999ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:var(--surface2);}
+.fsel{width:100%;padding:11px 36px 11px 13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239999ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:var(--surface2);}
 .fsel:focus{border-color:var(--accent);background-color:var(--surface);}
 
 /* INVOICE MESSAGE PRESETS */
 .msg-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
 .msg-preset{padding:7px 12px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .12s;background:var(--surface);}
-.msg-preset:hover{border-color:var(--accent);color:var(--accent);}
 .msg-preset.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
 
 /* TOOLBAR */
 .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
 .srch{flex:1;min-width:160px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 13px;}
-.srch input{border:none;background:transparent;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);width:100%;}
+.srch input{border:none;background:transparent;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);width:100%;-webkit-appearance:none;}
 .srch input::placeholder{color:var(--text3);}
 .srch svg{width:14px;height:14px;color:var(--text3);flex-shrink:0;}
 
@@ -253,7 +251,7 @@ textarea.fin{resize:vertical;min-height:76px;}
 .cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .cal-month{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
 .cal-btns{display:flex;gap:6px;}
-.cal-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);font-size:14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .1s;}
+.cal-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);font-size:14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .1s;-webkit-appearance:none;}
 .cal-btn:hover{border-color:var(--accent);color:var(--accent);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
 .cal-dlbl{text-align:center;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);padding:6px 0;}
@@ -276,6 +274,12 @@ textarea.fin{resize:vertical;min-height:76px;}
 .cs-val{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
 .cs-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;}
 
+/* CUSTOMER DETAIL */
+.cust-detail-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.cust-detail-ini{width:52px;height:52px;border-radius:14px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0;}
+.cust-detail-name{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-0.3px;}
+.cust-detail-info{font-size:12px;color:var(--text2);margin-top:3px;}
+
 /* SETTINGS */
 .set-sec{margin-bottom:28px;}
 .set-sec-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
@@ -294,7 +298,7 @@ textarea.fin{resize:vertical;min-height:76px;}
 /* REMINDERS */
 .rem-item{display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid var(--border);}
 .rem-item:last-child{border-bottom:none;}
-.rem-chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.rem-chk{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .rem-chk.done{background:var(--green);border-color:var(--green);}
 .rem-chk svg{width:8px;height:8px;}
 .rem-txt{flex:1;font-size:13px;color:var(--text);font-weight:500;}
@@ -377,11 +381,24 @@ textarea.fin{resize:vertical;min-height:76px;}
       <div class="auth-ok" id="forgotOk"></div>
       <div style="margin-bottom:20px">
         <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Reset Password</div>
-        <div style="font-size:13px;color:var(--text3)">Enter your email and we'll send you a reset link.</div>
+        <div style="font-size:13px;color:var(--text3)">Enter your email and we'll send a reset link.</div>
       </div>
       <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="forgot-email" placeholder="you@yourbusiness.com" inputmode="email"></div>
       <button class="btn btn-p btn-full" id="forgotBtn" onclick="doForgot()" style="margin-bottom:14px">Send Reset Link</button>
       <div style="text-align:center"><button class="auth-link" onclick="showLogin()">Back to Sign In</button></div>
+    </div>
+
+    <!-- SET NEW PASSWORD (after reset link click) -->
+    <div id="viewReset" style="display:none">
+      <div class="auth-err" id="resetErr"></div>
+      <div class="auth-ok" id="resetOk"></div>
+      <div style="margin-bottom:20px">
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Set New Password</div>
+        <div style="font-size:13px;color:var(--text3)">Enter your new password below.</div>
+      </div>
+      <div class="fg"><label class="flbl">New Password</label><input type="password" class="fin" id="reset-pw" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doReset()"></div>
+      <div class="fg" style="margin-bottom:20px"><label class="flbl">Confirm Password</label><input type="password" class="fin" id="reset-pw2" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()"></div>
+      <button class="btn btn-p btn-full" id="resetBtn" onclick="doReset()">Set Password</button>
     </div>
 
     <div class="auth-foot">Built by Onstra · Free until you hire someone</div>
@@ -391,14 +408,10 @@ textarea.fin{resize:vertical;min-height:76px;}
 <!-- APP -->
 <div id="appScreen">
 
-  <!-- PWA INSTALL BANNER -->
   <div id="installBanner">
-    <div class="install-text">
-      Install Arko
-      <div class="install-sub">Add to your home screen for the full app experience</div>
-    </div>
+    <div class="install-text">Install Arko<div class="install-sub">Add to home screen for the full app experience</div></div>
     <button class="install-btn" onclick="installPWA()">Install</button>
-    <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+    <button class="install-x" onclick="dismissInstall()">✕</button>
   </div>
 
   <aside class="sidebar">
@@ -471,28 +484,16 @@ textarea.fin{resize:vertical;min-height:76px;}
           <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg>
           <div class="tech-banner-text" id="techBannerText">You have 0 jobs today</div>
         </div>
-        <div class="sec">
-          <div class="sec-head"><div class="sec-lbl">Today's Jobs</div><button class="btn btn-o btn-sm owner-only" onclick="navigate('jobs')">See all</button></div>
-          <div id="today-list"></div>
-        </div>
-        <div class="sec owner-only">
-          <div class="sec-head"><div class="sec-lbl">Reminders</div><button class="btn btn-o btn-sm" onclick="openSh('remSh')">+ Add</button></div>
-          <div class="list-card" id="home-rem"></div>
-        </div>
+        <div class="sec"><div class="sec-head"><div class="sec-lbl">Today's Jobs</div><button class="btn btn-o btn-sm owner-only" onclick="navigate('jobs')">See all</button></div><div id="today-list"></div></div>
+        <div class="sec owner-only"><div class="sec-head"><div class="sec-lbl">Reminders</div><button class="btn btn-o btn-sm" onclick="openSh('remSh')">+ Add</button></div><div class="list-card" id="home-rem"></div></div>
       </div>
     </div>
 
     <!-- JOBS -->
     <div class="page" id="page-jobs">
       <div class="shell">
-        <div class="pg-head">
-          <div><div class="pg-title" id="jobsTitle">Jobs</div><div class="pg-sub">All work orders</div></div>
-          <div class="hd-actions owner-only"><button class="btn btn-p" onclick="openJobForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Job</button></div>
-        </div>
-        <div class="toolbar owner-only">
-          <div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="jobSrch" placeholder="Search jobs..." oninput="renderJobs()"></div>
-          <select class="fsel" id="jobFilt" style="width:auto;min-width:130px" onchange="renderJobs()"><option value="all">All Status</option><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select>
-        </div>
+        <div class="pg-head"><div><div class="pg-title" id="jobsTitle">Jobs</div><div class="pg-sub">All work orders</div></div><div class="hd-actions owner-only"><button class="btn btn-p" onclick="openJobForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Job</button></div></div>
+        <div class="toolbar owner-only"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="jobSrch" placeholder="Search jobs..." oninput="renderJobs()"></div><select class="fsel" id="jobFilt" style="width:auto;min-width:130px" onchange="renderJobs()"><option value="all">All Status</option><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
         <div id="jobs-list"></div>
       </div>
     </div>
@@ -500,10 +501,7 @@ textarea.fin{resize:vertical;min-height:76px;}
     <!-- CUSTOMERS -->
     <div class="page" id="page-customers">
       <div class="shell">
-        <div class="pg-head">
-          <div><div class="pg-title">Customers</div><div class="pg-sub">Your client base</div></div>
-          <div class="hd-actions"><button class="btn btn-p" onclick="openCustForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>Add Customer</button></div>
-        </div>
+        <div class="pg-head"><div><div class="pg-title">Customers</div><div class="pg-sub">Your client base</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openCustForm()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>Add Customer</button></div></div>
         <div class="toolbar"><div class="srch"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3"/></svg><input type="text" id="custSrch" placeholder="Search customers..." oninput="renderCusts()"></div></div>
         <div id="custs-list"></div>
       </div>
@@ -518,26 +516,17 @@ textarea.fin{resize:vertical;min-height:76px;}
           <div class="cal-grid" id="cal-dlbls"></div>
           <div class="cal-grid" id="cal-days"></div>
         </div>
-        <div class="sec">
-          <div class="sec-head">
-            <div class="sec-lbl" id="cal-jlbl">Jobs this month</div>
-            <button class="btn btn-p btn-sm" onclick="openJobFormForDate()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>Add Job</button>
-          </div>
-          <div id="cal-jobs"></div>
-        </div>
+        <div class="sec"><div class="sec-head"><div class="sec-lbl" id="cal-jlbl">Jobs this month</div><button class="btn btn-p btn-sm" onclick="openJobFormForDate()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>Add Job</button></div><div id="cal-jobs"></div></div>
       </div>
     </div>
 
     <!-- INVOICE -->
     <div class="page" id="page-invoice">
       <div class="shell">
-        <div class="pg-head">
-          <div><div class="pg-title">Invoice</div><div class="pg-sub">Always free in Arko</div></div>
-          <div class="hd-actions"><button class="btn btn-p" onclick="openSh('invSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Invoice</button></div>
-        </div>
+        <div class="pg-head"><div><div class="pg-title">Invoice</div><div class="pg-sub">Always free in Arko</div></div><div class="hd-actions"><button class="btn btn-p" onclick="openSh('invSh')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v12M2 8h12"/></svg>New Invoice</button></div></div>
         <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:20px">
           <div class="stat-card"><div class="stat-lbl">Total Invoiced</div><div class="stat-val" id="inv-tot">$0</div></div>
-          <div class="stat-card"><div class="stat-lbl">Collected</div><div class="stat-val g" id="inv-paid">$0</div></div>
+          <div class="stat-card"><div class="stat-lbl">Collected</div><div class="stat-val g" id="inv-paid-stat">$0</div></div>
           <div class="stat-card"><div class="stat-lbl">Outstanding</div><div class="stat-val r" id="inv-owed">$0</div></div>
         </div>
         <div id="inv-list"></div>
@@ -551,17 +540,14 @@ textarea.fin{resize:vertical;min-height:76px;}
         <div class="set-sec">
           <div class="set-sec-title">Your Business</div>
           <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="set-biz" placeholder="Your HVAC Co."></div>
-          <div class="f2">
-            <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="set-phone" placeholder="(555) 000-0000"></div>
-            <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="set-email" placeholder="you@business.com"></div>
-          </div>
+          <div class="f2"><div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="set-phone" placeholder="(555) 000-0000"></div><div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="set-email" placeholder="you@business.com"></div></div>
           <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="set-addr" placeholder="123 Main St, City, NC"></div>
           <div class="fg">
             <label class="flbl">Business Logo (appears on invoices)</label>
             <div class="logo-upload-area" onclick="document.getElementById('logoFileInput').click()">
               <input type="file" id="logoFileInput" accept="image/*" style="display:none" onchange="handleLogoUpload(this)">
               <img id="logoPreview" class="logo-preview" style="display:none">
-              <div class="logo-hint" id="logoHint">Click to upload logo — PNG or JPG</div>
+              <div class="logo-hint" id="logoHint">Tap to upload logo — PNG or JPG</div>
             </div>
           </div>
           <button class="btn btn-p" style="margin-top:4px" onclick="saveBiz()">Save Business Info</button>
@@ -570,7 +556,7 @@ textarea.fin{resize:vertical;min-height:76px;}
           <div class="set-sec-title">Invoice Message</div>
           <div class="fg">
             <label class="flbl">Closing Message on PDF Invoices</label>
-            <div class="msg-presets" id="msgPresets">
+            <div class="msg-presets">
               <div class="msg-preset active" onclick="selectPreset(this,'Thank you for your business.')">Thank you for your business.</div>
               <div class="msg-preset" onclick="selectPreset(this,'It was a pleasure working with you.')">It was a pleasure working with you.</div>
               <div class="msg-preset" onclick="selectPreset(this,'We appreciate your trust in us.')">We appreciate your trust in us.</div>
@@ -585,18 +571,12 @@ textarea.fin{resize:vertical;min-height:76px;}
           <div class="set-sec-title">Team</div>
           <div id="team-list"></div>
           <button class="btn btn-o btn-sm" style="margin-top:12px" id="inviteBtn" onclick="checkPlanAndInvite()">+ Invite Team Member</button>
-          <div id="plan-gate" style="display:none;margin-top:10px;padding:12px;background:var(--amber-bg);border:1px solid rgba(196,125,0,.2);border-radius:var(--radius-sm);font-size:12px;color:var(--amber)">You've reached your plan limit. Upgrade to add more team members.</div>
+          <div id="plan-gate" style="display:none;margin-top:10px;padding:12px;background:var(--amber-bg);border:1px solid rgba(196,125,0,.2);border-radius:var(--radius-sm);font-size:12px;color:var(--amber)">You've reached your plan limit. <button class="auth-link" onclick="openUpgrade()">Upgrade to add more team members.</button></div>
         </div>
         <div class="set-sec">
           <div class="set-sec-title">Plan</div>
-          <div class="set-row">
-            <div><div class="set-row-lbl">Current Plan</div><div class="set-row-sub" id="set-plan-sub">Free — everything included, 1 user</div></div>
-            <span class="plan-badge" id="set-plan-badge">Free</span>
-          </div>
-          <div class="set-row" id="upgradeRow">
-            <div><div class="set-row-lbl">Need a team?</div><div class="set-row-sub">$29/mo unlocks up to 5 users · $59/mo unlimited</div></div>
-            <button class="btn btn-p btn-sm" onclick="openUpgrade()">Upgrade</button>
-          </div>
+          <div class="set-row"><div><div class="set-row-lbl">Current Plan</div><div class="set-row-sub" id="set-plan-sub">Free — everything included, 1 user</div></div><span class="plan-badge" id="set-plan-badge">Free</span></div>
+          <div class="set-row" id="upgradeRow"><div><div class="set-row-lbl">Need a team?</div><div class="set-row-sub">$29/mo for up to 5 users · $59/mo unlimited</div></div><button class="btn btn-p btn-sm" onclick="openUpgrade()">Upgrade</button></div>
         </div>
         <div class="set-sec">
           <div class="set-sec-title">Account</div>
@@ -605,7 +585,7 @@ textarea.fin{resize:vertical;min-height:76px;}
         </div>
         <div class="set-sec">
           <div class="set-sec-title">About</div>
-          <div class="set-row"><div><div class="set-row-lbl">Arko</div><div class="set-row-sub">Version 1.0 — Built by Onstra · Free until you hire someone</div></div></div>
+          <div class="set-row"><div><div class="set-row-lbl">Arko</div><div class="set-row-sub">Version 1.0 · Built by Onstra · Free until you hire someone</div></div></div>
         </div>
       </div>
     </div>
@@ -613,7 +593,8 @@ textarea.fin{resize:vertical;min-height:76px;}
   </main>
 </div>
 
-<!-- SHEETS -->
+<!-- ══ SHEETS ══ -->
+
 <!-- JOB -->
 <div class="ov" id="jobSh-ov" onclick="closeSh('jobSh')"></div>
 <div class="sheet" id="jobSh">
@@ -624,15 +605,9 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="j-cust"></select></div>
     <div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="j-title" placeholder="AC Tune-Up, Repair, Install..."></div>
     <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="j-desc" placeholder="What needs to be done..."></textarea></div>
-    <div class="f2">
-      <div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="j-date"></div>
-      <div class="fg"><label class="flbl">Status</label><select class="fsel" id="j-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
-    </div>
+    <div class="f2"><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="j-date"></div><div class="fg"><label class="flbl">Status</label><select class="fsel" id="j-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div></div>
     <div class="fg"><label class="flbl">Assigned To (optional)</label><select class="fsel" id="j-assigned"><option value="">Unassigned</option></select></div>
-    <div class="f2">
-      <div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="j-parts" placeholder="0.00" inputmode="decimal"></div>
-      <div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="j-charged" placeholder="0.00" inputmode="decimal"></div>
-    </div>
+    <div class="f2"><div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="j-parts" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="j-charged" placeholder="0.00" inputmode="decimal"></div></div>
     <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="j-notes" placeholder="Internal notes..."></textarea></div>
   </div>
   <div class="sh-foot">
@@ -649,16 +624,26 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-hdr"><div class="sh-title" id="custShTitle">New Customer</div><button class="sh-x" onclick="closeSh('custSh')">✕</button></div>
   <div class="sh-body">
     <input type="hidden" id="c-id">
-    <div class="f2">
-      <div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="c-first" placeholder="John"></div>
-      <div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="c-last" placeholder="Doe"></div>
-    </div>
+    <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="c-first" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="c-last" placeholder="Doe"></div></div>
     <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="c-phone" placeholder="(555) 000-0000" inputmode="tel"></div>
     <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="c-email" placeholder="john@email.com" inputmode="email"></div>
     <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="c-addr" placeholder="123 Main St, City, NC"></div>
     <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="c-notes" placeholder="Equipment, access info, preferences..."></textarea></div>
   </div>
   <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('custSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="saveCust()">Save Customer</button></div>
+</div>
+
+<!-- CUSTOMER DETAIL -->
+<div class="ov" id="custDetailSh-ov" onclick="closeSh('custDetailSh')"></div>
+<div class="sheet" id="custDetailSh">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr"><div class="sh-title">Customer</div><button class="sh-x" onclick="closeSh('custDetailSh')">✕</button></div>
+  <div class="sh-body" id="custDetailBody"></div>
+  <div class="sh-foot">
+    <button class="btn btn-o" style="flex:1" onclick="closeSh('custDetailSh')">Close</button>
+    <button class="btn btn-o" style="flex:1" id="custEditBtn" onclick="editCustFromDetail()">Edit</button>
+    <button class="btn btn-p" style="flex:2" id="custInvBtn" onclick="createInvFromCust()">+ Invoice</button>
+  </div>
 </div>
 
 <!-- INVOICE -->
@@ -669,10 +654,7 @@ textarea.fin{resize:vertical;min-height:76px;}
   <div class="sh-body">
     <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="inv-cust"></select></div>
     <div class="fg"><label class="flbl">Linked Job (optional)</label><select class="fsel" id="inv-job"><option value="">No linked job</option></select></div>
-    <div class="f2">
-      <div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="inv-amt" placeholder="0.00" inputmode="decimal"></div>
-      <div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="inv-date"></div>
-    </div>
+    <div class="f2"><div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="inv-amt" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="inv-date"></div></div>
     <div class="fg"><label class="flbl">Description</label><input type="text" class="fin" id="inv-desc" placeholder="AC repair, service call, install..."></div>
     <div class="fg"><label class="flbl">Status</label><select class="fsel" id="inv-status"><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
   </div>
@@ -701,13 +683,13 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="fg"><label class="flbl">Role</label><select class="fsel" id="invite-role"><option value="tech">Tech — sees only assigned jobs</option><option value="owner">Owner — full access</option></select></div>
     <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-top:4px">
       <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">What techs see:</div>
-      <div style="font-size:11px;color:var(--text2);line-height:1.9">✓ Their assigned jobs only<br>✓ Customer contact info for their jobs<br>✓ Update job status<br>✗ Revenue or financials<br>✗ Other techs' work<br>✗ Business settings</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.9">✓ Their assigned jobs only<br>✓ Customer contact for their jobs<br>✓ Update job status<br>✗ Revenue or financials<br>✗ Other techs' work<br>✗ Business settings</div>
     </div>
   </div>
   <div class="sh-foot"><button class="btn btn-o" style="flex:1" onclick="closeSh('inviteSh')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="sendInvite()">Send Invite</button></div>
 </div>
 
-<!-- PROFILE (mobile) -->
+<!-- PROFILE MOBILE -->
 <div class="ov" id="profSh-ov" onclick="closeSh('profSh')"></div>
 <div class="sheet" id="profSh">
   <div class="sh-handle"></div>
@@ -721,7 +703,10 @@ textarea.fin{resize:vertical;min-height:76px;}
     </div>
     <div style="margin-top:14px"><button class="auth-link" onclick="closeSh('profSh');navigate('settings')">Go to Settings →</button></div>
   </div>
-  <div class="sh-foot"><button class="btn btn-d" style="flex:1" onclick="confirmSignOut()">Sign Out</button><button class="btn btn-p" style="flex:2" onclick="saveMobProf()">Save</button></div>
+  <div class="sh-foot">
+    <button class="btn btn-d" style="flex:1" onclick="confirmSignOut()">Sign Out</button>
+    <button class="btn btn-p" style="flex:2" onclick="saveMobProf()">Save</button>
+  </div>
 </div>
 
 <!-- TECH JOB DETAIL -->
@@ -743,19 +728,10 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="m-body">
       <input type="hidden" id="jm-id">
       <div class="fg"><label class="flbl">Customer</label><select class="fsel" id="jm-cust"></select></div>
-      <div class="f2">
-        <div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="jm-title" placeholder="AC Tune-Up..."></div>
-        <div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="jm-date"></div>
-      </div>
+      <div class="f2"><div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="jm-title" placeholder="AC Tune-Up..."></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="jm-date"></div></div>
       <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="jm-desc" placeholder="What needs to be done..."></textarea></div>
-      <div class="f2">
-        <div class="fg"><label class="flbl">Status</label><select class="fsel" id="jm-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div>
-        <div class="fg"><label class="flbl">Assigned To (optional)</label><select class="fsel" id="jm-assigned"><option value="">Unassigned</option></select></div>
-      </div>
-      <div class="f2">
-        <div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="jm-parts" placeholder="0.00"></div>
-        <div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="jm-charged" placeholder="0.00"></div>
-      </div>
+      <div class="f2"><div class="fg"><label class="flbl">Status</label><select class="fsel" id="jm-status"><option value="scheduled">Scheduled</option><option value="inprogress">In Progress</option><option value="complete">Complete</option></select></div><div class="fg"><label class="flbl">Assigned To (optional)</label><select class="fsel" id="jm-assigned"><option value="">Unassigned</option></select></div></div>
+      <div class="f2"><div class="fg"><label class="flbl">Parts Cost ($)</label><input type="number" class="fin" id="jm-parts" placeholder="0.00"></div><div class="fg"><label class="flbl">Total Charged ($)</label><input type="number" class="fin" id="jm-charged" placeholder="0.00"></div></div>
       <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="jm-notes" placeholder="Internal notes..."></textarea></div>
     </div>
     <div class="m-foot">
@@ -771,14 +747,8 @@ textarea.fin{resize:vertical;min-height:76px;}
     <div class="m-hdr"><div class="m-title" id="custMTitle">New Customer</div><button class="m-x" onclick="closeM('custModal')">✕</button></div>
     <div class="m-body">
       <input type="hidden" id="cm-id">
-      <div class="f2">
-        <div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="cm-first" placeholder="John"></div>
-        <div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="cm-last" placeholder="Doe"></div>
-      </div>
-      <div class="f2">
-        <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="cm-phone" placeholder="(555) 000-0000"></div>
-        <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="cm-email" placeholder="john@email.com"></div>
-      </div>
+      <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="cm-first" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="cm-last" placeholder="Doe"></div></div>
+      <div class="f2"><div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="cm-phone" placeholder="(555) 000-0000"></div><div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="cm-email" placeholder="john@email.com"></div></div>
       <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="cm-addr" placeholder="123 Main St, City, NC"></div>
       <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="cm-notes" placeholder="Equipment, access info..."></textarea></div>
     </div>
@@ -786,24 +756,24 @@ textarea.fin{resize:vertical;min-height:76px;}
   </div>
 </div>
 
-<!-- UPGRADE MODAL -->
+<!-- UPGRADE -->
 <div class="m-ov" id="upgradeModal">
-  <div class="modal" style="max-width:480px">
+  <div class="modal" style="max-width:460px">
     <div class="m-hdr"><div class="m-title">Upgrade Arko</div><button class="m-x" onclick="closeM('upgradeModal')">✕</button></div>
     <div class="m-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
         <div style="border:2px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center">
-          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px">Starter</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px">Starter</div>
           <div style="font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px">$29<span style="font-size:13px;font-weight:500;color:var(--text3)">/mo</span></div>
           <div style="font-size:11px;color:var(--text2);margin:10px 0;line-height:1.8">Up to 5 users<br>Everything included<br>Team management</div>
-          <button class="btn btn-p btn-sm" style="width:100%" onclick="goToStrater()">Choose Starter</button>
+          <button class="btn btn-p btn-sm" style="width:100%" onclick="goToStripe('starter')">Choose Starter</button>
         </div>
         <div style="border:2px solid var(--accent);border-radius:var(--radius);padding:18px;text-align:center;position:relative">
           <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap">Most Popular</div>
-          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px">Pro</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px">Pro</div>
           <div style="font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px">$59<span style="font-size:13px;font-weight:500;color:var(--text3)">/mo</span></div>
           <div style="font-size:11px;color:var(--text2);margin:10px 0;line-height:1.8">Unlimited users<br>Everything included<br>Advanced reporting</div>
-          <button class="btn btn-p btn-sm" style="width:100%" onclick="goToPro()">Choose Pro</button>
+          <button class="btn btn-p btn-sm" style="width:100%" onclick="goToStripe('pro')">Choose Pro</button>
         </div>
       </div>
       <div style="text-align:center;font-size:11px;color:var(--text3)">Cancel anytime · No contracts · Invoices always free</div>
@@ -829,15 +799,15 @@ textarea.fin{resize:vertical;min-height:76px;}
 </div>
 
 <script>
-const {jsPDF} = window.jspdf;
-const {createClient} = supabase;
-const sb = createClient('https://zvtalmmgrqcpiuhsehak.supabase.co','sb_publishable_p5CbaGQABknVhobv4TZ6iw_-sK-zU0J');
+const {jsPDF}=window.jspdf;
+const {createClient}=supabase;
+const sb=createClient('https://zvtalmmgrqcpiuhsehak.supabase.co','sb_publishable_p5CbaGQABknVhobv4TZ6iw_-sK-zU0J');
 
 // ── STATE ─────────────────────────────────────────────────────
 let _user=null,_profile=null,_company=null;
 let _jobs=[],_custs=[],_invs=[],_rems=[],_team=[];
-let _logoDataUrl=null,_currentJobId=null,_calSel=null;
-let _deferredInstallPrompt=null;
+let _logoDataUrl=null,_currentJobId=null,_calSel=null,_currentCustId=null;
+let _deferredInstall=null;
 
 // ── UTILS ─────────────────────────────────────────────────────
 const fmt$=n=>'$'+parseFloat(n||0).toFixed(2);
@@ -849,34 +819,45 @@ const icoInv=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-
 
 // ── PWA ───────────────────────────────────────────────────────
 window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();
-  _deferredInstallPrompt=e;
-  if(!localStorage.getItem('arko_install_dismissed')) {
-    document.getElementById('installBanner').classList.add('show');
-  }
+  e.preventDefault();_deferredInstall=e;
+  if(!localStorage.getItem('arko_nodismiss'))document.getElementById('installBanner').classList.add('show');
 });
-async function installPWA(){
-  if(!_deferredInstallPrompt)return;
-  _deferredInstallPrompt.prompt();
-  const{outcome}=await _deferredInstallPrompt.userChoice;
-  _deferredInstallPrompt=null;
-  document.getElementById('installBanner').classList.remove('show');
+async function installPWA(){if(!_deferredInstall)return;_deferredInstall.prompt();_deferredInstall=null;document.getElementById('installBanner').classList.remove('show');}
+function dismissInstall(){document.getElementById('installBanner').classList.remove('show');localStorage.setItem('arko_nodismiss','1');}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+// ── CHECK FOR PASSWORD RESET TOKEN IN URL ─────────────────────
+function checkResetToken(){
+  const hash=window.location.hash;
+  const params=new URLSearchParams(hash.replace('#',''));
+  const type=params.get('type');
+  const accessToken=params.get('access_token');
+  if(type==='recovery'&&accessToken){
+    // Set the session from the token
+    sb.auth.setSession({access_token:accessToken,refresh_token:params.get('refresh_token')||''});
+    showResetView();
+    return true;
+  }
+  return false;
 }
-function dismissInstall(){
-  document.getElementById('installBanner').classList.remove('show');
-  localStorage.setItem('arko_install_dismissed','1');
-}
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+function showResetView(){
+  document.getElementById('loadScreen').style.display='none';
+  document.getElementById('authScreen').classList.add('on');
+  document.getElementById('viewLogin').style.display='none';
+  document.getElementById('viewForgot').style.display='none';
+  document.getElementById('viewReset').style.display='';
 }
 
 // ── INIT ──────────────────────────────────────────────────────
 (async()=>{
+  // Check for password reset redirect first
+  if(checkResetToken())return;
   const{data}=await sb.auth.getSession();
   if(data.session){
     _user=data.session.user;
-    await loadUserData();
-    showApp();
+    const ok=await loadUserData();
+    if(ok){showApp();}
+    else{showAuth();}
   } else {
     showAuth();
   }
@@ -901,26 +882,31 @@ function authTab(t){
   document.querySelectorAll('.auth-tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='signup')));
   document.getElementById('loginForm').style.display=t==='login'?'':'none';
   document.getElementById('signupForm').style.display=t==='signup'?'':'none';
-  hideErr();
+  clearAuthMsgs();
 }
-function showErr(m){const e=document.getElementById('authErr');e.textContent=m;e.classList.add('show');}
-function hideErr(){document.getElementById('authErr').classList.remove('show');document.getElementById('authOk').classList.remove('show');}
-function showOk(m){const e=document.getElementById('authOk');e.textContent=m;e.classList.add('show');}
+function clearAuthMsgs(){
+  ['authErr','authOk','forgotErr','forgotOk','resetErr','resetOk'].forEach(id=>{
+    const el=document.getElementById(id);if(el){el.classList.remove('show');el.textContent='';}
+  });
+}
+function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.add('show');}}
+function showOk(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.add('show');}}
 function showForgot(){document.getElementById('viewLogin').style.display='none';document.getElementById('viewForgot').style.display='';}
-function showLogin(){document.getElementById('viewForgot').style.display='none';document.getElementById('viewLogin').style.display='';}
+function showLogin(){document.getElementById('viewForgot').style.display='none';document.getElementById('viewReset').style.display='none';document.getElementById('viewLogin').style.display='';}
 
 async function doLogin(){
   const email=document.getElementById('li-email').value.trim();
   const pw=document.getElementById('li-pw').value;
-  if(!email||!pw){showErr('Enter your email and password.');return;}
+  if(!email||!pw){showErr('authErr','Enter your email and password.');return;}
   const btn=document.getElementById('loginBtn');
   btn.textContent='Signing in...';btn.disabled=true;
   const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
   btn.textContent='Sign In';btn.disabled=false;
-  if(error){showErr(error.message);return;}
+  if(error){showErr('authErr',error.message);return;}
   _user=data.user;
-  await loadUserData();
-  showApp();
+  const ok=await loadUserData();
+  if(ok){showApp();}
+  else{showErr('authErr','Account setup incomplete. Please contact support.');}
 }
 
 async function doSignup(){
@@ -928,73 +914,126 @@ async function doSignup(){
   const name=document.getElementById('su-name').value.trim();
   const email=document.getElementById('su-email').value.trim();
   const pw=document.getElementById('su-pw').value;
-  if(!biz){showErr('Enter your business name.');return;}
-  if(!name){showErr('Enter your name.');return;}
-  if(!email||!pw){showErr('Enter your email and password.');return;}
-  if(pw.length<6){showErr('Password must be at least 6 characters.');return;}
+  if(!biz){showErr('authErr','Enter your business name.');return;}
+  if(!name){showErr('authErr','Enter your name.');return;}
+  if(!email||!pw){showErr('authErr','Enter your email and password.');return;}
+  if(pw.length<6){showErr('authErr','Password must be at least 6 characters.');return;}
   const btn=document.getElementById('signupBtn');
   btn.textContent='Creating account...';btn.disabled=true;
+
+  // Step 1: Create auth user
   const{data,error}=await sb.auth.signUp({email,password:pw});
   btn.textContent='Create Account';btn.disabled=false;
-  if(error){showErr(error.message);return;}
+  if(error){showErr('authErr',error.message);return;}
   _user=data.user;
-  // Use the database function to create company + profile atomically
+
+  // Step 2: Create company and profile using RPC function
   const nameParts=name.trim().split(' ');
   const first=nameParts[0]||name;
   const last=nameParts.slice(1).join(' ')||'';
-  const{error:fnErr}=await sb.rpc('create_company_and_profile',{company_name:biz,first_name:first,last_name:last});
-  if(fnErr){showErr('Account created but profile setup failed. Please contact support.');return;}
-  await loadUserData();
-  showApp();
+
+  // Retry up to 3 times to handle auth propagation delay
+  let fnError=null;
+  for(let i=0;i<3;i++){
+    const{error:e}=await sb.rpc('create_company_and_profile',{
+      company_name:biz,
+      first_name:first,
+      last_name:last
+    });
+    if(!e){fnError=null;break;}
+    fnError=e;
+    await new Promise(r=>setTimeout(r,800));
+  }
+
+  if(fnError){
+    // Fallback: try direct insert
+    try{
+      const{data:co,error:coErr}=await sb.from('companies').insert({name:biz,plan:'free'}).select().single();
+      if(!coErr&&co){
+        await sb.from('profiles').insert({id:_user.id,company_id:co.id,first_name:first,last_name:last,role:'owner'});
+      }
+    }catch(e){
+      showErr('authErr','Account created but setup failed. Try signing in — if issues persist contact support.');
+      return;
+    }
+  }
+
+  const ok=await loadUserData();
+  if(ok){showApp();}
+  else{showErr('authErr','Setup complete. Please sign in.');}
 }
 
 async function doForgot(){
   const email=document.getElementById('forgot-email').value.trim();
-  if(!email){document.getElementById('forgotErr').textContent='Enter your email.';document.getElementById('forgotErr').classList.add('show');return;}
+  if(!email){showErr('forgotErr','Enter your email.');return;}
   const btn=document.getElementById('forgotBtn');
   btn.textContent='Sending...';btn.disabled=true;
-  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});
+  const{error}=await sb.auth.resetPasswordForEmail(email,{
+    redirectTo:window.location.origin+'/'
+  });
   btn.textContent='Send Reset Link';btn.disabled=false;
-  if(error){document.getElementById('forgotErr').textContent=error.message;document.getElementById('forgotErr').classList.add('show');return;}
-  document.getElementById('forgotErr').classList.remove('show');
-  document.getElementById('forgotOk').textContent='Reset link sent — check your email.';
-  document.getElementById('forgotOk').classList.add('show');
+  if(error){showErr('forgotErr',error.message);return;}
+  showOk('forgotOk','Reset link sent — check your email.');
+}
+
+async function doReset(){
+  const pw=document.getElementById('reset-pw').value;
+  const pw2=document.getElementById('reset-pw2').value;
+  if(!pw||pw.length<6){showErr('resetErr','Password must be at least 6 characters.');return;}
+  if(pw!==pw2){showErr('resetErr','Passwords do not match.');return;}
+  const btn=document.getElementById('resetBtn');
+  btn.textContent='Saving...';btn.disabled=true;
+  const{error}=await sb.auth.updateUser({password:pw});
+  btn.textContent='Set Password';btn.disabled=false;
+  if(error){showErr('resetErr',error.message);return;}
+  showOk('resetOk','Password updated! Signing you in...');
+  setTimeout(async()=>{
+    const{data}=await sb.auth.getSession();
+    if(data.session){_user=data.session.user;const ok=await loadUserData();if(ok)showApp();}
+    else{showLogin();}
+  },1500);
 }
 
 async function loadUserData(){
-  if(!_user)return;
-  const{data:prof}=await sb.from('profiles').select('*').eq('id',_user.id).single();
-  _profile=prof;
-  if(!_profile)return;
-  const{data:co}=await sb.from('companies').select('*').eq('id',_profile.company_id).single();
-  _company=co;
-  if(_company?.logo_url){
-    _logoDataUrl=_company.logo_url;
-    const lp=document.getElementById('logoPreview');
-    if(lp){lp.src=_logoDataUrl;lp.style.display='block';document.getElementById('logoHint').style.display='none';}
-  }
-  await refreshAll();
+  if(!_user)return false;
+  try{
+    const{data:prof,error:profErr}=await sb.from('profiles').select('*').eq('id',_user.id).single();
+    if(profErr||!prof)return false;
+    _profile=prof;
+    const{data:co,error:coErr}=await sb.from('companies').select('*').eq('id',_profile.company_id).single();
+    if(coErr||!co)return false;
+    _company=co;
+    if(_company.logo_url){
+      _logoDataUrl=_company.logo_url;
+      const lp=document.getElementById('logoPreview');
+      if(lp){lp.src=_logoDataUrl;lp.style.display='block';const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';}
+    }
+    await refreshAll();
+    return true;
+  }catch(e){return false;}
 }
 
 async function refreshAll(){
   if(!_profile)return;
   const cid=_profile.company_id;
-  if(_profile.role==='owner'){
-    const[j,c,i,r,t]=await Promise.all([
-      sb.from('jobs').select('*').eq('company_id',cid).order('date',{ascending:false}),
-      sb.from('customers').select('*').eq('company_id',cid).order('last'),
-      sb.from('invoices').select('*').eq('company_id',cid).order('date',{ascending:false}),
-      sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_user.id),
-      sb.from('profiles').select('*').eq('company_id',cid)
-    ]);
-    _jobs=j.data||[];_custs=c.data||[];_invs=i.data||[];_rems=r.data||[];_team=t.data||[];
-  } else {
-    const[j,r]=await Promise.all([
-      sb.from('jobs').select('*,customers(first,last,phone,address)').eq('company_id',cid).eq('assigned_to',_user.id).order('date',{ascending:false}),
-      sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_user.id)
-    ]);
-    _jobs=j.data||[];_rems=r.data||[];
-  }
+  try{
+    if(_profile.role==='owner'){
+      const[j,c,i,r,t]=await Promise.all([
+        sb.from('jobs').select('*').eq('company_id',cid).order('date',{ascending:false}),
+        sb.from('customers').select('*').eq('company_id',cid).order('last'),
+        sb.from('invoices').select('*').eq('company_id',cid).order('date',{ascending:false}),
+        sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_user.id),
+        sb.from('profiles').select('*').eq('company_id',cid)
+      ]);
+      _jobs=j.data||[];_custs=c.data||[];_invs=i.data||[];_rems=r.data||[];_team=t.data||[];
+    }else{
+      const[j,r]=await Promise.all([
+        sb.from('jobs').select('*,customers(first,last,phone,address)').eq('company_id',cid).eq('assigned_to',_user.id).order('date',{ascending:false}),
+        sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_user.id)
+      ]);
+      _jobs=j.data||[];_rems=r.data||[];
+    }
+  }catch(e){console.error('refreshAll error:',e);}
 }
 
 // ── ROLE UI ───────────────────────────────────────────────────
@@ -1011,17 +1050,32 @@ function applyRoleUI(){
   const ae=document.getElementById('set-acct-email');if(ae&&_user)ae.textContent=_user.email||'—';
   const me=document.getElementById('mob-email-display');if(me&&_user)me.textContent=_user.email||'—';
   const mb=document.getElementById('mob-biz');if(mb)mb.value=bizName;
+  const mp=document.getElementById('mob-phone');if(mp)mp.value=_company?.phone||'';
 }
 
-function confirmSignOut(){closePopout();openM('soConfirm');}
-function openSwitchUser(){closePopout();openM('switchUserModal');}
+// ── SIGN OUT ──────────────────────────────────────────────────
+function confirmSignOut(){
+  closePopout();
+  closeSh('profSh');
+  // On mobile use sheet confirm, on desktop use modal
+  if(mob()){
+    if(confirm('Sign out of Arko?'))doSignOut();
+  }else{
+    openM('soConfirm');
+  }
+}
+function openSwitchUser(){closePopout();if(mob()){if(confirm('Switch user? You will be signed out.'))doSignOut();}else{openM('switchUserModal');}}
 async function doSignOut(){
   await sb.auth.signOut();
   closeM('soConfirm');closeM('switchUserModal');
-  _user=null;_profile=null;_company=null;_jobs=[];_custs=[];_invs=[];_rems=[];_team=[];
+  _user=null;_profile=null;_company=null;
+  _jobs=[];_custs=[];_invs=[];_rems=[];_team=[];
+  _logoDataUrl=null;_currentJobId=null;_currentCustId=null;
   document.getElementById('appScreen').classList.remove('on');
   document.getElementById('authScreen').classList.add('on');
   showLogin();
+  // Clear password reset hash if present
+  history.replaceState(null,'',window.location.pathname);
 }
 
 // ── NAV ───────────────────────────────────────────────────────
@@ -1049,10 +1103,21 @@ function closePopout(){document.getElementById('popout').classList.remove('open'
 function closePopoutOut(e){if(!document.getElementById('sideTop').contains(e.target))closePopout();}
 
 // ── SHEETS + MODALS ───────────────────────────────────────────
-function openSh(id){document.getElementById(id+'-ov').classList.add('open');setTimeout(()=>document.getElementById(id).classList.add('open'),10);}
-function closeSh(id){document.getElementById(id).classList.remove('open');document.getElementById(id+'-ov').classList.remove('open');}
-function openM(id){document.getElementById(id).classList.add('open');}
-function closeM(id){document.getElementById(id).classList.remove('open');}
+function openSh(id){
+  const ov=document.getElementById(id+'-ov');
+  const sh=document.getElementById(id);
+  if(!ov||!sh)return;
+  ov.classList.add('open');
+  setTimeout(()=>sh.classList.add('open'),10);
+}
+function closeSh(id){
+  const sh=document.getElementById(id);
+  const ov=document.getElementById(id+'-ov');
+  if(sh)sh.classList.remove('open');
+  if(ov)ov.classList.remove('open');
+}
+function openM(id){const el=document.getElementById(id);if(el)el.classList.add('open');}
+function closeM(id){const el=document.getElementById(id);if(el)el.classList.remove('open');}
 document.querySelectorAll('.m-ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
 // ── FAB ───────────────────────────────────────────────────────
@@ -1063,16 +1128,15 @@ function handleFab(){
   else if(a==='invoice')openSh('invSh');
 }
 
-// ── JOB PROGRESS BAR ─────────────────────────────────────────
+// ── PROGRESS BAR ─────────────────────────────────────────────
 function progressBar(status){
   const steps=['scheduled','inprogress','complete'];
-  const idx=steps.indexOf(status);
   const labels=['Scheduled','In Progress','Complete'];
+  const idx=steps.indexOf(status);
   let html=`<div class="job-progress">`;
   steps.forEach((s,i)=>{
     const done=i<idx,active=i===idx;
-    html+=`<div class="progress-step">`;
-    html+=`<div class="progress-dot ${done?'done':active?'active':''}"></div>`;
+    html+=`<div class="progress-step"><div class="progress-dot ${done?'done':active?'active':''}"></div>`;
     if(i<steps.length-1)html+=`<div class="progress-line ${i<idx?'done':i===idx?'active':''}"></div>`;
     html+=`</div>`;
   });
@@ -1081,8 +1145,7 @@ function progressBar(status){
     const done=i<idx,active=i===idx;
     html+=`<div class="progress-label ${done?'done':active?'active':''}">${l}</div>`;
   });
-  html+=`</div>`;
-  return html;
+  return html+`</div>`;
 }
 
 // ── HOME ──────────────────────────────────────────────────────
@@ -1101,7 +1164,7 @@ function renderHome(){
     document.getElementById('s-profit').textContent=fmt$(pm.reduce((s,j)=>s+(parseFloat(j.charged||0)-parseFloat(j.parts||0)),0));
     document.getElementById('s-open').textContent=_jobs.filter(j=>j.status==='scheduled'||j.status==='inprogress').length;
     document.getElementById('s-unpaid').textContent=fmt$(_invs.filter(i=>i.status==='unpaid').reduce((s,i)=>s+parseFloat(i.amount||0),0));
-  } else {
+  }else{
     const tj=_jobs.filter(j=>j.date===todayS());
     document.getElementById('techBannerText').textContent=`You have ${tj.length} job${tj.length!==1?'s':''} today`;
   }
@@ -1123,28 +1186,21 @@ function emptyEl(title,sub,onclick,btnTxt){
   return`<div class="empty"><div class="e-ico">${icoJob}</div><div class="e-title">${title}</div><div class="e-sub">${sub}</div>${onclick?`<button class="btn btn-p btn-sm" onclick="${onclick}">${btnTxt}</button>`:''}</div>`;
 }
 
-// ── JOB ITEM ──────────────────────────────────────────────────
+// ── JOB HELPERS ───────────────────────────────────────────────
 function cName(id){const c=_custs.find(c=>c.id===id);return c?c.first+' '+c.last:'—';}
 function sBadge(s){const m={scheduled:'b-sched',inprogress:'b-prog',complete:'b-done'};const l={scheduled:'Scheduled',inprogress:'In Progress',complete:'Complete'};return`<span class="badge ${m[s]||m.scheduled}">${l[s]||s}</span>`;}
 
 function jobItem(j,isTech=false){
   const col=j.status==='complete'?'green':j.status==='inprogress'?'amber':'blue';
-  const onclick=isTech?`openTechJobDetail('${j.id}')`:`openJobForm('${j.id}')`;
+  const fn=isTech?`openTechJobDetail('${j.id}')`:`openJobForm('${j.id}')`;
   const custN=j.customers?j.customers.first+' '+j.customers.last:cName(j.customer_id);
-  return`<div style="border-bottom:1px solid var(--border);padding:14px 18px;cursor:pointer;transition:background .1s" onclick="${onclick}" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
-    <div style="display:flex;align-items:center;gap:13px">
+  return`<div style="border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s" onclick="${fn}" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+    <div style="display:flex;align-items:center;padding:14px 18px;gap:13px">
       <div class="l-ico ${col}">${icoJob}</div>
-      <div class="l-body">
-        <div class="l-title">${j.title||'Untitled'}</div>
-        <div class="l-sub">${custN} · ${fmtD(j.date)}</div>
-      </div>
-      <div class="l-right">
-        ${_profile?.role==='owner'&&j.charged?`<div style="font-size:13px;font-weight:700;color:var(--green)">${fmt$(j.charged)}</div>`:''}
-      </div>
+      <div class="l-body"><div class="l-title">${j.title||'Untitled'}</div><div class="l-sub">${custN} · ${fmtD(j.date)}</div></div>
+      <div class="l-right">${_profile?.role==='owner'&&j.charged?`<div style="font-size:13px;font-weight:700;color:var(--green)">${fmt$(j.charged)}</div>`:''}</div>
     </div>
-    <div style="padding-left:51px;margin-top:10px">
-      ${progressBar(j.status)}
-    </div>
+    <div style="padding:0 18px 12px 18px">${progressBar(j.status)}</div>
   </div>`;
 }
 
@@ -1157,30 +1213,23 @@ function openTechJobDetail(id){
   const custPhone=j.customers?.phone||'';
   const custAddr=j.customers?.address||'';
   const nextStatus=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null;
-  const btnLabel=j.status==='scheduled'?'Mark In Progress':j.status==='inprogress'?'Mark Complete':null;
   const btn=document.getElementById('techJobStatusBtn');
-  if(nextStatus){btn.textContent=btnLabel;btn.style.display='';}
+  if(nextStatus){btn.textContent=j.status==='scheduled'?'Mark In Progress':'Mark Complete';btn.style.display='';}
   else{btn.style.display='none';}
   document.getElementById('techJobBody').innerHTML=`
-    <div style="margin-bottom:18px">
-      ${progressBar(j.status)}
-    </div>
+    <div style="margin-bottom:20px">${progressBar(j.status)}</div>
     <div class="fg"><div class="flbl">Customer</div><div style="font-size:14px;font-weight:700">${custN}</div>${custPhone?`<a href="tel:${custPhone}" style="font-size:13px;color:var(--accent);font-weight:600;text-decoration:none;display:block;margin-top:4px">${custPhone}</a>`:''} ${custAddr?`<div style="font-size:12px;color:var(--text2);margin-top:2px">${custAddr}</div>`:''}</div>
     <div class="fg"><div class="flbl">Date</div><div style="font-size:13px">${fmtD(j.date)}</div></div>
     ${j.description?`<div class="fg"><div class="flbl">Description</div><div style="font-size:13px;color:var(--text2);line-height:1.7">${j.description}</div></div>`:''}
-    ${j.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2);line-height:1.7">${j.notes}</div></div>`:''}
-  `;
+    ${j.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2);line-height:1.7">${j.notes}</div></div>`:''}`;
   openSh('techJobSh');
 }
-
 async function techUpdateStatus(){
   const j=_jobs.find(j=>j.id===_currentJobId);if(!j)return;
   const next=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null;
   if(!next)return;
   await sb.from('jobs').update({status:next}).eq('id',j.id);
-  j.status=next;
-  closeSh('techJobSh');
-  renderHome();renderJobs();
+  j.status=next;closeSh('techJobSh');renderHome();renderJobs();
 }
 
 // ── JOBS ──────────────────────────────────────────────────────
@@ -1206,20 +1255,23 @@ function openJobForm(id,preDate=null){
   const j=id?_jobs.find(j=>j.id===id):null;
   _currentJobId=id||null;
   populateDDs();
-  const fields={id:j?.id||'',cust:j?.customer_id||'',title:j?.title||'',desc:j?.description||'',date:j?.date||(preDate||todayS()),status:j?.status||'scheduled',assigned:j?.assigned_to||'',parts:j?.parts||'',charged:j?.charged||'',notes:j?.notes||''};
+  const f={id:j?.id||'',cust:j?.customer_id||'',title:j?.title||'',desc:j?.description||'',date:j?.date||(preDate||todayS()),status:j?.status||'scheduled',assigned:j?.assigned_to||'',parts:j?.parts||'',charged:j?.charged||'',notes:j?.notes||''};
   if(mob()){
     document.getElementById('jobShTitle').textContent=j?'Edit Job':'New Job';
     document.getElementById('j-del-btn').style.display=j?'':'none';
-    Object.entries({id:'j-id',cust:'j-cust',title:'j-title',desc:'j-desc',date:'j-date',status:'j-status',assigned:'j-assigned',parts:'j-parts',charged:'j-charged',notes:'j-notes'}).forEach(([k,elId])=>{const el=document.getElementById(elId);if(el)el.value=fields[k];});
+    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{
+      const el=document.getElementById('j-'+k);if(el)el.value=f[k];
+    });
     openSh('jobSh');
-  } else {
+  }else{
     document.getElementById('jobMTitle').textContent=j?'Edit Job':'New Job';
     document.getElementById('jm-del-btn').style.display=j?'':'none';
-    Object.entries({id:'jm-id',cust:'jm-cust',title:'jm-title',desc:'jm-desc',date:'jm-date',status:'jm-status',assigned:'jm-assigned',parts:'jm-parts',charged:'jm-charged',notes:'jm-notes'}).forEach(([k,elId])=>{const el=document.getElementById(elId);if(el)el.value=fields[k];});
+    ['id','cust','title','desc','date','status','assigned','parts','charged','notes'].forEach(k=>{
+      const el=document.getElementById('jm-'+k);if(el)el.value=f[k];
+    });
     openM('jobModal');
   }
 }
-
 function openJobFormForDate(){openJobForm(null,_calSel||todayS());}
 
 async function saveJob(d){
@@ -1233,12 +1285,11 @@ async function saveJob(d){
   if(d)closeM('jobModal');else closeSh('jobSh');
   renderJobs();renderHome();renderCal();
 }
-
-async function deleteJobCurrent(isDesktop){
+async function deleteJobCurrent(d){
   if(!_currentJobId||!confirm('Delete this job?'))return;
   await sb.from('jobs').delete().eq('id',_currentJobId);
   await refreshAll();
-  if(isDesktop)closeM('jobModal');else closeSh('jobSh');
+  if(d)closeM('jobModal');else closeSh('jobSh');
   renderJobs();renderHome();renderCal();
 }
 
@@ -1248,22 +1299,82 @@ function renderCusts(){
   const f=_custs.filter(c=>!q||(c.first+' '+c.last).toLowerCase().includes(q)||(c.phone||'').includes(q));
   const el=document.getElementById('custs-list');
   if(!f.length){el.innerHTML=emptyEl(_custs.length?'No matches':'No customers yet','Add your first customer','openCustForm()','+ Add Customer');return;}
-  el.innerHTML=`<div class="cust-grid">${f.map(c=>{const cj=_jobs.filter(j=>j.customer_id===c.id);const rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);return`<div class="cust-card" onclick="openCustForm('${c.id}')"><div class="cust-ini">${(c.first[0]||'')+(c.last[0]||'')}</div><div class="cust-name">${c.first} ${c.last}</div>${c.phone?`<div class="cust-info">${c.phone}</div>`:''} ${c.address?`<div class="cust-info">${c.address}</div>`:''}<div class="cust-stats"><div><div class="cs-val">${cj.length}</div><div class="cs-lbl">Jobs</div></div><div><div class="cs-val" style="color:var(--green)">${fmt$(rev)}</div><div class="cs-lbl">Revenue</div></div></div></div>`;}).join('')}</div>`;
+  el.innerHTML=`<div class="cust-grid">${f.map(c=>{
+    const cj=_jobs.filter(j=>j.customer_id===c.id);
+    const rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);
+    return`<div class="cust-card" onclick="openCustDetail('${c.id}')">
+      <div class="cust-ini">${(c.first[0]||'')+(c.last[0]||'')}</div>
+      <div class="cust-name">${c.first} ${c.last}</div>
+      ${c.phone?`<div class="cust-info">${c.phone}</div>`:''}
+      ${c.address?`<div class="cust-info">${c.address}</div>`:''}
+      <div class="cust-stats">
+        <div><div class="cs-val">${cj.length}</div><div class="cs-lbl">Jobs</div></div>
+        <div><div class="cs-val" style="color:var(--green)">${fmt$(rev)}</div><div class="cs-lbl">Revenue</div></div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function openCustDetail(id){
+  const c=_custs.find(c=>c.id===id);if(!c)return;
+  _currentCustId=id;
+  const cj=_jobs.filter(j=>j.customer_id===id);
+  const rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);
+  if(mob()){
+    document.getElementById('custDetailBody').innerHTML=`
+      <div class="cust-detail-header">
+        <div class="cust-detail-ini">${(c.first[0]||'')+(c.last[0]||'')}</div>
+        <div>
+          <div class="cust-detail-name">${c.first} ${c.last}</div>
+          <div class="cust-detail-info">${c.phone||''} ${c.email?'· '+c.email:''}</div>
+          ${c.address?`<div class="cust-detail-info">${c.address}</div>`:''}
+        </div>
+      </div>
+      ${c.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--text2)">${c.notes}</div></div>`:''}
+      <div style="display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--border);margin-top:8px">
+        <div><div style="font-size:18px;font-weight:800;color:var(--text)">${cj.length}</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Jobs</div></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--green)">${fmt$(rev)}</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px">Revenue</div></div>
+      </div>
+      ${cj.length?`<div class="flbl" style="margin-top:4px">Recent Jobs</div><div class="list-card" style="margin-top:8px">${cj.slice(0,3).map(j=>`<div class="list-item" style="cursor:default"><div class="l-body"><div class="l-title">${j.title}</div><div class="l-sub">${fmtD(j.date)}</div></div><div class="l-right">${sBadge(j.status)}</div></div>`).join('')}</div>`:''}
+    `;
+    openSh('custDetailSh');
+  }else{
+    openCustForm(id);
+  }
+}
+function editCustFromDetail(){closeSh('custDetailSh');openCustForm(_currentCustId);}
+function createInvFromCust(){
+  closeSh('custDetailSh');
+  populateDDs();
+  const sel=document.getElementById('inv-cust');
+  if(sel)sel.value=_currentCustId;
+  openSh('invSh');
 }
 
 function openCustForm(id){
   const c=id?_custs.find(c=>c.id===id):null;
   if(mob()){
     document.getElementById('custShTitle').textContent=c?'Edit Customer':'New Customer';
-    document.getElementById('c-id').value=c?.id||'';document.getElementById('c-first').value=c?.first||'';document.getElementById('c-last').value=c?.last||'';document.getElementById('c-phone').value=c?.phone||'';document.getElementById('c-email').value=c?.email||'';document.getElementById('c-addr').value=c?.address||'';document.getElementById('c-notes').value=c?.notes||'';
+    document.getElementById('c-id').value=c?.id||'';
+    document.getElementById('c-first').value=c?.first||'';
+    document.getElementById('c-last').value=c?.last||'';
+    document.getElementById('c-phone').value=c?.phone||'';
+    document.getElementById('c-email').value=c?.email||'';
+    document.getElementById('c-addr').value=c?.address||'';
+    document.getElementById('c-notes').value=c?.notes||'';
     openSh('custSh');
-  } else {
+  }else{
     document.getElementById('custMTitle').textContent=c?'Edit Customer':'New Customer';
-    document.getElementById('cm-id').value=c?.id||'';document.getElementById('cm-first').value=c?.first||'';document.getElementById('cm-last').value=c?.last||'';document.getElementById('cm-phone').value=c?.phone||'';document.getElementById('cm-email').value=c?.email||'';document.getElementById('cm-addr').value=c?.address||'';document.getElementById('cm-notes').value=c?.notes||'';
+    document.getElementById('cm-id').value=c?.id||'';
+    document.getElementById('cm-first').value=c?.first||'';
+    document.getElementById('cm-last').value=c?.last||'';
+    document.getElementById('cm-phone').value=c?.phone||'';
+    document.getElementById('cm-email').value=c?.email||'';
+    document.getElementById('cm-addr').value=c?.address||'';
+    document.getElementById('cm-notes').value=c?.notes||'';
     openM('custModal');
   }
 }
-
 async function saveCust(d){
   const p=d?'cm-':'c-';
   const id=document.getElementById(p+'id')?.value||'';
@@ -1280,7 +1391,6 @@ async function saveCust(d){
 let calY=new Date().getFullYear(),calM=new Date().getMonth();
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
-
 function renderCal(){
   document.getElementById('calLbl').textContent=MONTHS[calM]+' '+calY;
   document.getElementById('calSub').textContent=MONTHS[calM]+' '+calY;
@@ -1290,8 +1400,7 @@ function renderCal(){
   for(let i=0;i<first;i++)c+=`<div class="cal-day other-m">${pd-first+1+i}</div>`;
   for(let d=1;d<=dim;d++){const ds=calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');c+=`<div class="cal-day${ds===ts?' today':''}${jd.has(ds)?' has-jobs':''}${_calSel===ds&&ds!==ts?' sel':''}" onclick="calSelectDay('${ds}')">${d}</div>`;}
   const r=42-first-dim;for(let i=1;i<=r;i++)c+=`<div class="cal-day other-m">${i}</div>`;
-  document.getElementById('cal-days').innerHTML=c;
-  renderCalJobs();
+  document.getElementById('cal-days').innerHTML=c;renderCalJobs();
 }
 function calSelectDay(ds){_calSel=ds;renderCal();}
 function calPrev(){calM--;if(calM<0){calM=11;calY--;}_calSel=null;renderCal();}
@@ -1299,7 +1408,9 @@ function calNext(){calM++;if(calM>11){calM=0;calY++;}_calSel=null;renderCal();}
 function renderCalJobs(){
   const f=_calSel?_jobs.filter(j=>j.date===_calSel):_jobs.filter(j=>{if(!j.date)return false;const d=new Date(j.date+'T00:00:00');return d.getMonth()===calM&&d.getFullYear()===calY;});
   document.getElementById('cal-jlbl').textContent=_calSel?fmtD(_calSel):'Jobs this month';
-  document.getElementById('cal-jobs').innerHTML=f.length?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`:`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="e-title">Nothing here</div><div class="e-sub">${_calSel?'No jobs on this day — tap Add Job':'No jobs this month'}</div></div>`;
+  document.getElementById('cal-jobs').innerHTML=f.length
+    ?`<div class="list-card">${f.map(j=>jobItem(j)).join('')}</div>`
+    :`<div class="empty"><div class="e-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="e-title">Nothing here</div><div class="e-sub">${_calSel?'No jobs on this day — tap Add Job':'No jobs this month'}</div></div>`;
 }
 
 // ── INVOICE ───────────────────────────────────────────────────
@@ -1307,20 +1418,36 @@ function renderInv(){
   const tot=_invs.reduce((s,i)=>s+parseFloat(i.amount||0),0);
   const paid=_invs.filter(i=>i.status==='paid').reduce((s,i)=>s+parseFloat(i.amount||0),0);
   document.getElementById('inv-tot').textContent=fmt$(tot);
-  document.getElementById('inv-paid').textContent=fmt$(paid);
+  document.getElementById('inv-paid-stat').textContent=fmt$(paid);
   document.getElementById('inv-owed').textContent=fmt$(tot-paid);
   const el=document.getElementById('inv-list');
-  if(!_invs.length){el.innerHTML=emptyEl('No invoices yet','Invoices are always free in Arko',"openSh('invSh')",'+ New Invoice');return;}
-  el.innerHTML=`<div class="list-card">${_invs.map(i=>`<div class="list-item"><div class="l-ico ${i.status==='paid'?'green':'red'}">${icoInv}</div><div class="l-body"><div class="l-title">${cName(i.customer_id)}</div><div class="l-sub">${i.description||'Invoice'} · ${fmtD(i.date)}</div></div><div class="l-right"><div style="font-size:13px;font-weight:700;color:${i.status==='paid'?'var(--green)':'var(--red)'}">${fmt$(i.amount)}</div><div style="display:flex;gap:5px;margin-top:4px;justify-content:flex-end"><button class="badge ${i.status==='paid'?'b-paid':'b-unpaid'}" style="border:none;cursor:pointer" onclick="toggleInv('${i.id}');event.stopPropagation()">${i.status}</button><button class="btn btn-o btn-sm" style="padding:3px 8px;font-size:10px" onclick="generatePDF('${i.id}');event.stopPropagation()">PDF</button></div></div></div>`).join('')}</div>`;
+  if(!_invs.length){el.innerHTML=emptyEl('No invoices yet','Add a customer first, then create an invoice',"openSh('invSh')",'+ New Invoice');return;}
+  el.innerHTML=`<div class="list-card">${_invs.map((i,idx)=>{
+    const invNum='INV-'+String(idx+1).padStart(4,'0');
+    return`<div class="list-item">
+      <div class="l-ico ${i.status==='paid'?'green':'red'}">${icoInv}</div>
+      <div class="l-body">
+        <div class="l-title">${cName(i.customer_id)} <span style="font-size:10px;color:var(--text3);font-weight:500">${invNum}</span></div>
+        <div class="l-sub">${i.description||'Invoice'} · ${fmtD(i.date)}</div>
+      </div>
+      <div class="l-right">
+        <div style="font-size:13px;font-weight:700;color:${i.status==='paid'?'var(--green)':'var(--red)'}">${fmt$(i.amount)}</div>
+        <div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">
+          <button class="badge ${i.status==='paid'?'b-paid':'b-unpaid'}" style="border:none;cursor:pointer;-webkit-appearance:none" onclick="toggleInv('${i.id}');event.stopPropagation()">${i.status}</button>
+          <button class="btn btn-o btn-sm" style="padding:4px 10px;font-size:10px;-webkit-appearance:none" onclick="generatePDF('${i.id}');event.stopPropagation()">PDF</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
 }
 
 async function saveInv(){
-  const inv={company_id:_profile.company_id,customer_id:document.getElementById('inv-cust').value||null,job_id:document.getElementById('inv-job').value||null,amount:parseFloat(document.getElementById('inv-amt').value)||0,date:document.getElementById('inv-date').value||todayS(),description:document.getElementById('inv-desc').value.trim(),status:document.getElementById('inv-status').value};
-  if(!inv.customer_id){alert('Select a customer.');return;}
+  const custId=document.getElementById('inv-cust').value;
+  if(!custId){alert('Select a customer.');return;}
+  const inv={company_id:_profile.company_id,customer_id:custId,job_id:document.getElementById('inv-job').value||null,amount:parseFloat(document.getElementById('inv-amt').value)||0,date:document.getElementById('inv-date').value||todayS(),description:document.getElementById('inv-desc').value.trim(),status:document.getElementById('inv-status').value};
   await sb.from('invoices').insert(inv);
   await refreshAll();closeSh('invSh');renderInv();renderHome();
 }
-
 async function toggleInv(id){
   const i=_invs.find(i=>i.id===id);if(!i)return;
   const ns=i.status==='paid'?'unpaid':'paid';
@@ -1330,79 +1457,83 @@ async function toggleInv(id){
 
 // ── PDF ───────────────────────────────────────────────────────
 function generatePDF(invId){
-  const inv=_invs.find(i=>i.id===invId);if(!inv)return;
+  const invIdx=_invs.findIndex(i=>i.id===invId);
+  if(invIdx===-1){alert('Invoice not found.');return;}
+  const inv=_invs[invIdx];
   const cust=_custs.find(c=>c.id===inv.customer_id);
-  const doc=new jsPDF({unit:'pt',format:'letter'});
-  const W=612;
-  const NAVY=[10,17,114],WHITE=[255,255,255],GRAY=[100,100,115],LIGHT=[243,243,246],BLACK=[13,13,18];
-  const bizName=_company?.name||'Your Business';
-  const invMsg=_company?.invoice_message||'Thank you for your business.';
-  const invNum='INV-'+String(_invs.indexOf(inv)+1).padStart(4,'0');
+  if(!cust){alert('Customer not found. Make sure the customer is saved.');return;}
+  try{
+    const doc=new jsPDF({unit:'pt',format:'letter'});
+    const W=612;
+    const NAVY=[10,17,114],WHITE=[255,255,255],GRAY=[100,100,115],LIGHT=[243,243,246],BLACK=[13,13,18];
+    const bizName=_company?.name||'Your Business';
+    const invMsg=_company?.invoice_message||'Thank you for your business.';
+    const invNum='INV-'+String(invIdx+1).padStart(4,'0');
 
-  doc.setFillColor(...NAVY);doc.rect(0,0,W,96,'F');
-  if(_logoDataUrl){
-    try{doc.addImage(_logoDataUrl,'JPEG',40,18,80,60,'','FAST');}catch(e){
-      doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text(bizName,44,52);
+    doc.setFillColor(...NAVY);doc.rect(0,0,W,96,'F');
+    if(_logoDataUrl){
+      try{doc.addImage(_logoDataUrl,'JPEG',40,20,70,56,'','FAST');}
+      catch(e){
+        doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,50);
+      }
+    }else{
+      doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(bizName,44,50);
+      if(_company?.phone){doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(180,185,220);doc.text(_company.phone,44,66);}
     }
-  } else {
-    doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text(bizName,44,52);
-    if(_company?.phone){doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(180,185,220);doc.text(_company.phone,44,68);}
+    doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(26);doc.text('INVOICE',W-44,48,{align:'right'});
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(180,185,220);doc.text(invNum,W-44,66,{align:'right'});
+
+    let y=118;
+    doc.setFillColor(...LIGHT);doc.rect(40,y-10,230,82,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('BILL TO',54,y+2);
+    doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(...BLACK);doc.text(cust.first+' '+cust.last,54,y+20);
+    doc.setFont('helvetica','normal');doc.setFontSize(11);
+    if(cust.phone)doc.text(cust.phone,54,y+36);
+    if(cust.address)doc.text(cust.address,54,y+50);
+    const rx=W-200;
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+2);
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(fmtD(inv.date)||'—',rx,y+18);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+36);
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(invNum,rx,y+52);
+
+    y=216;
+    doc.setFillColor(...NAVY);doc.rect(40,y,W-80,26,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);
+    doc.text('DESCRIPTION',54,y+17);doc.text('AMOUNT',W-54,y+17,{align:'right'});
+    y+=26;
+    doc.setFillColor(255,255,255);doc.rect(40,y,W-80,40,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...BLACK);
+    doc.text(inv.description||'Services Rendered',54,y+26);
+    doc.setFont('helvetica','bold');doc.text(fmt$(inv.amount),W-54,y+26,{align:'right'});
+    y+=40;
+    doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,216,W-80,y-216);
+
+    y+=20;
+    const tx=W-220;
+    doc.setFillColor(...NAVY);doc.rect(tx-8,y,W-tx-32,30,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(...WHITE);
+    doc.text('TOTAL',tx,y+19);doc.text(fmt$(inv.amount),W-40,y+19,{align:'right'});
+    y+=46;
+    const isPaid=inv.status==='paid';
+    doc.setFillColor(...(isPaid?[10,143,94]:[201,48,44]));
+    doc.roundedRect(tx-8,y,150,26,3,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...WHITE);
+    doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+67,y+16,{align:'center'});
+
+    const fy=700;
+    doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(40,fy,W-40,fy);
+    doc.setFont('helvetica','italic');doc.setFontSize(11);doc.setTextColor(...GRAY);
+    doc.text(invMsg,W/2,fy+18,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(9);
+    doc.text(bizName,40,fy+36);
+    if(_company?.phone)doc.text(_company.phone,40,fy+49);
+    if(_company?.email)doc.text(_company.email,40,fy+62);
+    doc.setFillColor(...NAVY);doc.rect(0,768,W,4,'F');
+    doc.save(invNum+'_'+cust.last+'.pdf');
+  }catch(e){
+    console.error('PDF error:',e);
+    alert('PDF generation failed. Please try again.');
   }
-  doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(28);doc.text('INVOICE',W-44,50,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(180,185,220);doc.text(invNum,W-44,68,{align:'right'});
-
-  let y=120;
-  doc.setFillColor(...LIGHT);doc.rect(40,y-12,230,80,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('BILL TO',54,y+2);
-  doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(...BLACK);doc.text(cust?cust.first+' '+cust.last:'Customer',54,y+20);
-  doc.setFont('helvetica','normal');doc.setFontSize(11);
-  if(cust?.phone)doc.text(cust.phone,54,y+36);
-  if(cust?.address)doc.text(cust.address,54,y+50);
-  const rx=W-200;
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+2);
-  doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(fmtD(inv.date)||'—',rx,y+18);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+36);
-  doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(invNum,rx,y+52);
-
-  y=220;
-  doc.setFillColor(...NAVY);doc.rect(40,y,W-80,26,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);
-  doc.text('DESCRIPTION',54,y+17);doc.text('AMOUNT',W-54,y+17,{align:'right'});
-  y+=26;
-  doc.setFillColor(255,255,255);doc.rect(40,y,W-80,40,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...BLACK);
-  doc.text(inv.description||'Services Rendered',54,y+26);
-  doc.setFont('helvetica','bold');doc.text(fmt$(inv.amount),W-54,y+26,{align:'right'});
-  y+=40;
-  doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,220,W-80,y-220);
-
-  y+=20;
-  const tx=W-220;
-  doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(tx,y,W-40,y);y+=18;
-  doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...GRAY);doc.text('Subtotal',tx,y);
-  doc.setTextColor(...BLACK);doc.text(fmt$(inv.amount),W-40,y,{align:'right'});
-  y+=22;
-  doc.setFillColor(...NAVY);doc.rect(tx-8,y-14,W-tx-32,30,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(...WHITE);
-  doc.text('TOTAL',tx,y+4);doc.text(fmt$(inv.amount),W-40,y+4,{align:'right'});
-  y+=36;
-  const isPaid=inv.status==='paid';
-  doc.setFillColor(...(isPaid?[10,143,94]:[201,48,44]));
-  doc.roundedRect(tx-8,y,140,26,3,3,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...WHITE);
-  doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+62,y+16,{align:'center'});
-
-  // Custom footer message
-  const fy=710;
-  doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(40,fy,W-40,fy);
-  doc.setFont('helvetica','italic');doc.setFontSize(11);doc.setTextColor(...GRAY);
-  doc.text(invMsg,W/2,fy+18,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(9);
-  doc.text(bizName,40,fy+36);
-  if(_company?.phone)doc.text(_company.phone,40,fy+49);
-  if(_company?.email)doc.text(_company.email,40,fy+62);
-  doc.setFillColor(...NAVY);doc.rect(0,768,W,4,'F');
-  doc.save(invNum+'_'+(cust?cust.last:'invoice')+'.pdf');
 }
 
 // ── LOGO ──────────────────────────────────────────────────────
@@ -1411,7 +1542,6 @@ function handleLogoUpload(input){
   if(input.files[0].size>2*1024*1024){alert('Logo must be under 2MB.');return;}
   const reader=new FileReader();
   reader.onload=async e=>{
-    // Compress to reasonable size for storage
     const img=new Image();
     img.onload=async()=>{
       const canvas=document.createElement('canvas');
@@ -1423,9 +1553,10 @@ function handleLogoUpload(input){
       canvas.getContext('2d').drawImage(img,0,0,w,h);
       _logoDataUrl=canvas.toDataURL('image/jpeg',0.8);
       const lp=document.getElementById('logoPreview');
-      lp.src=_logoDataUrl;lp.style.display='block';
-      document.getElementById('logoHint').style.display='none';
+      if(lp){lp.src=_logoDataUrl;lp.style.display='block';}
+      const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';
       await sb.from('companies').update({logo_url:_logoDataUrl}).eq('id',_company.id);
+      if(_company)_company.logo_url=_logoDataUrl;
     };
     img.src=e.target.result;
   };
@@ -1434,7 +1565,14 @@ function handleLogoUpload(input){
 
 // ── REMINDERS ─────────────────────────────────────────────────
 function remItem(r){return`<div class="rem-item"><div class="rem-chk ${r.done?'done':''}" onclick="toggleRem('${r.id}')"><svg viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><path d="M1 4l2 2 4-4"/></svg></div><div style="flex:1"><div class="rem-txt ${r.done?'done':''}">${r.text}</div>${r.due_date?`<div class="rem-due">${fmtD(r.due_date)}</div>`:''}</div></div>`;}
-async function saveRem(){const t=document.getElementById('rem-txt').value.trim();if(!t){alert('Enter a reminder.');return;}await sb.from('reminders').insert({company_id:_profile.company_id,user_id:_user.id,text:t,due_date:document.getElementById('rem-date').value||null});await refreshAll();document.getElementById('rem-txt').value='';document.getElementById('rem-date').value='';closeSh('remSh');renderHome();}
+async function saveRem(){
+  const t=document.getElementById('rem-txt').value.trim();
+  if(!t){alert('Enter a reminder.');return;}
+  await sb.from('reminders').insert({company_id:_profile.company_id,user_id:_user.id,text:t,due_date:document.getElementById('rem-date').value||null});
+  await refreshAll();
+  document.getElementById('rem-txt').value='';document.getElementById('rem-date').value='';
+  closeSh('remSh');renderHome();
+}
 async function toggleRem(id){const r=_rems.find(r=>r.id===id);if(!r)return;await sb.from('reminders').update({done:!r.done}).eq('id',id);r.done=!r.done;renderHome();}
 
 // ── SETTINGS ──────────────────────────────────────────────────
@@ -1449,7 +1587,7 @@ function loadSettings(){
   document.querySelectorAll('.msg-preset').forEach(el=>el.classList.toggle('active',el.textContent.trim()===msg));
   const plan=_company?.plan||'free';
   const planNames={free:'Free',starter:'Starter',pro:'Pro'};
-  const planSubs={free:'Free — everything included, 1 user forever',starter:'Starter — everything included, up to 5 users · $29/mo',pro:'Pro — everything included, unlimited users · $59/mo'};
+  const planSubs={free:'Free — everything included, 1 user forever',starter:'Starter — everything, up to 5 users · $29/mo',pro:'Pro — everything, unlimited users · $59/mo'};
   document.getElementById('set-plan-badge').textContent=planNames[plan]||'Free';
   document.getElementById('set-plan-sub').textContent=planSubs[plan]||planSubs.free;
   document.getElementById('upgradeRow').style.display=plan==='pro'?'none':'';
@@ -1468,28 +1606,36 @@ function selectPreset(el,msg){
 async function saveInvMsg(){
   const msg=document.getElementById('set-inv-msg').value.trim()||'Thank you for your business.';
   await sb.from('companies').update({invoice_message:msg}).eq('id',_company.id);
-  _company.invoice_message=msg;alert('Message saved.');
+  if(_company)_company.invoice_message=msg;
+  alert('Message saved.');
 }
 async function saveMobProf(){
   const name=document.getElementById('mob-biz').value.trim();
-  if(name){await sb.from('companies').update({name}).eq('id',_company.id);_company.name=name;applyRoleUI();}
+  const phone=document.getElementById('mob-phone').value.trim();
+  if(name||phone){
+    const upd={};
+    if(name)upd.name=name;
+    if(phone)upd.phone=phone;
+    await sb.from('companies').update(upd).eq('id',_company.id);
+    Object.assign(_company,upd);applyRoleUI();
+  }
   closeSh('profSh');
 }
 function renderTeam(){
   const el=document.getElementById('team-list');
   if(!_team.length){el.innerHTML='<div style="font-size:13px;color:var(--text3);padding:8px 0">No team members yet.</div>';return;}
-  el.innerHTML=_team.map(m=>`<div class="team-card"><div class="team-avatar">${(m.first_name||'?')[0].toUpperCase()}</div><div style="flex:1"><div class="team-name">${m.first_name||''} ${m.last_name||''}</div><div class="team-role">${m.role==='owner'?'Owner':'Technician'}</div></div>${m.id!==_user.id?`<button class="btn btn-d btn-sm" onclick="removeMember('${m.id}')">Remove</button>`:''}</div>`).join('');
+  el.innerHTML=_team.map(m=>`<div class="team-card"><div class="team-avatar">${(m.first_name||'?')[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:13px;font-weight:700">${m.first_name||''} ${m.last_name||''}</div><div style="font-size:11px;color:var(--text3)">${m.role==='owner'?'Owner':'Technician'}</div></div>${m.id!==_user.id?`<button class="btn btn-d btn-sm" onclick="removeMember('${m.id}')">Remove</button>`:''}</div>`).join('');
   const plan=_company?.plan||'free';
-  const maxUsers={free:1,starter:5,pro:9999};
+  const maxU={free:1,starter:5,pro:9999};
   const gate=document.getElementById('plan-gate');
   const btn=document.getElementById('inviteBtn');
-  if(_team.length>=(maxUsers[plan]||1)){gate.style.display='';if(btn)btn.style.display='none';}
+  if(_team.length>=(maxU[plan]||1)){gate.style.display='';if(btn)btn.style.display='none';}
   else{gate.style.display='none';if(btn)btn.style.display='';}
 }
 function checkPlanAndInvite(){
   const plan=_company?.plan||'free';
-  const maxUsers={free:1,starter:5,pro:9999};
-  if(_team.length>=(maxUsers[plan]||1)){openM('upgradeModal');}
+  const maxU={free:1,starter:5,pro:9999};
+  if(_team.length>=(maxU[plan]||1)){openUpgrade();}
   else{openSh('inviteSh');}
 }
 async function sendInvite(){
@@ -1497,19 +1643,27 @@ async function sendInvite(){
   const role=document.getElementById('invite-role').value;
   if(!email){alert('Enter an email address.');return;}
   await sb.from('invites').insert({company_id:_profile.company_id,email,role});
-  alert(`Invite recorded for ${email}. Share your Arko URL with them and have them sign up — they'll be linked to your company automatically in a future update.`);
-  document.getElementById('invite-email').value='';closeSh('inviteSh');
+  alert(`Invite recorded for ${email}. Have them sign up at ${window.location.origin} and they'll be linked to your company.`);
+  document.getElementById('invite-email').value='';
+  closeSh('inviteSh');
 }
 async function removeMember(id){
   if(!confirm('Remove this team member?'))return;
-  await sb.from('profiles').update({company_id:null,role:'owner'}).eq('id',id);
+  await sb.from('profiles').update({company_id:null}).eq('id',id);
   await refreshAll();renderTeam();
 }
-
-// ── UPGRADE ───────────────────────────────────────────────────
 function openUpgrade(){openM('upgradeModal');}
-function goToStrater(){alert('Stripe integration coming soon. Email support@arko.app to upgrade manually in the meantime.');}
-function goToPro(){alert('Stripe integration coming soon. Email support@arko.app to upgrade manually in the meantime.');}
+
+// ── STRIPE (plug in your payment links) ───────────────────────
+const STRIPE_LINKS={
+  starter:'',  // paste your Stripe $29/mo payment link here
+  pro:''        // paste your Stripe $59/mo payment link here
+};
+function goToStripe(plan){
+  const link=STRIPE_LINKS[plan];
+  if(link){window.open(link,'_blank');}
+  else{alert('Payment links coming soon. Email hello@onstra.world to upgrade manually.');}
+}
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function populateDDs(){
