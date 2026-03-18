@@ -596,8 +596,16 @@ const iI=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-widt
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 function switchIT(os,el){document.querySelectorAll('.istab').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.getElementById('it-ios').style.display=os==='ios'?'':'none';document.getElementById('it-android').style.display=os==='android'?'':'none';}
 function checkReset(){const h=window.location.hash,p=new URLSearchParams(h.replace('#',''));if(p.get('type')==='recovery'&&p.get('access_token')){sb.auth.setSession({access_token:p.get('access_token'),refresh_token:p.get('refresh_token')||''});document.getElementById('loadScreen').style.display='none';document.getElementById('authScreen').classList.add('on');document.getElementById('vLogin').style.display='none';document.getElementById('vForgot').style.display='none';document.getElementById('vReset').style.display='';return true;}return false;}
-(async()=>{if(checkReset())return;const{data}=await sb.auth.getSession();if(data.session){_u=data.session.user;const ok=await loadUser();if(ok)showApp();else showAuth();}else showAuth();})();
-function showApp(){document.getElementById('loadScreen').style.display='none';document.getElementById('authScreen').classList.remove('on');document.getElementById('appScreen').classList.add('on');applyRole();populateDDs();renderHome();nav('home');}
+(async()=>{
+  if(checkReset())return;
+  try{
+    const sessionPromise=sb.auth.getSession();
+    const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),6000));
+    const{data}=await Promise.race([sessionPromise,timeout]);
+    if(data.session){_u=data.session.user;const ok=await loadUser();if(ok)showApp();else showAuth();}
+    else showAuth();
+  }catch(e){showAuth();}
+})();function showApp(){document.getElementById('loadScreen').style.display='none';document.getElementById('authScreen').classList.remove('on');document.getElementById('appScreen').classList.add('on');applyRole();populateDDs();renderHome();nav('home');}
 function showAuth(){document.getElementById('loadScreen').style.display='none';document.getElementById('authScreen').classList.add('on');}
 function authTab(t){document.querySelectorAll('.atab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='signup')));document.getElementById('loginF').style.display=t==='login'?'':'none';document.getElementById('signupF').style.display=t==='signup'?'':'none';clrM();}
 function clrM(){['aErr','aOk','fErr','fOk','rErr','rOk'].forEach(id=>{const e=document.getElementById(id);if(e){e.classList.remove('on');e.textContent='';} });}
