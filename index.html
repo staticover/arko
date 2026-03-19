@@ -332,8 +332,7 @@ textarea.fin{resize:vertical;min-height:62px;}
   .mhdr{display:flex;}
   .bnav{display:block;}
   .fab{display:flex;}
-  .main{left:0;top:var(--hh);bottom:calc(var(--nh) + max(env(safe-area-inset-bottom,16px),16px));}  .shell{padding:13px 13px 16px;}
-  .pgt{font-size:18px;}
+  .main{left:0;top:var(--hh);right:0;bottom:calc(var(--nh) + max(env(safe-area-inset-bottom,16px),16px));overflow-y:auto;-webkit-overflow-scrolling:touch;}  .pgt{font-size:18px;}
   .sg{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px;}
   .sc{padding:10px;}
   .sv{font-size:18px;}
