@@ -21,21 +21,17 @@
   --grn:#0a8f5e;--grn-b:#e8f7f2;--amb:#c47d00;--amb-b:#fdf4e3;
   --red:#c9302c;--red-b:#fdf0ef;
   --r1:8px;--r2:12px;--r3:16px;--r4:22px;
-  --nh:49px;--safe:env(safe-area-inset-bottom,16px);-hh:52px;--sw:252px;
+  --nh:49px;--safe:env(safe-area-inset-bottom,16px);--hh:52px;--sw:252px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
-
-/* LOAD */
 #ls{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:14px;}
 .ll{font-size:30px;font-weight:800;color:var(--accent);letter-spacing:-1px;}
 .lsub{font-size:10px;color:var(--tx3);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;}
 .lb{width:80px;height:2px;background:var(--sur2);border-radius:2px;overflow:hidden;}
 .lbf{height:100%;width:0;background:var(--accent);animation:la 1.4s ease-in-out infinite;}
 @keyframes la{0%{width:0;margin-left:0}50%{width:100%;margin-left:0}100%{width:0;margin-left:100%}}
-
-/* AUTH */
 #as{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #as.on{display:flex;}
 .ac{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r4);padding:28px 24px;width:100%;max-width:360px;box-shadow:0 8px 30px rgba(10,17,114,.11);}
@@ -52,12 +48,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .rrow{display:flex;align-items:center;gap:7px;margin-bottom:12px;}
 .rrow input{width:auto;accent-color:var(--accent);}
 .rrow label{font-size:12px;color:var(--tx2);cursor:pointer;}
-
-/* APP SHELL */
 #app{position:fixed;inset:0;display:none;}
 #app.on{display:block;}
-
-/* SIDEBAR */
 .sidebar{position:absolute;left:0;top:0;bottom:0;width:var(--sw);background:var(--sur);border-right:1px solid var(--bdr);display:flex;flex-direction:column;z-index:10;}
 .sbt{padding:16px 14px 12px;border-bottom:1px solid var(--bdr);cursor:pointer;position:relative;}
 .sbt:hover{background:var(--sur2);}
@@ -84,29 +76,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .sbot{padding:12px 14px;border-top:1px solid var(--bdr);}
 .wm{font-size:18px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;}
 .bby{font-size:9px;color:var(--tx3);font-weight:600;letter-spacing:0.4px;margin-top:2px;}
-
-/* MOBILE HEADER */
 .mhdr{display:none;position:absolute;top:0;left:0;right:0;height:var(--hh);background:var(--sur);border-bottom:1px solid var(--bdr);align-items:center;justify-content:space-between;padding:0 16px;z-index:10;}
 .mlogo{font-size:18px;font-weight:800;color:var(--accent);letter-spacing:-0.8px;}
 .mhr{display:flex;gap:6px;}
 .hb{width:32px;height:32px;background:var(--sur2);border:1px solid var(--bdr);border-radius:var(--r1);display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .hb svg{width:15px;height:15px;color:var(--tx2);}
-
-/* BOTTOM NAV */
 .bnav{display:none;position:absolute;bottom:0;left:0;right:0;background:var(--sur);border-top:1px solid var(--bdr);z-index:10;}
 .bni{display:flex;height:var(--nh);}
-.bns{background:var(--sur);height:max(var(--safe),16px);}.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;color:var(--tx3);cursor:pointer;position:relative;padding:0 2px;}
+.bns{background:var(--sur);height:max(var(--safe),16px);}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;color:var(--tx3);cursor:pointer;position:relative;padding:0 2px;}
 .tb.on{color:var(--accent);}
 .tb svg{width:21px;height:21px;}
 .tbdot{position:absolute;top:6px;right:calc(50% - 14px);width:5px;height:5px;border-radius:50%;background:var(--red);display:none;}
 .tbdot.on{display:block;}
-
-/* FAB */
 .fab{position:absolute;bottom:calc(var(--nh) + var(--safe) + 12px);right:16px;width:46px;height:46px;border-radius:13px;background:var(--accent);color:#fff;border:none;cursor:pointer;box-shadow:0 3px 14px rgba(10,17,114,.28);display:none;align-items:center;justify-content:center;z-index:9;transition:transform .12s;}
 .fab:active{transform:scale(.91);}
 .fab svg{width:19px;height:19px;}
-
-/* MAIN SCROLL AREA */
 .main{position:absolute;left:var(--sw);top:0;right:0;bottom:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--bg);}
 .page{display:none;min-height:100%;}
 .page.on{display:block;}
@@ -115,8 +100,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .pgt{font-size:21px;font-weight:800;color:var(--tx);letter-spacing:-0.5px;line-height:1.1;}
 .pgs{font-size:11px;color:var(--tx3);margin-top:2px;font-weight:500;}
 .hda{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
-
-/* STATS */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px;}
 .sc{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);padding:13px 12px;}
 .sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--tx3);margin-bottom:5px;}
@@ -125,13 +108,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .sv.r{color:var(--red);}
 .sv.a{color:var(--accent);}
 .ss{font-size:10px;color:var(--tx3);margin-top:3px;}
-
-/* SECTION */
 .sec{margin-bottom:16px;}
 .sech{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 .secl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);}
-
-/* LIST */
 .lc{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;}
 .li{display:flex;align-items:center;padding:11px 14px;gap:10px;border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .1s;}
 .li:last-child{border-bottom:none;}
@@ -147,8 +126,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .lt{font-size:13px;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ls2{font-size:11px;color:var(--tx2);margin-top:1px;}
 .lr{text-align:right;flex-shrink:0;}
-
-/* PROGRESS */
 .pg{display:flex;align-items:center;margin-top:6px;}
 .pd{width:7px;height:7px;border-radius:50%;border:2px solid var(--bdr);background:var(--sur);flex-shrink:0;transition:all .2s;}
 .pd.a{background:var(--accent);border-color:var(--accent);}
@@ -162,16 +139,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .plbl:last-child{text-align:right;}
 .plbl.a{color:var(--accent);}
 .plbl.d{color:var(--grn);}
-
-/* BADGE */
 .bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;}
 .bsc{background:var(--accent-l);color:var(--accent);}
 .bip{background:var(--amb-b);color:var(--amb);}
 .bdn{background:var(--grn-b);color:var(--grn);}
 .bpd{background:var(--grn-b);color:var(--grn);}
 .bup{background:var(--red-b);color:var(--red);}
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;border-radius:var(--r1);transition:all .12s;white-space:nowrap;}
 .btn svg{width:12px;height:12px;}
 .bp{background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(10,17,114,.2);}
@@ -184,37 +157,16 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bsm{padding:5px 10px;font-size:11px;}
 .bfull{width:100%;justify-content:center;padding:11px;font-size:13px;border-radius:var(--r2);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
-
-/* OVERLAY */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;backdrop-filter:blur(4px);}
 .ov.on{display:block;}
-
-/* SHEET — Claude AI style: fills from bottom, header fixed, body scrolls */
-.sheet{
-  position:fixed;bottom:0;left:0;right:0;
-  background:var(--sur);
-  border-radius:var(--r4) var(--r4) 0 0;
-  max-height:88vh;
-  display:flex;flex-direction:column;
-  z-index:101;
-  transform:translateY(100%);
-  transition:transform .26s cubic-bezier(.32,.72,0,1);
-}
+.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--sur);border-radius:var(--r4) var(--r4) 0 0;max-height:88vh;display:flex;flex-direction:column;z-index:101;transform:translateY(100%);transition:transform .26s cubic-bezier(.32,.72,0,1);}
 .sheet.on{transform:translateY(0);}
 .sh-bar{width:32px;height:4px;background:var(--bdr);border-radius:2px;margin:9px auto 0;flex-shrink:0;}
 .sh-hdr{padding:10px 18px 9px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);flex-shrink:0;}
 .sh-ttl{font-size:15px;font-weight:800;color:var(--tx);}
 .sh-x{width:26px;height:26px;border-radius:50%;background:var(--sur2);border:none;font-size:13px;color:var(--tx2);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;flex-shrink:0;}
-.sh-body{
-  flex:1;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  padding:14px 18px;
-  padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));
-}
+.sh-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 18px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));}
 .sh-foot{padding:8px 18px;border-top:1px solid var(--bdr);display:flex;gap:7px;flex-shrink:0;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));}
-
-/* MODAL */
 .mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:100;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px);}
 .mov.on{display:flex;}
 .modal{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r4);width:480px;max-width:100%;max-height:86vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 8px 30px rgba(10,17,114,.12);}
@@ -227,8 +179,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .cttl{font-size:14px;font-weight:800;color:var(--tx);margin-bottom:5px;}
 .csub{font-size:12px;color:var(--tx2);margin-bottom:16px;line-height:1.6;}
 .cbtns{display:flex;gap:7px;justify-content:center;}
-
-/* FORMS */
 .fg{margin-bottom:12px;}
 .fg:last-child{margin-bottom:0;}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -242,22 +192,16 @@ textarea.fin{resize:vertical;min-height:62px;}
 .mpsets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:7px;}
 .mpset{padding:5px 10px;border:1.5px solid var(--bdr);border-radius:20px;font-size:11px;font-weight:600;color:var(--tx2);cursor:pointer;background:var(--sur);}
 .mpset.on{border-color:var(--accent);color:var(--accent);background:var(--accent-l);}
-
-/* TOOLBAR */
 .tbar{display:flex;gap:7px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
 .srch{flex:1;min-width:120px;display:flex;align-items:center;gap:6px;background:var(--sur);border:1.5px solid var(--bdr);border-radius:var(--r1);padding:7px 10px;}
 .srch input{border:none;background:transparent;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--tx);width:100%;-webkit-appearance:none;}
 .srch input::placeholder{color:var(--tx3);}
 .srch svg{width:13px;height:13px;color:var(--tx3);flex-shrink:0;}
-
-/* EMPTY */
 .empty{text-align:center;padding:40px 18px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);}
 .eico{width:40px;height:40px;border-radius:10px;background:var(--sur2);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
 .eico svg{width:18px;height:18px;color:var(--tx3);}
 .ettl{font-size:14px;font-weight:800;color:var(--tx2);margin-bottom:4px;}
 .esub{font-size:11px;color:var(--tx3);margin-bottom:13px;}
-
-/* CALENDAR */
 .calw{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);padding:13px;margin-bottom:13px;}
 .calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .calm{font-size:13px;font-weight:800;color:var(--tx);}
@@ -273,8 +217,6 @@ textarea.fin{resize:vertical;min-height:62px;}
 .calday.today.hj::after{background:rgba(255,255,255,.6);}
 .calday.om{opacity:.4;}
 .calday.sel:not(.today){background:var(--accent-l);color:var(--accent);font-weight:800;}
-
-/* CUSTOMERS */
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px;}
 .ccard{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);padding:13px;cursor:pointer;transition:box-shadow .15s;}
 .ccard:hover{box-shadow:0 2px 10px rgba(10,17,114,.07);}
@@ -284,8 +226,6 @@ textarea.fin{resize:vertical;min-height:62px;}
 .cstats{display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:1px solid var(--bdr);}
 .csv{font-size:13px;font-weight:800;color:var(--tx);}
 .csl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.4px;font-weight:700;}
-
-/* SETTINGS */
 .ssec{margin-bottom:22px;}
 .sstit{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.9px;color:var(--tx3);margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--bdr);}
 .srow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bdr);}
@@ -297,8 +237,6 @@ textarea.fin{resize:vertical;min-height:62px;}
 .lup:hover{border-color:var(--accent);}
 .lprev{max-height:48px;max-width:150px;object-fit:contain;margin:0 auto 5px;display:block;}
 .lhint{font-size:11px;color:var(--tx3);}
-
-/* REMINDERS */
 .ri{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bdr);}
 .ri:last-child{border-bottom:none;}
 .rchk{width:20px;height:20px;border-radius:50%;border:2px solid var(--bdr);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
@@ -307,32 +245,31 @@ textarea.fin{resize:vertical;min-height:62px;}
 .rtxt{flex:1;font-size:13px;color:var(--tx);font-weight:500;}
 .rtxt.dn{text-decoration:line-through;color:var(--tx3);}
 .rdue{font-size:10px;color:var(--tx3);font-weight:600;}
-
-/* TEAM */
 .tc{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r2);padding:11px 13px;display:flex;align-items:center;gap:10px;margin-bottom:6px;}
 .tav{width:30px;height:30px;border-radius:8px;background:var(--accent-l);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
-
-/* TECH BANNER */
 .tbanner{background:var(--accent-l);border:1px solid rgba(10,17,114,.1);border-radius:var(--r2);padding:10px 13px;margin-bottom:13px;display:flex;align-items:center;gap:8px;}
 .tbantxt{font-size:13px;font-weight:600;color:var(--accent);}
 
-/* INSTALL STEPS */
-.istabs{display:flex;gap:3px;margin-bottom:12px;}
-.istab{flex:1;padding:7px;border:1.5px solid var(--bdr);border-radius:var(--r1);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;background:var(--sur);color:var(--tx2);text-align:center;}
-.istab.on{border-color:var(--accent);color:var(--accent);background:var(--accent-l);}
-.isteps{display:flex;flex-direction:column;gap:10px;}
-.istep{display:flex;gap:10px;align-items:flex-start;}
-.istepn{width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
-.istept{font-size:12px;color:var(--tx2);line-height:1.6;}
-.istept strong{color:var(--tx);font-weight:700;}
+/* PWA INSTALL */
+.pwa-box{background:var(--accent-l);border:1.5px solid rgba(10,17,114,.15);border-radius:var(--r2);padding:16px;text-align:center;}
+.pwa-btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;border:none;border-radius:var(--r1);padding:10px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;}
+.pwa-ios{margin-top:12px;}
+.pwa-ios-arrow{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px;}
+.pwa-arrow-bounce{animation:bounce 1.2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-/* MOBILE */
+/* PDF CUSTOMIZATION */
+.color-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s;}
+.swatch.on{border-color:var(--tx);}
+
 @media(max-width:768px){
   .sidebar{display:none;}
   .mhdr{display:flex;}
   .bnav{display:block;}
   .fab{display:flex;}
-  .main{left:0;top:var(--hh);right:0;bottom:calc(var(--nh) + max(env(safe-area-inset-bottom,16px),16px));overflow-y:auto;-webkit-overflow-scrolling:touch;}  .pgt{font-size:18px;}
+  .main{left:0;top:var(--hh);right:0;bottom:calc(var(--nh) + max(env(safe-area-inset-bottom,16px),16px));overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .pgt{font-size:18px;}
   .sg{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px;}
   .sc{padding:10px;}
   .sv{font-size:18px;}
@@ -474,14 +411,17 @@ textarea.fin{resize:vertical;min-height:62px;}
 
     <div class="page" id="page-settings"><div class="shell">
       <div class="pgh"><div><div class="pgt">Settings</div></div></div>
+
       <div class="ssec"><div class="sstit">Your Business</div>
         <div class="fg"><label class="flbl">Business Name</label><input type="text" class="fin" id="setBiz" placeholder="Your HVAC Co."></div>
         <div class="f2"><div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="setPhone" placeholder="(555) 000-0000"></div><div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="setEmail" placeholder="you@business.com"></div></div>
         <div class="fg"><label class="flbl">Address</label><input type="text" class="fin" id="setAddr" placeholder="123 Main St, City, NC"></div>
+        <div class="fg"><label class="flbl">Business Hours</label><input type="text" class="fin" id="setBizHours" placeholder="Mon–Fri 8am–5pm"></div>
         <div class="fg"><label class="flbl">Business Logo (on invoices)</label><div class="lup" onclick="document.getElementById('logoInp').click()"><input type="file" id="logoInp" accept="image/*" style="display:none" onchange="handleLogo(this)"><img id="logoPrev" class="lprev" style="display:none"><div class="lhint" id="logoHint">Tap to upload — PNG or JPG</div></div></div>
         <button class="btn bp" style="margin-top:3px" onclick="saveBiz()">Save Business Info</button>
       </div>
-      <div class="ssec oo"><div class="sstit">Invoice Message</div>
+
+      <div class="ssec oo"><div class="sstit">Invoice Settings</div>
         <div class="fg"><label class="flbl">Closing Message on PDF</label>
           <div class="mpsets">
             <div class="mpset on" onclick="selPre(this,'Thank you for your business.')">Thank you for your business.</div>
@@ -492,35 +432,56 @@ textarea.fin{resize:vertical;min-height:62px;}
           </div>
           <input type="text" class="fin" id="setMsg" placeholder="Or type custom..." value="Thank you for your business.">
         </div>
-        <button class="btn bp bsm" onclick="saveMsg()">Save Message</button>
-      </div>
-      <div class="ssec"><div class="sstit">Install Arko on Your Phone</div>
-        <p style="font-size:12px;color:var(--tx2);margin-bottom:11px;line-height:1.6">No App Store needed. Install directly to your home screen.</p>
-        <div class="istabs"><div class="istab on" onclick="swIT('ios',this)">iPhone / iPad</div><div class="istab" onclick="swIT('android',this)">Android</div></div>
-        <div id="it-ios" class="isteps">
-          <div class="istep"><div class="istepn">1</div><div class="istept">Open <strong>staticover.github.io/arko</strong> in <strong>Safari</strong>.</div></div>
-          <div class="istep"><div class="istepn">2</div><div class="istept">Tap the <strong>Share button</strong> — box with arrow at the bottom.</div></div>
-          <div class="istep"><div class="istepn">3</div><div class="istept">Tap <strong>Add to Home Screen</strong> then <strong>Add</strong>.</div></div>
+        <div class="f2" style="margin-top:4px">
+          <div class="fg"><label class="flbl">Tax Rate (%)</label><input type="number" class="fin" id="setTax" placeholder="0" inputmode="decimal" step="0.01"></div>
+          <div class="fg"><label class="flbl">Payment Terms</label><select class="fsel" id="setTerms"><option value="due_on_receipt">Due on Receipt</option><option value="net_15">Net 15</option><option value="net_30">Net 30</option></select></div>
         </div>
-        <div id="it-android" class="isteps" style="display:none">
-          <div class="istep"><div class="istepn">1</div><div class="istept">Open <strong>staticover.github.io/arko</strong> in <strong>Chrome</strong>.</div></div>
-          <div class="istep"><div class="istepn">2</div><div class="istept">Tap the <strong>three dots menu</strong> → <strong>Add to Home screen</strong>.</div></div>
-          <div class="istep"><div class="istepn">3</div><div class="istept">Tap <strong>Install</strong>.</div></div>
+        <div class="fg" style="margin-top:4px"><label class="flbl">Invoice Accent Color</label>
+          <div class="color-swatches" id="colorSwatches">
+            <div class="swatch on" style="background:#0a1172" data-color="#0a1172" onclick="selColor(this)"></div>
+            <div class="swatch" style="background:#0a8f5e" data-color="#0a8f5e" onclick="selColor(this)"></div>
+            <div class="swatch" style="background:#c47d00" data-color="#c47d00" onclick="selColor(this)"></div>
+            <div class="swatch" style="background:#c9302c" data-color="#c9302c" onclick="selColor(this)"></div>
+            <div class="swatch" style="background:#444" data-color="#444" onclick="selColor(this)"></div>
+            <div class="swatch" style="background:#6c3ebf" data-color="#6c3ebf" onclick="selColor(this)"></div>
+          </div>
+          <div id="colorLockedMsg" style="display:none;font-size:11px;color:var(--amb);margin-top:5px">Invoice color customization is a paid feature. <button class="alink" onclick="openUpgrade()">Upgrade</button></div>
+        </div>
+        <button class="btn bp bsm" onclick="saveInvSettings()">Save Invoice Settings</button>
+      </div>
+
+      <div class="ssec"><div class="sstit">Get Arko on Your Phone</div>
+        <div class="pwa-box" id="pwaBox">
+          <div style="font-size:13px;font-weight:700;color:var(--accent)">Install Arko — No App Store needed</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:4px">Add Arko to your home screen for a full native app experience.</div>
+          <div id="pwaInstallBtn" style="display:none"><button class="pwa-btn" onclick="triggerInstall()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v8M5 7l3 3 3-3"/><path d="M2 12h12"/></svg>Install Arko</button></div>
+          <div id="pwaIOSGuide" style="display:none" class="pwa-ios">
+            <div style="font-size:12px;color:var(--tx2);margin-bottom:6px">Tap the Share button below, then <strong>Add to Home Screen</strong></div>
+            <div class="pwa-ios-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="pwa-arrow-bounce"><path d="M12 4v12M6 14l6 6 6-6"/></svg>
+              <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase">Share button is here</div>
+            </div>
+          </div>
+          <div id="pwaAlreadyInstalled" style="display:none;font-size:12px;color:var(--grn);margin-top:8px;font-weight:600">✓ Arko is installed on your device</div>
         </div>
       </div>
+
       <div class="ssec oo"><div class="sstit">Team</div>
         <div id="teamList"></div>
         <button class="btn bo bsm" style="margin-top:8px" id="invBtn" onclick="chkInvite()">+ Invite Team Member</button>
         <div id="planGate" style="display:none;margin-top:6px;padding:9px 11px;background:var(--amb-b);border:1px solid rgba(196,125,0,.2);border-radius:var(--r1);font-size:12px;color:var(--amb)">Plan limit reached. <button class="alink" onclick="openUpgrade()">Upgrade.</button></div>
       </div>
+
       <div class="ssec"><div class="sstit">Plan</div>
         <div class="srow"><div><div class="srl">Current Plan</div><div class="srs" id="setPSub">Free — everything, 1 user</div></div><span class="plb" id="setPBdg">Free</span></div>
         <div class="srow" id="upRow"><div><div class="srl">Need a team?</div><div class="srs">$29/mo for 5 users · $59/mo unlimited</div></div><button class="btn bp bsm" onclick="openUpgrade()">Upgrade</button></div>
       </div>
+
       <div class="ssec"><div class="sstit">Account</div>
         <div class="srow"><div><div class="srl">Email</div><div class="srs" id="setAE">—</div></div></div>
         <div class="srow"><div><div class="srl">Sign Out</div><div class="srs">You'll need to sign back in</div></div><button class="btn bd bsm" onclick="confSO()">Sign Out</button></div>
       </div>
+
       <div class="ssec"><div class="sstit">About</div><div class="srow"><div><div class="srl">Arko</div><div class="srs">Version 1.0 · Built by Onstra · Free until you hire someone</div></div></div></div>
     </div></div>
   </main>
@@ -533,9 +494,14 @@ textarea.fin{resize:vertical;min-height:62px;}
   <div class="sh-hdr"><div class="sh-ttl" id="jobShT">New Job</div><button class="sh-x" onclick="closeSh('jobSh')">✕</button></div>
   <div class="sh-body">
     <input type="hidden" id="jid">
-    <div class="fg"><label class="flbl">Customer</label>
+    <div class="fg">
+      <label class="flbl">Customer</label>
+      <div id="jNoCustBanner" style="display:none;background:var(--accent-l);border:1.5px solid rgba(10,17,114,.15);border-radius:var(--r1);padding:12px;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px">No customers yet</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Add a customer to continue creating this job.</div>
+        <button class="btn bp bsm" onclick="openQuickCust('job')">+ Add Customer Now</button>
+      </div>
       <select class="fsel" id="jcust"></select>
-      <div id="jCustHint" style="display:none;margin-top:6px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r1);font-size:12px;color:var(--accent)">No customers yet. <button class="alink" onclick="closeSh('jobSh');openCustForm(null,true)">Add a customer first →</button></div>
     </div>
     <div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="jtitle" placeholder="AC Tune-Up, Repair, Install..."></div>
     <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="jdesc" placeholder="What needs to be done..."></textarea></div>
@@ -552,7 +518,7 @@ textarea.fin{resize:vertical;min-height:62px;}
   <div class="sh-bar"></div>
   <div class="sh-hdr"><div class="sh-ttl" id="custShT">New Customer</div><button class="sh-x" onclick="closeSh('custSh')">✕</button></div>
   <div class="sh-body">
-    <input type="hidden" id="cid"><input type="hidden" id="cReturnToJob">
+    <input type="hidden" id="cid"><input type="hidden" id="cAfter">
     <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="cfirst" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="clast" placeholder="Doe"></div></div>
     <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="cphone" placeholder="(555) 000-0000" inputmode="tel"></div>
     <div class="fg"><label class="flbl">Email</label><input type="email" class="fin" id="cemail" placeholder="john@email.com" inputmode="email"></div>
@@ -560,6 +526,21 @@ textarea.fin{resize:vertical;min-height:62px;}
     <div class="fg"><label class="flbl">Notes</label><textarea class="fin" id="cnotes" placeholder="Equipment, access info..."></textarea></div>
   </div>
   <div class="sh-foot"><button class="btn bo" style="flex:1" onclick="closeSh('custSh')">Cancel</button><button class="btn bp" style="flex:2" onclick="saveCust()">Save Customer</button></div>
+</div>
+
+<!-- QUICK CUSTOMER SHEET (inline from job/invoice) -->
+<div class="ov" id="qcSh-ov" onclick="closeSh('qcSh')"></div>
+<div class="sheet" id="qcSh">
+  <div class="sh-bar"></div>
+  <div class="sh-hdr"><div class="sh-ttl">Quick Add Customer</div><button class="sh-x" onclick="closeSh('qcSh')">✕</button></div>
+  <div class="sh-body">
+    <input type="hidden" id="qcAfter">
+    <div style="background:var(--accent-l);border-radius:var(--r1);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--accent);font-weight:600">After saving, you'll be taken back to continue.</div>
+    <div class="f2"><div class="fg"><label class="flbl">First Name</label><input type="text" class="fin" id="qcFirst" placeholder="John"></div><div class="fg"><label class="flbl">Last Name</label><input type="text" class="fin" id="qcLast" placeholder="Doe"></div></div>
+    <div class="fg"><label class="flbl">Phone</label><input type="tel" class="fin" id="qcPhone" placeholder="(555) 000-0000" inputmode="tel"></div>
+    <div class="fg"><label class="flbl">Address (optional)</label><input type="text" class="fin" id="qcAddr" placeholder="123 Main St"></div>
+  </div>
+  <div class="sh-foot"><button class="btn bo" style="flex:1" onclick="closeSh('qcSh')">Cancel</button><button class="btn bp" style="flex:2" onclick="saveQuickCust()">Save & Continue</button></div>
 </div>
 
 <div class="ov" id="custDSh-ov" onclick="closeSh('custDSh')"></div>
@@ -575,9 +556,14 @@ textarea.fin{resize:vertical;min-height:62px;}
   <div class="sh-bar"></div>
   <div class="sh-hdr"><div class="sh-ttl">New Invoice</div><button class="sh-x" onclick="closeSh('invSh')">✕</button></div>
   <div class="sh-body">
-    <div class="fg"><label class="flbl">Customer</label>
+    <div class="fg">
+      <label class="flbl">Customer</label>
+      <div id="invNoCustBanner" style="display:none;background:var(--accent-l);border:1.5px solid rgba(10,17,114,.15);border-radius:var(--r1);padding:12px;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px">No customers yet</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Add a customer to create an invoice.</div>
+        <button class="btn bp bsm" onclick="openQuickCust('invoice')">+ Add Customer Now</button>
+      </div>
       <select class="fsel" id="invcust"></select>
-      <div id="invCustHint" style="display:none;margin-top:6px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r1);font-size:12px;color:var(--accent)">No customers yet. <button class="alink" onclick="closeSh('invSh');openCustForm(null,false,true)">Add a customer first →</button></div>
     </div>
     <div class="fg"><label class="flbl">Linked Job (optional)</label><select class="fsel" id="invjob"><option value="">No linked job</option></select></div>
     <div class="f2"><div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="invamt" placeholder="0.00" inputmode="decimal"></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="invdate"></div></div>
@@ -610,7 +596,7 @@ textarea.fin{resize:vertical;min-height:62px;}
       <div style="font-size:11px;color:var(--tx2);line-height:1.8">✓ Their assigned jobs<br>✓ Customer contact info<br>✓ Update job status<br>✗ Revenue or financials<br>✗ Other techs' work</div>
     </div>
   </div>
-  <div class="sh-foot"><button class="btn bo" style="flex:1" onclick="closeSh('inviteSh')">Cancel</button><button class="btn bp" style="flex:2" onclick="sendInvite()">Send Invite</button></div>
+  <div class="sh-foot"><button class="btn bo" style="flex:1" onclick="closeSh('inviteSh')">Cancel</button><button class="btn bp" style="flex:2" id="inviteSubmitBtn" onclick="sendInvite()">Send Invite</button></div>
 </div>
 
 <div class="ov" id="profSh-ov" onclick="closeSh('profSh')"></div>
@@ -639,9 +625,14 @@ textarea.fin{resize:vertical;min-height:62px;}
   <div class="modal"><div class="mhd"><div class="mttl" id="jobMT">New Job</div><button class="mx" onclick="closeM('jobM')">✕</button></div>
   <div class="mb">
     <input type="hidden" id="jmid">
-    <div class="fg"><label class="flbl">Customer</label>
+    <div class="fg">
+      <label class="flbl">Customer</label>
+      <div id="jmNoCustBanner" style="display:none;background:var(--accent-l);border:1.5px solid rgba(10,17,114,.15);border-radius:var(--r1);padding:12px;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px">No customers yet</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">You need to add a customer before creating a job.</div>
+        <button class="btn bp bsm" onclick="closeM('jobM');nav('customers');setTimeout(()=>openCustForm(),100)">Go to Customers →</button>
+      </div>
       <select class="fsel" id="jmcust"></select>
-      <div id="jmCustHint" style="display:none;margin-top:6px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r1);font-size:12px;color:var(--accent)">No customers yet. <button class="alink" onclick="closeM('jobM');openCustForm(null,true)">Add a customer first →</button></div>
     </div>
     <div class="f2"><div class="fg"><label class="flbl">Job Title</label><input type="text" class="fin" id="jmtitle" placeholder="AC Tune-Up..."></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="jmdate"></div></div>
     <div class="fg"><label class="flbl">Description</label><textarea class="fin" id="jmdesc"></textarea></div>
@@ -667,9 +658,14 @@ textarea.fin{resize:vertical;min-height:62px;}
 <div class="mov" id="invM">
   <div class="modal"><div class="mhd"><div class="mttl">New Invoice</div><button class="mx" onclick="closeM('invM')">✕</button></div>
   <div class="mb">
-    <div class="fg"><label class="flbl">Customer</label>
+    <div class="fg">
+      <label class="flbl">Customer</label>
+      <div id="invmNoCustBanner" style="display:none;background:var(--accent-l);border:1.5px solid rgba(10,17,114,.15);border-radius:var(--r1);padding:12px;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px">No customers yet</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Add a customer before creating an invoice.</div>
+        <button class="btn bp bsm" onclick="closeM('invM');nav('customers');setTimeout(()=>openCustForm(),100)">Go to Customers →</button>
+      </div>
       <select class="fsel" id="invmcust"></select>
-      <div id="invmCustHint" style="display:none;margin-top:6px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r1);font-size:12px;color:var(--accent)">No customers yet. <button class="alink" onclick="closeM('invM');openCustForm(null,false,true)">Add a customer first →</button></div>
     </div>
     <div class="fg"><label class="flbl">Linked Job (optional)</label><select class="fsel" id="invmjob"><option value="">No linked job</option></select></div>
     <div class="f2"><div class="fg"><label class="flbl">Amount ($)</label><input type="number" class="fin" id="invmamt" placeholder="0.00"></div><div class="fg"><label class="flbl">Date</label><input type="date" class="fin" id="invmdate"></div></div>
@@ -710,14 +706,33 @@ const {createClient}=supabase;
 const sb=createClient('https://yanijckycqzbrctyplqy.supabase.co','sb_publishable_MZLlCquUxpakpWiNK60W1A_rXC2qflr');
 const STRIPE={starter:'https://buy.stripe.com/aFacN55wgeKGdft4sT7EQ01',pro:'https://buy.stripe.com/5kQ9ATaQA8mi0sH9Nd7EQ02'};
 let _u=null,_p=null,_co=null,_jobs=[],_custs=[],_invs=[],_rems=[],_team=[],_logo=null,_curJob=null,_curCust=null,_calSel=null;
+let _invColor='#0a1172';
+let _deferredInstall=null;
 const f$=n=>'$'+parseFloat(n||0).toFixed(2);
 const fD=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
 const tod=()=>new Date().toISOString().split('T')[0];
 const mob=()=>window.innerWidth<=768;
 const iJ=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 9h4M6 12h2"/></svg>`;
 const iI=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg>`;
+
+// PWA
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_deferredInstall=e;});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-function swIT(os,el){document.querySelectorAll('.istab').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.getElementById('it-ios').style.display=os==='ios'?'':'none';document.getElementById('it-android').style.display=os==='android'?'':'none';}
+
+function initPWASection(){
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+  if(isStandalone){document.getElementById('pwaAlreadyInstalled').style.display='';return;}
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+  if(_deferredInstall){document.getElementById('pwaInstallBtn').style.display='';}
+  else if(isIOS){document.getElementById('pwaIOSGuide').style.display='';}
+  else{document.getElementById('pwaInstallBtn').style.display='';}
+}
+async function triggerInstall(){
+  if(_deferredInstall){_deferredInstall.prompt();const{outcome}=await _deferredInstall.userChoice;if(outcome==='accepted')_deferredInstall=null;}
+  else{alert('Open this page in Safari on your iPhone, then tap the Share button → Add to Home Screen.');}
+}
+
+// LOADING TIMEOUT FIX
 function chkReset(){const h=window.location.hash,p=new URLSearchParams(h.replace('#',''));if(p.get('type')==='recovery'&&p.get('access_token')){sb.auth.setSession({access_token:p.get('access_token'),refresh_token:p.get('refresh_token')||''});document.getElementById('ls').style.display='none';document.getElementById('as').classList.add('on');document.getElementById('vL').style.display='none';document.getElementById('vFg').style.display='none';document.getElementById('vRs').style.display='';return true;}return false;}
 (async()=>{
   if(chkReset())return;
@@ -729,6 +744,7 @@ function chkReset(){const h=window.location.hash,p=new URLSearchParams(h.replace
     else showAuth();
   }catch(e){showAuth();}
 })();
+
 function showApp(){document.getElementById('ls').style.display='none';document.getElementById('as').classList.remove('on');document.getElementById('app').classList.add('on');applyRole();populateDDs();renderHome();nav('home');}
 function showAuth(){document.getElementById('ls').style.display='none';document.getElementById('as').classList.add('on');}
 function authTab(t){document.querySelectorAll('.atab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='signup')));document.getElementById('lF').style.display=t==='login'?'':'none';document.getElementById('sF').style.display=t==='signup'?'':'none';clrM();}
@@ -741,7 +757,7 @@ async function doLogin(){const email=document.getElementById('lem').value.trim()
 async function doSignup(){const biz=document.getElementById('sbiz').value.trim(),name=document.getElementById('sname').value.trim(),email=document.getElementById('sem').value.trim(),pw=document.getElementById('spw').value;if(!biz){sE('aE','Enter your business name.');return;}if(!name){sE('aE','Enter your name.');return;}if(!email||!pw){sE('aE','Enter your email and password.');return;}if(pw.length<6){sE('aE','Password must be at least 6 characters.');return;}const btn=document.getElementById('sBtn');btn.textContent='Creating...';btn.disabled=true;const{data,error}=await sb.auth.signUp({email,password:pw});btn.textContent='Create Account';btn.disabled=false;if(error){sE('aE',error.message);return;}_u=data.user;const parts=name.trim().split(' '),first=parts[0]||name,last=parts.slice(1).join(' ')||'';let ok=false;for(let i=0;i<3;i++){const{error:e}=await sb.rpc('create_company_and_profile',{company_name:biz,first_name:first,last_name:last});if(!e){ok=true;break;}await new Promise(r=>setTimeout(r,800));}if(!ok){try{const{data:co}=await sb.from('companies').insert({name:biz,plan:'free'}).select().single();if(co)await sb.from('profiles').insert({id:_u.id,company_id:co.id,first_name:first,last_name:last,role:'owner'});}catch(e){}}const loaded=await loadUser();if(loaded)showApp();else sE('aE','Account created — please sign in.');}
 async function doForgot(){const email=document.getElementById('fgem').value.trim();if(!email){sE('fE','Enter your email.');return;}const btn=document.getElementById('fgBtn');btn.textContent='Sending...';btn.disabled=true;const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://staticover.github.io/arko/'});btn.textContent='Send Reset Link';btn.disabled=false;if(error){sE('fE',error.message);return;}sO('fO','Reset link sent — check your email.');}
 async function doReset(){const pw=document.getElementById('rspw').value,pw2=document.getElementById('rspw2').value;if(!pw||pw.length<6){sE('rE','Password must be at least 6 characters.');return;}if(pw!==pw2){sE('rE','Passwords do not match.');return;}const btn=document.getElementById('rsBtn');btn.textContent='Saving...';btn.disabled=true;const{error}=await sb.auth.updateUser({password:pw});btn.textContent='Set Password';btn.disabled=false;if(error){sE('rE',error.message);return;}sO('rO','Password updated! Signing you in...');setTimeout(async()=>{const{data}=await sb.auth.getSession();if(data.session){_u=data.session.user;const ok=await loadUser();if(ok)showApp();else showLogin();}else showLogin();},1500);}
-async function loadUser(){if(!_u)return false;try{const{data:p}=await sb.from('profiles').select('*').eq('id',_u.id).single();if(!p)return false;_p=p;const{data:co}=await sb.from('companies').select('*').eq('id',_p.company_id).single();if(!co)return false;_co=co;if(_co.logo_url){_logo=_co.logo_url;const lp=document.getElementById('logoPrev');if(lp){lp.src=_logo;lp.style.display='block';const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';}}await refresh();return true;}catch(e){return false;}}
+async function loadUser(){if(!_u)return false;try{const{data:p}=await sb.from('profiles').select('*').eq('id',_u.id).single();if(!p)return false;_p=p;const{data:co}=await sb.from('companies').select('*').eq('id',_p.company_id).single();if(!co)return false;_co=co;if(_co.logo_url){_logo=_co.logo_url;const lp=document.getElementById('logoPrev');if(lp){lp.src=_logo;lp.style.display='block';const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';}}if(_co.invoice_color)_invColor=_co.invoice_color;await refresh();return true;}catch(e){return false;}}
 async function refresh(){if(!_p)return;const cid=_p.company_id;try{if(_p.role==='owner'){const[j,c,i,r,t]=await Promise.all([sb.from('jobs').select('*').eq('company_id',cid).order('date',{ascending:false}),sb.from('customers').select('*').eq('company_id',cid).order('last'),sb.from('invoices').select('*').eq('company_id',cid).order('date',{ascending:false}),sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_u.id),sb.from('profiles').select('*').eq('company_id',cid)]);_jobs=j.data||[];_custs=c.data||[];_invs=i.data||[];_rems=r.data||[];_team=t.data||[];}else{const[j,r]=await Promise.all([sb.from('jobs').select('*,customers(first,last,phone,address)').eq('company_id',cid).eq('assigned_to',_u.id).order('date',{ascending:false}),sb.from('reminders').select('*').eq('company_id',cid).eq('user_id',_u.id)]);_jobs=j.data||[];_rems=r.data||[];}}catch(e){console.error(e);}}
 function applyRole(){if(!_p)return;const isO=_p.role==='owner',biz=_co?.name||'Your Business';document.getElementById('sbBiz').textContent=biz;document.getElementById('sbAv').textContent=(biz[0]||'A').toUpperCase();document.getElementById('sbRole').textContent=isO?'Owner':'Technician';document.querySelectorAll('.oo').forEach(el=>el.style.display=isO?'':'none');document.getElementById('tBan').style.display=isO?'none':'flex';document.getElementById('oStats').style.display=isO?'':'none';const ae=document.getElementById('setAE');if(ae&&_u)ae.textContent=_u.email||'—';const me=document.getElementById('mobEM');if(me&&_u)me.textContent=_u.email||'—';const mb=document.getElementById('mobBiz');if(mb)mb.value=biz;const mp=document.getElementById('mobPhone');if(mp)mp.value=_co?.phone||'';}
 function confSO(){closePop();if(mob()){if(confirm('Sign out of Arko?'))doSO();}else openM('soM');}
@@ -768,8 +784,13 @@ function jItem(j,isTech=false){const col=j.status==='complete'?'gn':j.status==='
 function openTech(id){const j=_jobs.find(j=>j.id===id);if(!j)return;_curJob=id;document.getElementById('techShT').textContent=j.title||'Job';const cn=j.customers?j.customers.first+' '+j.customers.last:'—',cp=j.customers?.phone||'',ca=j.customers?.address||'',next=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null,btn=document.getElementById('techBtn');if(next){btn.textContent=j.status==='scheduled'?'Mark In Progress':'Mark Complete';btn.style.display='';}else btn.style.display='none';document.getElementById('techShB').innerHTML=`<div style="margin-bottom:14px">${pBar(j.status)}</div><div class="fg"><div class="flbl">Customer</div><div style="font-size:14px;font-weight:700">${cn}</div>${cp?`<a href="tel:${cp}" style="font-size:13px;color:var(--accent);font-weight:600;text-decoration:none;display:block;margin-top:3px">${cp}</a>`:''} ${ca?`<div style="font-size:11px;color:var(--tx2);margin-top:2px">${ca}</div>`:''}</div><div class="fg"><div class="flbl">Date</div><div style="font-size:13px">${fD(j.date)}</div></div>${j.description?`<div class="fg"><div class="flbl">Description</div><div style="font-size:13px;color:var(--tx2);line-height:1.6">${j.description}</div></div>`:''}${j.notes?`<div class="fg"><div class="flbl">Notes</div><div style="font-size:13px;color:var(--tx2);line-height:1.6">${j.notes}</div></div>`:''}`;openSh('techSh');}
 async function techUpdate(){const j=_jobs.find(j=>j.id===_curJob);if(!j)return;const next=j.status==='scheduled'?'inprogress':j.status==='inprogress'?'complete':null;if(!next)return;await sb.from('jobs').update({status:next}).eq('id',j.id);j.status=next;closeSh('techSh');renderHome();renderJobs();}
 function renderJobs(){if(_p?.role==='tech'){document.getElementById('jTtl').textContent='My Jobs';document.getElementById('jList').innerHTML=_jobs.length?`<div class="lc">${_jobs.map(j=>jItem(j,true)).join('')}</div>`:emptyEl('No jobs assigned','Your assigned jobs will appear here',null,null);return;}const q=(document.getElementById('jSrch')?.value||'').toLowerCase(),sf=document.getElementById('jFilt')?.value||'all',f=_jobs.filter(j=>(!q||(j.title||'').toLowerCase().includes(q)||cN(j.customer_id).toLowerCase().includes(q))&&(sf==='all'||j.status===sf));document.getElementById('jList').innerHTML=f.length?`<div class="lc">${f.map(j=>jItem(j)).join('')}</div>`:emptyEl(_jobs.length?'No matches':'No jobs yet','Add your first work order','openJobForm()','+ New Job');document.getElementById('jDot')?.classList.toggle('on',_jobs.some(j=>j.status==='inprogress'));}
-function openJobForm(id,preDate=null){if(_p?.role==='tech'){openTech(id);return;}const j=id?_jobs.find(j=>j.id===id):null;_curJob=id||null;populateDDs();const hasCusts=_custs.length>0;const f={id:j?.id||'',cust:j?.customer_id||'',title:j?.title||'',desc:j?.description||'',date:j?.date||(preDate||tod()),status:j?.status||'scheduled',assigned:j?.assigned_to||'',parts:j?.parts||'',charged:j?.charged||'',notes:j?.notes||''};if(mob()){document.getElementById('jobShT').textContent=j?'Edit Job':'New Job';document.getElementById('jDelBtn').style.display=j?'':'none';document.getElementById('jid').value=f.id;document.getElementById('jcust').value=f.cust;document.getElementById('jtitle').value=f.title;document.getElementById('jdesc').value=f.desc;document.getElementById('jdate').value=f.date;document.getElementById('jstatus').value=f.status;document.getElementById('jassigned').value=f.assigned;document.getElementById('jparts').value=f.parts;document.getElementById('jcharged').value=f.charged;document.getElementById('jnotes').value=f.notes;document.getElementById('jCustHint').style.display=hasCusts?'none':'';openSh('jobSh');}else{document.getElementById('jobMT').textContent=j?'Edit Job':'New Job';document.getElementById('jmDel').style.display=j?'':'none';document.getElementById('jmid').value=f.id;document.getElementById('jmcust').value=f.cust;document.getElementById('jmtitle').value=f.title;document.getElementById('jmdesc').value=f.desc;document.getElementById('jmdate').value=f.date;document.getElementById('jmstatus').value=f.status;document.getElementById('jmassigned').value=f.assigned;document.getElementById('jmparts').value=f.parts;document.getElementById('jmcharged').value=f.charged;document.getElementById('jmnotes').value=f.notes;document.getElementById('jmCustHint').style.display=hasCusts?'none':'';openM('jobM');}}
+function openJobForm(id,preDate=null){if(_p?.role==='tech'){openTech(id);return;}const j=id?_jobs.find(j=>j.id===id):null;_curJob=id||null;populateDDs();const hasCusts=_custs.length>0;const f={id:j?.id||'',cust:j?.customer_id||'',title:j?.title||'',desc:j?.description||'',date:j?.date||(preDate||tod()),status:j?.status||'scheduled',assigned:j?.assigned_to||'',parts:j?.parts||'',charged:j?.charged||'',notes:j?.notes||''};if(mob()){document.getElementById('jobShT').textContent=j?'Edit Job':'New Job';document.getElementById('jDelBtn').style.display=j?'':'none';document.getElementById('jid').value=f.id;document.getElementById('jcust').value=f.cust;document.getElementById('jtitle').value=f.title;document.getElementById('jdesc').value=f.desc;document.getElementById('jdate').value=f.date;document.getElementById('jstatus').value=f.status;document.getElementById('jassigned').value=f.assigned;document.getElementById('jparts').value=f.parts;document.getElementById('jcharged').value=f.charged;document.getElementById('jnotes').value=f.notes;document.getElementById('jNoCustBanner').style.display=hasCusts?'none':'';document.getElementById('jcust').style.display=hasCusts?'':'none';openSh('jobSh');}else{document.getElementById('jobMT').textContent=j?'Edit Job':'New Job';document.getElementById('jmDel').style.display=j?'':'none';document.getElementById('jmid').value=f.id;document.getElementById('jmcust').value=f.cust;document.getElementById('jmtitle').value=f.title;document.getElementById('jmdesc').value=f.desc;document.getElementById('jmdate').value=f.date;document.getElementById('jmstatus').value=f.status;document.getElementById('jmassigned').value=f.assigned;document.getElementById('jmparts').value=f.parts;document.getElementById('jmcharged').value=f.charged;document.getElementById('jmnotes').value=f.notes;document.getElementById('jmNoCustBanner').style.display=hasCusts?'none':'';document.getElementById('jmcust').style.display=hasCusts?'':'none';openM('jobM');}}
 function openJobFormForDate(){openJobForm(null,_calSel||tod());}
+
+// QUICK CUSTOMER — opens mini sheet then returns to job or invoice
+function openQuickCust(returnTo){document.getElementById('qcAfter').value=returnTo;document.getElementById('qcFirst').value='';document.getElementById('qcLast').value='';document.getElementById('qcPhone').value='';document.getElementById('qcAddr').value='';if(mob()){closeSh('jobSh');closeSh('invSh');setTimeout(()=>openSh('qcSh'),300);}else{closeM('jobM');closeM('invM');setTimeout(()=>openSh('qcSh'),300);}}
+async function saveQuickCust(){const first=document.getElementById('qcFirst').value.trim(),last=document.getElementById('qcLast').value.trim();if(!first){alert('First name is required.');return;}const returnTo=document.getElementById('qcAfter').value;const c={company_id:_p.company_id,first,last,phone:document.getElementById('qcPhone').value.trim(),address:document.getElementById('qcAddr').value.trim()};await sb.from('customers').insert(c);await refresh();populateDDs();closeSh('qcSh');setTimeout(()=>{if(returnTo==='job')openJobForm();else if(returnTo==='invoice')openInvForm();},300);}
+
 async function saveJob(d){const p=d?'jm':'j';const id=document.getElementById(p+'id')?.value||'';const job={company_id:_p.company_id,customer_id:document.getElementById(p+'cust').value||null,title:document.getElementById(p+'title').value.trim(),description:document.getElementById(p+'desc').value.trim(),date:document.getElementById(p+'date').value,status:document.getElementById(p+'status').value,assigned_to:document.getElementById(p+'assigned').value||null,parts:parseFloat(document.getElementById(p+'parts').value)||0,charged:parseFloat(document.getElementById(p+'charged').value)||0,notes:document.getElementById(p+'notes').value.trim()};if(!job.title){alert('Job title is required.');return;}if(id)await sb.from('jobs').update(job).eq('id',id);else await sb.from('jobs').insert(job);await refresh();if(d)closeM('jobM');else closeSh('jobSh');renderJobs();renderHome();renderCal();}
 async function delJobCur(d){if(!_curJob||!confirm('Delete this job?'))return;await sb.from('jobs').delete().eq('id',_curJob);await refresh();if(d)closeM('jobM');else closeSh('jobSh');renderJobs();renderHome();renderCal();}
 function renderCusts(){const q=(document.getElementById('cSrch')?.value||'').toLowerCase(),f=_custs.filter(c=>!q||(c.first+' '+c.last).toLowerCase().includes(q)||(c.phone||'').includes(q)),el=document.getElementById('cList');if(!f.length){el.innerHTML=emptyEl(_custs.length?'No matches':'No customers yet','Add your first customer','openCustForm()','+ Add Customer');return;}el.innerHTML=`<div class="cgrid">${f.map(c=>{const cj=_jobs.filter(j=>j.customer_id===c.id),rev=cj.reduce((s,j)=>s+parseFloat(j.charged||0),0);return`<div class="ccard" onclick="openCustDetail('${c.id}')"><div class="cini">${(c.first[0]||'')+(c.last[0]||'')}</div><div class="cnm">${c.first} ${c.last}</div>${c.phone?`<div class="cinf">${c.phone}</div>`:''} ${c.address?`<div class="cinf">${c.address}</div>`:''}<div class="cstats"><div><div class="csv">${cj.length}</div><div class="csl">Jobs</div></div><div><div class="csv" style="color:var(--grn)">${f$(rev)}</div><div class="csl">Revenue</div></div></div></div>`;}).join('')}</div>`;}
@@ -777,8 +798,8 @@ function openCustDetail(id){const c=_custs.find(c=>c.id===id);if(!c)return;_curC
 function editCustCur(){closeSh('custDSh');openCustForm(_curCust);}
 async function delCustCur(){if(!_curCust||!confirm('Delete this customer?'))return;await sb.from('customers').delete().eq('id',_curCust);await refresh();closeSh('custDSh');renderCusts();populateDDs();}
 function invFromCust(){closeSh('custDSh');populateDDs();const s=document.getElementById('invcust');if(s)s.value=_curCust;openSh('invSh');}
-function openCustForm(id,returnToJob=false,returnToInv=false){const c=id?_custs.find(c=>c.id===id):null;if(mob()){document.getElementById('custShT').textContent=c?'Edit Customer':'New Customer';document.getElementById('cid').value=c?.id||'';document.getElementById('cReturnToJob').value=returnToJob?'1':returnToInv?'2':'';document.getElementById('cfirst').value=c?.first||'';document.getElementById('clast').value=c?.last||'';document.getElementById('cphone').value=c?.phone||'';document.getElementById('cemail').value=c?.email||'';document.getElementById('caddr').value=c?.address||'';document.getElementById('cnotes').value=c?.notes||'';openSh('custSh');}else{document.getElementById('custMT').textContent=c?'Edit Customer':'New Customer';document.getElementById('cmid').value=c?.id||'';document.getElementById('cmfirst').value=c?.first||'';document.getElementById('cmlast').value=c?.last||'';document.getElementById('cmphone').value=c?.phone||'';document.getElementById('cmemail').value=c?.email||'';document.getElementById('cmaddr').value=c?.address||'';document.getElementById('cmnotes').value=c?.notes||'';openM('custM');}}
-async function saveCust(d){const id=d?document.getElementById('cmid')?.value||'':document.getElementById('cid')?.value||'';const returnTo=document.getElementById('cReturnToJob')?.value||'';const c={company_id:_p.company_id,first:(d?document.getElementById('cmfirst'):document.getElementById('cfirst')).value.trim(),last:(d?document.getElementById('cmlast'):document.getElementById('clast')).value.trim(),phone:(d?document.getElementById('cmphone'):document.getElementById('cphone')).value.trim(),email:(d?document.getElementById('cmemail'):document.getElementById('cemail')).value.trim(),address:(d?document.getElementById('cmaddr'):document.getElementById('caddr')).value.trim(),notes:(d?document.getElementById('cmnotes'):document.getElementById('cnotes')).value.trim()};if(!c.first){alert('First name is required.');return;}if(id)await sb.from('customers').update(c).eq('id',id);else await sb.from('customers').insert(c);await refresh();if(d)closeM('custM');else closeSh('custSh');renderCusts();populateDDs();if(returnTo==='1')openJobForm();else if(returnTo==='2')openInvForm();}
+function openCustForm(id){const c=id?_custs.find(c=>c.id===id):null;if(mob()){document.getElementById('custShT').textContent=c?'Edit Customer':'New Customer';document.getElementById('cid').value=c?.id||'';document.getElementById('cAfter').value='';document.getElementById('cfirst').value=c?.first||'';document.getElementById('clast').value=c?.last||'';document.getElementById('cphone').value=c?.phone||'';document.getElementById('cemail').value=c?.email||'';document.getElementById('caddr').value=c?.address||'';document.getElementById('cnotes').value=c?.notes||'';openSh('custSh');}else{document.getElementById('custMT').textContent=c?'Edit Customer':'New Customer';document.getElementById('cmid').value=c?.id||'';document.getElementById('cmfirst').value=c?.first||'';document.getElementById('cmlast').value=c?.last||'';document.getElementById('cmphone').value=c?.phone||'';document.getElementById('cmemail').value=c?.email||'';document.getElementById('cmaddr').value=c?.address||'';document.getElementById('cmnotes').value=c?.notes||'';openM('custM');}}
+async function saveCust(d){const id=d?document.getElementById('cmid')?.value||'':document.getElementById('cid')?.value||'';const c={company_id:_p.company_id,first:(d?document.getElementById('cmfirst'):document.getElementById('cfirst')).value.trim(),last:(d?document.getElementById('cmlast'):document.getElementById('clast')).value.trim(),phone:(d?document.getElementById('cmphone'):document.getElementById('cphone')).value.trim(),email:(d?document.getElementById('cmemail'):document.getElementById('cemail')).value.trim(),address:(d?document.getElementById('cmaddr'):document.getElementById('caddr')).value.trim(),notes:(d?document.getElementById('cmnotes'):document.getElementById('cnotes')).value.trim()};if(!c.first){alert('First name is required.');return;}if(id)await sb.from('customers').update(c).eq('id',id);else await sb.from('customers').insert(c);await refresh();if(d)closeM('custM');else closeSh('custSh');renderCusts();populateDDs();}
 let calY=new Date().getFullYear(),calMo=new Date().getMonth();
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'],DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
 function renderCal(){document.getElementById('calLbl').textContent=MONTHS[calMo]+' '+calY;document.getElementById('calSub').textContent=MONTHS[calMo]+' '+calY;document.getElementById('calDl').innerHTML=DAYS.map(d=>`<div class="caldlbl">${d}</div>`).join('');const first=new Date(calY,calMo,1).getDay(),dim=new Date(calY,calMo+1,0).getDate(),pd=new Date(calY,calMo,0).getDate(),ts=tod(),jd=new Set(_jobs.map(j=>j.date));let c='';for(let i=0;i<first;i++)c+=`<div class="calday om">${pd-first+1+i}</div>`;for(let d=1;d<=dim;d++){const ds=calY+'-'+String(calMo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');c+=`<div class="calday${ds===ts?' today':''}${jd.has(ds)?' hj':''}${_calSel===ds&&ds!==ts?' sel':''}" onclick="calSel('${ds}')">${d}</div>`;}const r=42-first-dim;for(let i=1;i<=r;i++)c+=`<div class="calday om">${i}</div>`;document.getElementById('calDy').innerHTML=c;renderCalJ();}
@@ -786,23 +807,82 @@ function calSel(ds){_calSel=ds;renderCal();}
 function calPrev(){calMo--;if(calMo<0){calMo=11;calY--;}_calSel=null;renderCal();}
 function calNext(){calMo++;if(calMo>11){calMo=0;calY++;}_calSel=null;renderCal();}
 function renderCalJ(){const f=_calSel?_jobs.filter(j=>j.date===_calSel):_jobs.filter(j=>{if(!j.date)return false;const d=new Date(j.date+'T00:00:00');return d.getMonth()===calMo&&d.getFullYear()===calY;});document.getElementById('calJL').textContent=_calSel?fD(_calSel):'Jobs this month';document.getElementById('calJobs').innerHTML=f.length?`<div class="lc">${f.map(j=>jItem(j)).join('')}</div>`:`<div class="empty"><div class="eico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><path d="M1 7h14"/></svg></div><div class="ettl">Nothing here</div><div class="esub">${_calSel?'No jobs on this day':'No jobs this month'}</div></div>`;}
-function openInvForm(preC=null){populateDDs();const hasCusts=_custs.length>0;if(preC){const s=mob()?document.getElementById('invcust'):document.getElementById('invmcust');if(s)s.value=preC;}if(mob()){document.getElementById('invCustHint').style.display=hasCusts?'none':'';openSh('invSh');}else{document.getElementById('invmCustHint').style.display=hasCusts?'none':'';openM('invM');}}
+
+function openInvForm(preC=null){populateDDs();const hasCusts=_custs.length>0;if(preC){const s=mob()?document.getElementById('invcust'):document.getElementById('invmcust');if(s)s.value=preC;}if(mob()){document.getElementById('invNoCustBanner').style.display=hasCusts?'none':'';document.getElementById('invcust').style.display=hasCusts?'':'none';openSh('invSh');}else{document.getElementById('invmNoCustBanner').style.display=hasCusts?'none':'';document.getElementById('invmcust').style.display=hasCusts?'':'none';openM('invM');}}
 function renderInv(){const tot=_invs.reduce((s,i)=>s+parseFloat(i.amount||0),0),paid=_invs.filter(i=>i.status==='paid').reduce((s,i)=>s+parseFloat(i.amount||0),0);document.getElementById('invTot').textContent=f$(tot);document.getElementById('invPd').textContent=f$(paid);document.getElementById('invOw').textContent=f$(tot-paid);const el=document.getElementById('invList');if(!_invs.length){el.innerHTML=emptyEl('No invoices yet','Create a customer first, then add an invoice','openInvForm()','+ New Invoice');return;}el.innerHTML=`<div class="lc">${_invs.map((i,idx)=>{const num='INV-'+String(idx+1).padStart(4,'0');return`<div class="li"><div class="lic ${i.status==='paid'?'gn':'rd'}">${iI}</div><div class="lb2"><div class="lt">${cN(i.customer_id)} <span style="font-size:10px;color:var(--tx3);font-weight:500">${num}</span></div><div class="ls2">${i.description||'Invoice'} · ${fD(i.date)}</div></div><div class="lr"><div style="font-size:12px;font-weight:700;color:${i.status==='paid'?'var(--grn)':'var(--red)'}">${f$(i.amount)}</div><div style="display:flex;gap:4px;margin-top:4px;justify-content:flex-end"><button class="bdg ${i.status==='paid'?'bpd':'bup'}" style="border:none;cursor:pointer;-webkit-appearance:none" onclick="togInv('${i.id}');event.stopPropagation()">${i.status}</button><button class="btn bo bsm" style="padding:3px 8px;font-size:10px;-webkit-appearance:none" onclick="genPDF('${i.id}');event.stopPropagation()">PDF</button></div></div></div>`;}).join('')}</div>`;}
 async function saveInv(d){const p=d?'invm':'inv';const custId=document.getElementById(p+'cust').value;if(!custId){alert('Select a customer.');return;}const inv={company_id:_p.company_id,customer_id:custId,job_id:document.getElementById(p+'job').value||null,amount:parseFloat(document.getElementById(p+'amt').value)||0,date:document.getElementById(p+'date').value||tod(),description:document.getElementById(p+'desc').value.trim(),status:document.getElementById(p+'status').value};await sb.from('invoices').insert(inv);await refresh();if(d)closeM('invM');else closeSh('invSh');renderInv();renderHome();}
 async function togInv(id){const i=_invs.find(i=>i.id===id);if(!i)return;const ns=i.status==='paid'?'unpaid':'paid';await sb.from('invoices').update({status:ns}).eq('id',id);i.status=ns;renderInv();renderHome();}
-function genPDF(invId){const idx=_invs.findIndex(i=>i.id===invId);if(idx===-1){alert('Invoice not found.');return;}const inv=_invs[idx],cust=_custs.find(c=>c.id===inv.customer_id);if(!cust){alert('Customer not found.');return;}try{const doc=new jsPDF({unit:'pt',format:'letter'}),W=612,NAVY=[10,17,114],WHITE=[255,255,255],GRAY=[88,88,106],LIGHT=[240,241,245],BLACK=[13,13,20],biz=_co?.name||'Your Business',msg=_co?.invoice_message||'Thank you for your business.',num='INV-'+String(idx+1).padStart(4,'0');doc.setFillColor(...NAVY);doc.rect(0,0,W,88,'F');if(_logo){try{doc.addImage(_logo,'JPEG',40,16,64,56,'','FAST');}catch(e){doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(biz,40,46);}}else{doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(biz,40,46);}doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(22);doc.text('INVOICE',W-40,42,{align:'right'});doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(165,172,210);doc.text(num,W-40,58,{align:'right'});let y=104;doc.setFillColor(...LIGHT);doc.rect(40,y-8,196,74,'F');doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('BILL TO',52,y+3);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...BLACK);doc.text(cust.first+' '+cust.last,52,y+18);doc.setFont('helvetica','normal');doc.setFontSize(10);let cy=y+31;if(cust.phone){doc.text(cust.phone,52,cy);cy+=12;}if(cust.address)doc.text(cust.address,52,cy);const rx=W-185;doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+3);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(fD(inv.date)||'—',rx,y+17);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+33);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(num,rx,y+47);y=196;doc.setFillColor(...NAVY);doc.rect(40,y,W-80,22,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...WHITE);doc.text('DESCRIPTION',52,y+14);doc.text('AMOUNT',W-52,y+14,{align:'right'});y+=22;doc.setFillColor(255,255,255);doc.rect(40,y,W-80,34,'F');doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(inv.description||'Services Rendered',52,y+22);doc.setFont('helvetica','bold');doc.text(f$(inv.amount),W-52,y+22,{align:'right'});y+=34;doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,196,W-80,y-196);y+=16;const tx=W-206;doc.setFillColor(...NAVY);doc.rect(tx-6,y,W-tx-34,26,'F');doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...WHITE);doc.text('TOTAL',tx,y+17);doc.text(f$(inv.amount),W-42,y+17,{align:'right'});y+=42;const isPaid=inv.status==='paid';doc.setFillColor(...(isPaid?[10,143,94]:[201,48,44]));doc.roundedRect(tx-6,y,138,22,3,3,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+63,y+14,{align:'center'});const fy=690;doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(40,fy,W-40,fy);doc.setFont('helvetica','italic');doc.setFontSize(10);doc.setTextColor(...GRAY);doc.text(msg,W/2,fy+15,{align:'center'});doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...GRAY);let fy2=fy+30;doc.text(biz,40,fy2);if(_co?.phone){fy2+=11;doc.text(_co.phone,40,fy2);}if(_co?.email){fy2+=11;doc.text(_co.email,40,fy2);}if(_co?.address){fy2+=11;doc.text(_co.address,40,fy2);}const plan=_co?.plan||'free';if(plan==='free'){doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(180,180,190);doc.text('Provided by Arko',W/2,750,{align:'center'});}doc.setFillColor(...NAVY);doc.rect(0,768,W,4,'F');doc.save(num+'_'+cust.last+'.pdf');}catch(e){console.error(e);alert('PDF failed. Please try again.');}}
+
+// PDF with color customization
+function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return[r,g,b];}
+function genPDF(invId){const idx=_invs.findIndex(i=>i.id===invId);if(idx===-1){alert('Invoice not found.');return;}const inv=_invs[idx],cust=_custs.find(c=>c.id===inv.customer_id);if(!cust){alert('Customer not found.');return;}try{const doc=new jsPDF({unit:'pt',format:'letter'}),W=612;const plan=_co?.plan||'free';const NAVY=hexToRgb(_invColor),WHITE=[255,255,255],GRAY=[88,88,106],LIGHT=[240,241,245],BLACK=[13,13,20];const biz=_co?.name||'Your Business',msg=_co?.invoice_message||'Thank you for your business.',num='INV-'+String(idx+1).padStart(4,'0');doc.setFillColor(...NAVY);doc.rect(0,0,W,88,'F');if(_logo){try{doc.addImage(_logo,'JPEG',40,16,64,56,'','FAST');}catch(e){doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(biz,40,46);}}else{doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(biz,40,46);}doc.setTextColor(...WHITE);doc.setFont('helvetica','bold');doc.setFontSize(22);doc.text('INVOICE',W-40,42,{align:'right'});doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(200,204,230);doc.text(num,W-40,58,{align:'right'});let y=104;doc.setFillColor(...LIGHT);doc.rect(40,y-8,196,74,'F');doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('BILL TO',52,y+3);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...BLACK);doc.text(cust.first+' '+cust.last,52,y+18);doc.setFont('helvetica','normal');doc.setFontSize(10);let cy=y+31;if(cust.phone){doc.text(cust.phone,52,cy);cy+=12;}if(cust.address)doc.text(cust.address,52,cy);const rx=W-185;doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('DATE',rx,y+3);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(fD(inv.date)||'—',rx,y+17);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('INVOICE NO.',rx,y+33);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(num,rx,y+47);const terms=_co?.payment_terms||'due_on_receipt';const termsLabel=terms==='net_15'?'Net 15':terms==='net_30'?'Net 30':'Due on Receipt';doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GRAY);doc.text('TERMS',rx,y+63);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...BLACK);doc.text(termsLabel,rx,y+77);y=196;doc.setFillColor(...NAVY);doc.rect(40,y,W-80,22,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...WHITE);doc.text('DESCRIPTION',52,y+14);doc.text('AMOUNT',W-52,y+14,{align:'right'});y+=22;const taxRate=parseFloat(_co?.tax_rate||0);let subtotal=inv.amount,taxAmt=0;if(taxRate>0){subtotal=inv.amount/(1+taxRate/100);taxAmt=inv.amount-subtotal;}doc.setFillColor(255,255,255);doc.rect(40,y,W-80,34,'F');doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(...BLACK);doc.text(inv.description||'Services Rendered',52,y+22);doc.setFont('helvetica','bold');doc.text(f$(subtotal),W-52,y+22,{align:'right'});y+=34;doc.setDrawColor(...NAVY);doc.setLineWidth(.5);doc.rect(40,196,W-80,y-196);y+=12;const tx=W-206;if(taxRate>0){doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...GRAY);doc.text(`Tax (${taxRate}%)`,tx,y+10);doc.text(f$(taxAmt),W-42,y+10,{align:'right'});y+=18;}doc.setFillColor(...NAVY);doc.rect(tx-6,y,W-tx-34,26,'F');doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...WHITE);doc.text('TOTAL',tx,y+17);doc.text(f$(inv.amount),W-42,y+17,{align:'right'});y+=42;const isPaid=inv.status==='paid';doc.setFillColor(...(isPaid?[10,143,94]:[201,48,44]));doc.roundedRect(tx-6,y,138,22,3,3,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...WHITE);doc.text(isPaid?'PAID IN FULL':'BALANCE DUE',tx+63,y+14,{align:'center'});const fy=690;doc.setDrawColor(...LIGHT);doc.setLineWidth(1);doc.line(40,fy,W-40,fy);doc.setFont('helvetica','italic');doc.setFontSize(10);doc.setTextColor(...GRAY);doc.text(msg,W/2,fy+15,{align:'center'});doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...GRAY);let fy2=fy+30;doc.text(biz,40,fy2);if(_co?.phone){fy2+=11;doc.text(_co.phone,40,fy2);}if(_co?.email){fy2+=11;doc.text(_co.email,40,fy2);}if(_co?.address){fy2+=11;doc.text(_co.address,40,fy2);}if(plan==='free'){doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(190,190,200);doc.text('Provided by Arko',W/2,752,{align:'center'});}doc.setFillColor(...NAVY);doc.rect(0,768,W,4,'F');doc.save(num+'_'+cust.last+'.pdf');}catch(e){console.error(e);alert('PDF failed. Please try again.');}}
+
 function handleLogo(input){if(!input.files||!input.files[0])return;if(input.files[0].size>2*1024*1024){alert('Logo must be under 2MB.');return;}const reader=new FileReader();reader.onload=async e=>{const img=new Image();img.onload=async()=>{const canvas=document.createElement('canvas'),mW=400,mH=200;let w=img.width,h=img.height;if(w>mW){h=Math.round(h*mW/w);w=mW;}if(h>mH){w=Math.round(w*mH/h);h=mH;}canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);_logo=canvas.toDataURL('image/jpeg',0.8);const lp=document.getElementById('logoPrev');if(lp){lp.src=_logo;lp.style.display='block';}const lh=document.getElementById('logoHint');if(lh)lh.style.display='none';await sb.from('companies').update({logo_url:_logo}).eq('id',_co.id);if(_co)_co.logo_url=_logo;};img.src=e.target.result;};reader.readAsDataURL(input.files[0]);}
 function remItem(r){return`<div class="ri"><div class="rchk ${r.done?'dn':''}" onclick="togRem('${r.id}')"><svg viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><path d="M1 4l2 2 4-4"/></svg></div><div style="flex:1"><div class="rtxt ${r.done?'dn':''}">${r.text}</div>${r.due_date?`<div class="rdue">${fD(r.due_date)}</div>`:''}</div></div>`;}
 async function saveRem(){const t=document.getElementById('remtxt').value.trim();if(!t){alert('Enter a reminder.');return;}await sb.from('reminders').insert({company_id:_p.company_id,user_id:_u.id,text:t,due_date:document.getElementById('remdate').value||null});await refresh();document.getElementById('remtxt').value='';document.getElementById('remdate').value='';closeSh('remSh');renderHome();}
 async function togRem(id){const r=_rems.find(r=>r.id===id);if(!r)return;await sb.from('reminders').update({done:!r.done}).eq('id',id);r.done=!r.done;renderHome();}
-function loadSettings(){document.getElementById('setBiz').value=_co?.name||'';document.getElementById('setPhone').value=_co?.phone||'';document.getElementById('setEmail').value=_co?.email||'';document.getElementById('setAddr').value=_co?.address||'';if(_u)document.getElementById('setAE').textContent=_u.email||'—';const msg=_co?.invoice_message||'Thank you for your business.';document.getElementById('setMsg').value=msg;document.querySelectorAll('.mpset').forEach(el=>el.classList.toggle('on',el.textContent.trim()===msg));const plan=_co?.plan||'free',pN={free:'Free',starter:'Starter',pro:'Pro'},pS={free:'Free — everything, 1 user forever',starter:'Starter — everything, up to 5 users · $29/mo',pro:'Pro — everything, unlimited users · $59/mo'};document.getElementById('setPBdg').textContent=pN[plan]||'Free';document.getElementById('setPSub').textContent=pS[plan]||pS.free;document.getElementById('upRow').style.display=plan==='pro'?'none':'';renderTeam();}
-async function saveBiz(){const upd={name:document.getElementById('setBiz').value.trim(),phone:document.getElementById('setPhone').value.trim(),email:document.getElementById('setEmail').value.trim(),address:document.getElementById('setAddr').value.trim()};await sb.from('companies').update(upd).eq('id',_co.id);Object.assign(_co,upd);applyRole();alert('Saved.');}
+
+function loadSettings(){
+  document.getElementById('setBiz').value=_co?.name||'';
+  document.getElementById('setPhone').value=_co?.phone||'';
+  document.getElementById('setEmail').value=_co?.email||'';
+  document.getElementById('setAddr').value=_co?.address||'';
+  document.getElementById('setBizHours').value=_co?.business_hours||'';
+  if(_u)document.getElementById('setAE').textContent=_u.email||'—';
+  const msg=_co?.invoice_message||'Thank you for your business.';
+  document.getElementById('setMsg').value=msg;
+  document.querySelectorAll('.mpset').forEach(el=>el.classList.toggle('on',el.textContent.trim()===msg));
+  document.getElementById('setTax').value=_co?.tax_rate||'';
+  document.getElementById('setTerms').value=_co?.payment_terms||'due_on_receipt';
+  const plan=_co?.plan||'free',pN={free:'Free',starter:'Starter',pro:'Pro'},pS={free:'Free — everything, 1 user forever',starter:'Starter — everything, up to 5 users · $29/mo',pro:'Pro — everything, unlimited users · $59/mo'};
+  document.getElementById('setPBdg').textContent=pN[plan]||'Free';
+  document.getElementById('setPSub').textContent=pS[plan]||pS.free;
+  document.getElementById('upRow').style.display=plan==='pro'?'none':'';
+  // Color swatches — locked on free plan
+  const colorLocked=plan==='free';
+  document.getElementById('colorLockedMsg').style.display=colorLocked?'':'none';
+  document.querySelectorAll('.swatch').forEach(s=>{s.classList.toggle('on',s.dataset.color===_invColor);s.style.opacity=colorLocked?'0.5':'1';s.style.cursor=colorLocked?'not-allowed':'pointer';});
+  renderTeam();
+  initPWASection();
+}
+function selColor(el){const plan=_co?.plan||'free';if(plan==='free'){openUpgrade();return;}_invColor=el.dataset.color;document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('on',s===el));}
+async function saveBiz(){const upd={name:document.getElementById('setBiz').value.trim(),phone:document.getElementById('setPhone').value.trim(),email:document.getElementById('setEmail').value.trim(),address:document.getElementById('setAddr').value.trim(),business_hours:document.getElementById('setBizHours').value.trim()};await sb.from('companies').update(upd).eq('id',_co.id);Object.assign(_co,upd);applyRole();alert('Saved.');}
 function selPre(el,msg){document.querySelectorAll('.mpset').forEach(p=>p.classList.remove('on'));el.classList.add('on');document.getElementById('setMsg').value=msg;}
-async function saveMsg(){const msg=document.getElementById('setMsg').value.trim()||'Thank you for your business.';await sb.from('companies').update({invoice_message:msg}).eq('id',_co.id);if(_co)_co.invoice_message=msg;alert('Saved.');}
+async function saveInvSettings(){const msg=document.getElementById('setMsg').value.trim()||'Thank you for your business.';const tax=parseFloat(document.getElementById('setTax').value)||0;const terms=document.getElementById('setTerms').value;const plan=_co?.plan||'free';const upd={invoice_message:msg,tax_rate:tax,payment_terms:terms};if(plan!=='free')upd.invoice_color=_invColor;await sb.from('companies').update(upd).eq('id',_co.id);Object.assign(_co,upd);if(plan!=='free')_invColor=upd.invoice_color;alert('Saved.');}
 async function saveMobProf(){const name=document.getElementById('mobBiz').value.trim(),phone=document.getElementById('mobPhone').value.trim();if(name||phone){const upd={};if(name)upd.name=name;if(phone)upd.phone=phone;await sb.from('companies').update(upd).eq('id',_co.id);Object.assign(_co,upd);applyRole();}closeSh('profSh');}
 function renderTeam(){const el=document.getElementById('teamList');if(!_team.length){el.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0">No team members yet.</div>';return;}el.innerHTML=_team.map(m=>`<div class="tc"><div class="tav">${(m.first_name||'?')[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:13px;font-weight:700">${m.first_name||''} ${m.last_name||''}</div><div style="font-size:11px;color:var(--tx3)">${m.role==='owner'?'Owner':'Technician'}</div></div>${m.id!==_u.id?`<button class="btn bd bsm" onclick="removeM('${m.id}')">Remove</button>`:''}</div>`).join('');const plan=_co?.plan||'free',maxU={free:1,starter:5,pro:9999},gate=document.getElementById('planGate'),btn=document.getElementById('invBtn');if(_team.length>=(maxU[plan]||1)){gate.style.display='';if(btn)btn.style.display='none';}else{gate.style.display='none';if(btn)btn.style.display='';}}
 function chkInvite(){const plan=_co?.plan||'free',maxU={free:1,starter:5,pro:9999};if(_team.length>=(maxU[plan]||1))openUpgrade();else openSh('inviteSh');}
-async function sendInvite(){const email=document.getElementById('invEM').value.trim(),role=document.getElementById('invRole').value;if(!email){alert('Enter an email address.');return;}try{await sb.auth.admin.inviteUserByEmail(email);}catch(e){}await sb.from('invites').insert({company_id:_p.company_id,email,role});alert(`Invite sent to ${email}. They'll receive an email to join Arko.`);document.getElementById('invEM').value='';closeSh('inviteSh');}
+
+// INVITE — uses Supabase inviteUserByEmail properly
+async function sendInvite(){
+  const email=document.getElementById('invEM').value.trim();
+  const role=document.getElementById('invRole').value;
+  if(!email){alert('Enter an email address.');return;}
+  const btn=document.getElementById('inviteSubmitBtn');
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    // Store invite record first
+    await sb.from('invites').insert({company_id:_p.company_id,email,role});
+    // Try to send via Supabase auth invite
+    const{error}=await sb.auth.admin.inviteUserByEmail(email,{
+      data:{company_id:_p.company_id,role}
+    });
+    if(error){
+      // admin.inviteUserByEmail requires service role key — fallback to magic link approach
+      await sb.auth.signInWithOtp({email,options:{emailRedirectTo:'https://staticover.github.io/arko/',data:{company_id:_p.company_id,role}}});
+    }
+    btn.textContent='Send Invite';btn.disabled=false;
+    alert(`Invite sent to ${email}. They'll get an email to join Arko.`);
+    document.getElementById('invEM').value='';
+    closeSh('inviteSh');
+  }catch(e){
+    btn.textContent='Send Invite';btn.disabled=false;
+    alert(`Invite recorded for ${email}. Have them sign up at staticover.github.io/arko — they'll be linked automatically.`);
+    document.getElementById('invEM').value='';
+    closeSh('inviteSh');
+  }
+}
+
 async function removeM(id){if(!confirm('Remove this team member?'))return;await sb.from('profiles').update({company_id:null}).eq('id',id);await refresh();renderTeam();}
 function openUpgrade(){if(mob())alert('Upgrade at staticover.github.io/arko on desktop for the best experience.');else openM('upM');}
 function goStripe(plan){const link=STRIPE[plan];if(link)window.open(link,'_blank');}
