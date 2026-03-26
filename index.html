@@ -1269,8 +1269,7 @@ async function doForgot(){
   const email=document.getElementById('fgem').value.trim();
   if(!email){sE('fE','Enter your email.');return;}
   const btn=document.getElementById('fgBtn');btn.textContent='Sending...';btn.disabled=true;
-  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:https://arko.onstra.world});
-  btn.textContent='Send Reset Link';btn.disabled=false;
+  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://arko.onstra.world'});  btn.textContent='Send Reset Link';btn.disabled=false;
   if(error){sE('fE',error.message);return;}
   sO('fO','Reset link sent — check your email.');
 }
@@ -2007,15 +2006,13 @@ async function sendInvite(){
   const btn=document.getElementById('inviteSubmitBtn');btn.textContent='Sending...';btn.disabled=true;
   try{
     await sb.from('invites').insert({company_id:_p.company_id,email,role});
-    const{error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:https://arko.onstra.world data:{company_id:_p.company_id,role}}});
-    btn.textContent='Send Invite';btn.disabled=false;
+  const{error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:'https://arko.onstra.world',data:{company_id:_p.company_id,role}}});    btn.textContent='Send Invite';btn.disabled=false;
     if(error)alert(`Invite saved for ${email}. Have them sign up at https://arko.onstra.world — they'll be linked automatically.`);
     else alert(`Invite sent to ${email}. They'll get a magic link to join Arko.`);
     document.getElementById('invEM').value='';closeSh('inviteSh');
   }catch(e){
     btn.textContent='Send Invite';btn.disabled=false;
-    alert(`Invite saved for ${email}. Have them sign up at staticover.github.io/arko to get started.`);
-    document.getElementById('invEM').value='';closeSh('inviteSh');
+    alert(`Invite saved for ${email}. Have them sign up at https://arko.onstra.world to get started.`);    document.getElementById('invEM').value='';closeSh('inviteSh');
   }
 }
 
@@ -2027,10 +2024,10 @@ async function removeM(id){
 
 // ── UPGRADE ────────────────────────────────────────────────────
 function openUpgrade(){
-  if(mob())alert('Visit staticover.github.io/arko on desktop to upgrade.');
+  if(mob())alert('Visit arko.onstra.world on desktop to upgrade.');
   else openM('upM');
 }
-function goStripe(plan){const link=STRIPE[plan];if(link)window.open(link,'_blank');}
+  function goStripe(plan){const link=STRIPE[plan];if(link)window.open(link,'_blank');}
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function populateDDs(){
