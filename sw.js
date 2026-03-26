@@ -1,7 +1,7 @@
-const CACHE = 'arko-v2';
+const CACHE = 'arko-v3';
 const ASSETS = [
-  '/arko/',
-  '/arko/index.html'
+  '/',
+  '/index.html'
 ];
 
 self.addEventListener('install', e => {
@@ -30,7 +30,7 @@ self.addEventListener('fetch', e => {
           caches.open(CACHE).then(c => c.put(e.request, clone));
         }
         return res;
-      }).catch(() => caches.match('/arko/index.html'));
+      }).catch(() => caches.match('/index.html'));
     })
   );
 });
