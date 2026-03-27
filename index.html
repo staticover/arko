@@ -1247,6 +1247,7 @@ async function doSignup(){
   const{data,error}=await sb.auth.signUp({email,password:pw});
   btn.textContent='Create Account';btn.disabled=false;
   if(error){sE('aE',error.message);return;}
+  if(!data.session){sO('aO','Check your email to confirm your account, then sign in.');authTab('login');document.getElementById('lem').value=email;return;} 
   _u=data.user;
   const parts=name.trim().split(' '),first=parts[0]||name,last=parts.slice(1).join(' ')||'';
   let ok=false;
